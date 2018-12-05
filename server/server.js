@@ -45,6 +45,7 @@ app.post('/process', (req,res) => {
                 var result2 = parseString(value);
                 dataTypePropertyArray.push(result2);
             }
+            //TODO: manage first-level classes and second-level classes
             if(value.includes(class_substring)){
                 var result3 = parseString(value);
                 classArray.push(result3);
