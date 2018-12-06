@@ -1,5 +1,37 @@
 var main_app = angular.module('app', []);
 
+main_app.controller('MainCtrl', function ($scope, $http) {
+    $scope.dataTypeProperty = [];
+    $scope.objectProperty = [];
+    $scope.rdf_class = [];
+    $scope.rdf_firstclass = [];
+    $scope.rdf_secondclass = [];
+    $scope.namedIndividual = [];
+    $scope.showContent = function($fileContent){
+        $scope.content = $fileContent;
+        $scope.objectProperty = $fileContent;
+    };
+
+    $scope.nextPage = function() {
+        console.log("processOntology ok");
+        window.location = "output_ontology.html";
+    };
+
+    $scope.processOntology = function() {
+        $http.post('http://localhost:3030/process')
+        .then(function(response) {
+            $scope.dataTypeProperty = response.data[0];
+            $scope.objectProperty = response.data[1];
+            $scope.rdf_class = response.data[2];
+            $scope.namedIndividual = response.data[3];
+            $scope.rdf_firstclass = response.data[4];
+            $scope.rdf_secondclass = response.data[5];
+        });
+
+    }
+});
+
+/*
 //Service for managing resulting intents
 main_app.service('sharedIntentsOutput', function () {
     //var intents = ['intent one', 'intent two', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q'];
@@ -51,33 +83,7 @@ main_app.controller('outputEntitiesCtrl', ['$scope', 'sharedEntitiesOutput',
         console.log($scope.entities_list);
         console.log("End");
 }]);
-
-main_app.controller('MainCtrl', function ($scope, $http) {
-    $scope.dataTypeProperty = [];
-    $scope.objectProperty = [];
-    $scope.rdf_class = [];
-    $scope.namedIndividual = [];
-    $scope.showContent = function($fileContent){
-        $scope.content = $fileContent;
-        $scope.objectProperty = $fileContent;
-    };
-
-    $scope.nextPage = function() {
-        console.log("processOntology ok");
-        window.location = "output_ontology.html";
-    };
-
-    $scope.processOntology = function() {
-        $http.post('http://localhost:3030/process')
-        .then(function(response) {
-            $scope.dataTypeProperty = response.data[0];
-            $scope.objectProperty = response.data[1];
-            $scope.rdf_class = response.data[2];
-            $scope.namedIndividual = response.data[3];
-        });
-
-    }
-});
+*/
 
 //A simple controller that just prints welcome
 /*

@@ -7,11 +7,14 @@ const PORT = 3030 | process.env.PORT;
 const dataTypeProperty_substring = "<owl:DatatypeProperty ";
 const objectProperty_substring = "<owl:ObjectProperty ";
 const class_substring = "<owl:Class ";
+const subclass_substring = "<rdfs:subClassOf ";
 const namedIndividual_substring = "<owl:NamedIndividual ";
 
 var dataTypePropertyArray = [];
 var objectPropertyArray = [];
 var classArray = [];
+var firstClassArray = [];
+var secondClassArray = [];
 var namedIndividualArray = [];
 
 var resulting_arrays = [];
@@ -28,6 +31,8 @@ app.post('/process', (req,res) => {
         objectPropertyArray = [];
         dataTypePropertyArray = [];
         classArray = [];
+        firstClassArray = [];
+        secondClassArray = [];
         namedIndividualArray = [];
 
         if (err) {
@@ -49,6 +54,8 @@ app.post('/process', (req,res) => {
             if(value.includes(class_substring)){
                 var result3 = parseString(value);
                 classArray.push(result3);
+                firstClassArray.push(result3);
+                secondClassArray.push(result3);
             }
             if(value.includes(namedIndividual_substring)){
                 var result4 = parseString(value);
@@ -56,7 +63,7 @@ app.post('/process', (req,res) => {
             }
         });
 
-        resulting_arrays = [objectPropertyArray, dataTypePropertyArray, classArray, namedIndividualArray];
+        resulting_arrays = [objectPropertyArray, dataTypePropertyArray, classArray, namedIndividualArray, firstClassArray, secondClassArray];
 
         //printResults();
 
