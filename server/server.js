@@ -1,6 +1,7 @@
 const fs = require('fs');
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
 
 const PORT = 3030 | process.env.PORT;
 
@@ -39,7 +40,8 @@ app.use(function(req, res, next) {
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         next();
-    });
+    })
+    .use(bodyParser.json());
 
 app.post('/process', (req,res) => {
     fs.readFile('../ontology/my-food-ontology-rdfxml.owl', 'utf8', function read(err, data) {
@@ -86,7 +88,7 @@ app.post('/process', (req,res) => {
             //Finds all Classes
             if(value.includes(class_substring)){
                 var result3 = parseString(value);
-                if(!classArray.includes(result3) /*&& !secondClassArray.includes(result3)*/){
+                if(!classArray.includes(result3)){
                     classArray.push(result3);
                     secondClassArray.push(result3);
                 }
@@ -112,15 +114,32 @@ app.post('/process', (req,res) => {
 
         //Finds all Second-Level Classes by making the difference between classes and first-level classes
         secondClassArray = classArray.diff(firstClassArray);
-        //console.log(secondClassArray);
 
         resulting_arrays = [objectPropertyArray, dataTypePropertyArray, classArray, namedIndividualArray, firstClassArray, secondClassArray];
 
         //printResults();
 
-        res.send(resulting_arrays);
+        //res.send(resulting_arrays);
 
-    })
+        var data_result_JSON = [];
+        Object.keys(firstClassArray).forEach(function(object){
+          data_result_JSON.push({
+                "title": firstClassArray[object],
+                "value": "BUTTON_VALUE"
+          });
+        });
+
+        res.json({
+            replies: [{
+                "type": "quickReplies",
+                "content": {
+                  "title": "First-Level Classes",
+                  "buttons": data_result_JSON
+                }
+            }]
+        });
+
+    });
 });
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
