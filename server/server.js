@@ -117,13 +117,14 @@ app.post('/process', (req,res) => {
         
         resulting_arrays = [objectPropertyArray, dataTypePropertyArray, classArray, namedIndividualArray, firstClassArray, secondClassArray];
 
-        //printResults();
+        res.status(200).end();
 
-        //res.send(resulting_arrays);
-        
-        var data_result_JSON = [];
+    });
+});
+
+app.post('/first_level', (req,res) => {
+    var data_result_JSON = [];
         Object.keys(firstClassArray).forEach(function(object){
-            console.log(firstClassArray[object])
             data_result_JSON.push({
             "title": firstClassArray[object],
             "value": firstClassArray[object]
@@ -139,9 +140,7 @@ app.post('/process', (req,res) => {
                 }
             }]
         });
-
-    });
-});
+})
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 
