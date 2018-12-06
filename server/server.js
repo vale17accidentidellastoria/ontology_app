@@ -41,6 +41,8 @@ app.post('/process', (req,res) => {
         }
 
         var rows = data.toString().split('\n');
+        var counter = 0;
+        
         rows.forEach(function(value){
             if(value.includes(objectProperty_substring)) {
                 var result1 = parseString(value);
@@ -50,6 +52,7 @@ app.post('/process', (req,res) => {
                 var result2 = parseString(value);
                 dataTypePropertyArray.push(result2);
             }
+
             //TODO: manage first-level classes and second-level classes
             if(value.includes(class_substring)){
                 var result3 = parseString(value);
@@ -57,11 +60,14 @@ app.post('/process', (req,res) => {
                 firstClassArray.push(result3);
                 secondClassArray.push(result3);
             }
+
             if(value.includes(namedIndividual_substring)){
                 var result4 = parseString(value);
                 namedIndividualArray.push(result4);
             }
+            counter ++;
         });
+        console.log("Righe: " + counter);
 
         resulting_arrays = [objectPropertyArray, dataTypePropertyArray, classArray, namedIndividualArray, firstClassArray, secondClassArray];
 
