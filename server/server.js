@@ -114,19 +114,20 @@ app.post('/process', (req,res) => {
 
         //Finds all Second-Level Classes by making the difference between classes and first-level classes
         secondClassArray = classArray.diff(firstClassArray);
-
+        
         resulting_arrays = [objectPropertyArray, dataTypePropertyArray, classArray, namedIndividualArray, firstClassArray, secondClassArray];
 
         //printResults();
 
         //res.send(resulting_arrays);
-
+        
         var data_result_JSON = [];
         Object.keys(firstClassArray).forEach(function(object){
-          data_result_JSON.push({
-                "title": firstClassArray[object],
-                "value": "BUTTON_VALUE"
-          });
+            console.log(firstClassArray[object])
+            data_result_JSON.push({
+            "title": firstClassArray[object],
+            "value": firstClassArray[object]
+            });
         });
 
         res.json({
