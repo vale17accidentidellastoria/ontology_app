@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 
-const PORT = 3030 | process.env.PORT;
+const port = 3030 | process.env.PORT;
 
 const dataTypeProperty_substring = "<owl:DatatypeProperty ";
 const objectProperty_substring = "<owl:ObjectProperty ";
@@ -124,25 +124,48 @@ app.post('/process', (req,res) => {
 
 app.post('/first_level', (req,res) => {
     var data_result_JSON = [];
-        Object.keys(firstClassArray).forEach(function(object){
-            data_result_JSON.push({
-            "title": firstClassArray[object],
-            "value": firstClassArray[object]
-            });
-        });
 
-        res.json({
-            replies: [{
-                "type": "quickReplies",
-                "content": {
-                  "title": "First-Level Classes",
-                  "buttons": data_result_JSON
-                }
-            }]
+    Object.keys(firstClassArray).forEach(function(object){
+        data_result_JSON.push({
+        "title": firstClassArray[object],
+        "value": firstClassArray[object]
         });
+    });
+
+    res.json({
+        replies: [{
+            "type": "quickReplies",
+            "content": {
+                "title": "First-Level Classes",
+                "buttons": data_result_JSON
+            }
+        }]
+    });
 })
 
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+app.post('/second_level', (req,res) => {
+    var data_result_JSON = [];
+    
+    Object.keys(secondClassArray).forEach(function(object){
+        data_result_JSON.push({
+        "title": secondClassArray[object],
+        "type": "BUTTON_TYPE",
+        "value": secondClassArray[object]
+        });
+    });
+
+    res.json({
+        replies: [{
+            "type": "buttons",
+            "content": {
+                "title": "Second-Level Classes",
+                "buttons": data_result_JSON
+            }
+        }]
+    });
+})
+
+app.listen(port, () => console.log(`Listening on port ${port}`));
 
 function parseString(string){
     var first_split = string.split("#");
