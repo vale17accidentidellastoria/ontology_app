@@ -19,6 +19,21 @@ var namedIndividualArray = [];
 
 var resulting_arrays = [];
 
+Array.prototype.diff = function(a) {
+    return this.filter(function(i) {return a.indexOf(i) < 0;});
+};
+
+Array.prototype.remove = function() {
+    var what, a = arguments, L = a.length, ax;
+    while (L && this.length) {
+        what = a[--L];
+        while ((ax = this.indexOf(what)) !== -1) {
+            this.splice(ax, 1);
+        }
+    }
+    return this;
+};
+
 var app = express();
 app.use(function(req, res, next) {
         res.header("Access-Control-Allow-Origin", "*");
@@ -28,6 +43,12 @@ app.use(function(req, res, next) {
 
 app.post('/process', (req,res) => {
     fs.readFile('../ontology/my-food-ontology-rdfxml.owl', 'utf8', function read(err, data) {
+        
+        if (err) {
+            console.log("ERROR");
+            throw err;
+        }
+
         objectPropertyArray = [];
         dataTypePropertyArray = [];
         classArray = [];
@@ -35,39 +56,63 @@ app.post('/process', (req,res) => {
         secondClassArray = [];
         namedIndividualArray = [];
 
-        if (err) {
-            console.log("ERROR");
-            throw err;
-        }
+        var prev = "";
+        var current = "";
+        var blank_regex = /^\s*$/;
 
         var rows = data.toString().split('\n');
-        var counter = 0;
-        
+
         rows.forEach(function(value){
+
+            prev = current;
+            current = value;
+
+            //Finds all ObjectProperties
             if(value.includes(objectProperty_substring)) {
                 var result1 = parseString(value);
-                objectPropertyArray.push(result1);
+                if(!objectPropertyArray.includes(result1)){
+                    objectPropertyArray.push(result1);
+                }
             }
+
+            //Finds all DataTypeProperties
             if(value.includes(dataTypeProperty_substring)){
                 var result2 = parseString(value);
-                dataTypePropertyArray.push(result2);
+                if(!dataTypePropertyArray.includes(result2)){
+                    dataTypePropertyArray.push(result2);
+                }
             }
 
-            //TODO: manage first-level classes and second-level classes
+            //Finds all Classes
             if(value.includes(class_substring)){
                 var result3 = parseString(value);
-                classArray.push(result3);
-                firstClassArray.push(result3);
-                secondClassArray.push(result3);
+                if(!classArray.includes(result3) /*&& !secondClassArray.includes(result3)*/){
+                    classArray.push(result3);
+                    secondClassArray.push(result3);
+                }
             }
 
+            //Finds all Named Individuals
             if(value.includes(namedIndividual_substring)){
                 var result4 = parseString(value);
-                namedIndividualArray.push(result4);
+                if(!namedIndividualArray.includes(result4)) {
+                    namedIndividualArray.push(result4);
+                }
             }
-            counter ++;
+
+            //Finds all First-Level Classes
+            if(prev.includes(class_substring) && blank_regex.test(current)) {
+                var result5 = parseString(prev);
+                if(!firstClassArray.includes(result5)) {
+                    firstClassArray.push(result5);
+                }
+            }
+
         });
-        console.log("Righe: " + counter);
+
+        //Finds all Second-Level Classes by making the difference between classes and first-level classes
+        secondClassArray = classArray.diff(firstClassArray);
+        //console.log(secondClassArray);
 
         resulting_arrays = [objectPropertyArray, dataTypePropertyArray, classArray, namedIndividualArray, firstClassArray, secondClassArray];
 
