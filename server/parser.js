@@ -6,16 +6,30 @@ const bodyParser = require('body-parser');
 const port = 3030 | process.env.PORT;
 
 const dataTypeProperty_substring = "<owl:DatatypeProperty ";
+const dataTypeProperty_domain = "<rdfs:domain ";
+const dataTypeProperty_range = "<rdfs:range ";
+
 const objectProperty_substring = "<owl:ObjectProperty ";
+const objectProperty_inverseof = "<owl:inverseOf ";
+const objectProperty_domain = "<rdfs:domain ";
+const objectProperty_range = "<rdfs:range ";
+const objectProperty_type = "<rdf:type ";
+
 const class_substring = "<owl:Class ";
 const subclass_substring = "<rdfs:subClassOf ";
+const class_description = "<rdf:Description ";
+const class_onproperty = "<owl:onProperty ";
+const class_hasvalue = "<owl:hasValue ";
+
 const namedIndividual_substring = "<owl:NamedIndividual ";
+const namedIndividual_type = "<rdf:type ";
+const namedIndividual_specializedin = "<isSpecializedIn ";
 
 var dataTypePropertyArray = [];
 var objectPropertyArray = [];
 var classArray = [];
-var firstClassArray = [];
-var secondClassArray = [];
+//var firstClassArray = [];
+//var secondClassArray = [];
 var namedIndividualArray = [];
 
 var resulting_arrays = [];
@@ -122,66 +136,10 @@ app.post('/process', (req,res) => {
     });
 });
 
-app.post('/first_level', (req,res) => {
-    var data_result_JSON = [];
-
-    Object.keys(firstClassArray).forEach(function(object){
-        data_result_JSON.push({
-        "title": firstClassArray[object],
-        "value": firstClassArray[object]
-        });
-    });
-
-    res.json({
-        replies: [{
-            "type": "quickReplies",
-            "content": {
-                "title": "First-Level Classes",
-                "buttons": data_result_JSON
-            }
-        }]
-    });
-})
-
-app.post('/second_level', (req,res) => {
-    var data_result_JSON = [];
-    
-    Object.keys(secondClassArray).forEach(function(object){
-        data_result_JSON.push({
-        "title": secondClassArray[object],
-        "type": "BUTTON_TYPE",
-        "value": secondClassArray[object]
-        });
-    });
-
-    res.json({
-        replies: [{
-            "type": "buttons",
-            "content": {
-                "title": "Second-Level Classes",
-                "buttons": data_result_JSON
-            }
-        }]
-    });
-})
-
-
 //Stack which elements are key-value pairs
 //One stack for each class, each stack has a mapping of its elements
 app.post('/stack', (req,res) => {
-
-    var bloh = [["stack"], ["classes"], ["prova1", "prova2", "prova3"] ];
-    console.log(bloh);
-    console.log(bloh[0]);
-    //console.log(bloh[2][0]);
-    //console.log(bloh[2][1]);
-    console.log("Inizio ciclo for");
-    for (var i = 0; i < bloh[2].length; i++) {
-        console.log(bloh[2][i]);
-    }
-    console.log("faaantastico");
-
-    /*
+        
     fs.readFile('../ontology/prova.owl', 'utf8', function read(err, data) {
         
         if (err) {
@@ -201,39 +159,67 @@ app.post('/stack', (req,res) => {
         var rows = data.toString().split('\n');
 
         var stack_classes = [];
+        var stack_objProperty = [];
+        var stack_dataTypeProperty = [];
+        var stack_namedIndividual = [];
         var counter_classes = 0;
+        var counter_objProperty = 0;
+        var counter_dataTypeProperty = 0;
+        var counter_namedIndividual = 0;
 
         rows.forEach(function(value){
 
+            //Let's parse our object properties
+            //==========================================================================
+            /*
+            if(value.includes(objectProperty_substring)){
+                if(counter_objProperty === 0) {
+                    stack_objProperty.push("objprop");
+                    counter_objProperty++;
+                }
+            }
+
+            if(!(blank_regex.test(value)) && stack_objProperty[0]==="objprop") {
+                parseObjectProperties(value, stack_objProperty, counter_objProperty);
+            } else if(stack_objProperty.length > 0) {
+                objectPropertyArray.push(stack_objProperty);
+                stack_objProperty = [];
+                counter_objProperty = 0;
+            }
+            */
+            //Let's parse our classes
+            //==========================================================================
+            
             if(value.includes(class_substring)){
                 if(counter_classes === 0) {
                     stack_classes.push("classes");
+                    counter_classes++;
                 }
             }
 
             if(!(blank_regex.test(value)) && stack_classes[0]==="classes") {
-                if(counter_classes === 1) {
-                    console.log(myparseString(value));
-                    stack_classes.push(myparseString(value));
-                }
-                ++counter_classes;
-                /*
-                if(value.includes(subclass_substring)) {
-                    console.log(stack_classes[1] + " is subclass of " + parseString(value));
-                }
-                *//*
-            } else {
-                console.log(stack_classes);
+                parseClasses(value, stack_classes, counter_classes);
+            } else if(stack_classes.length > 0) {
+                classArray.push(stack_classes);
                 stack_classes = [];
                 counter_classes = 0;
             }
 
+            //==========================================================================
+
         });
-        
 
-        res.status(200).end();
+        console.log(classArray);
 
-    });*/
+        //console.log(objectPropertyArray);
+
+        //console.log(JSON.stringify(classArray));
+    
+        //res.status(200).end();
+        res.send(classArray);
+
+    });
+
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
@@ -245,26 +231,49 @@ function parseString(string){
     return result;
 }
 
-function printResults() {
-    console.log("DataTypeProperty: ");
-    dataTypePropertyArray.forEach(function(value) {
-        console.log(value);
-    })
-    console.log("****************");
-    console.log("ObjectProperty: ");
-    objectPropertyArray.forEach(function(value) {
-        console.log(value);
-    })
-    console.log("****************");
-    console.log("Class: ");
-    classArray.forEach(function(value) {
-        console.log(value);
-    })
-    console.log("****************");
-    console.log("NamedIndividual: ");
-    namedIndividualArray.forEach(function(value) {
-        console.log(value);
-    })
-    console.log("****************");
+function parseClasses(value, stack_classes, counter_classes){
+    if(value.includes("#")){
+        var value_str = parseString(value);
+        if(counter_classes === 1) {
+            if(value.includes(class_substring)){
+                stack_classes.push(["name", value_str]);
+            }
+            if(value.includes(subclass_substring)) {
+                stack_classes.push(["subclassof", value_str]);
+            }
+            if(value.includes(class_description)) {
+                stack_classes.push(["description", value_str]);
+            }
+            if(value.includes(class_onproperty)) {
+                stack_classes.push(["onproperty", value_str]);
+            }
+            if(value.includes(class_hasvalue)) {
+                stack_classes.push(["hasvalue", value_str]);
+            }
+        }
+    }
+}
+
+function parseObjectProperties(value, stack_objProperty, counter_objProperty){
+    if(value.includes("#")){
+        var value_str = parseString(value);
+        if(counter_objProperty === 1) {
+            if(value.includes(objectProperty_substring)){
+                stack_objProperty.push(["name", value_str]);
+            }
+            if(value.includes(objectProperty_inverseof)){
+                stack_objProperty.push(["inverseof", value_str]);
+            }
+            if(value.includes(objectProperty_domain)){
+                stack_objProperty.push(["domain", value_str]);
+            }
+            if(value.includes(objectProperty_range)){
+                stack_objProperty.push(["range", value_str]);
+            }
+            if(value.includes(objectProperty_type)){
+                stack_objProperty.push(["name", value_str]);
+            }
+        }
+    }
 }
 
