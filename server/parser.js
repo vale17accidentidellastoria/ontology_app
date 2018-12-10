@@ -27,7 +27,7 @@ const namedIndividual_specializedin = "<isSpecializedIn ";
 
 var dataTypePropertyArray = [];
 var objectPropertyArray = [];
-var classArray = [{}];
+var classArray = [];
 //var firstClassArray = [];
 //var secondClassArray = [];
 var namedIndividualArray = [];
@@ -149,7 +149,7 @@ app.post('/stack', (req,res) => {
 
         objectPropertyArray = [];
         dataTypePropertyArray = [];
-        classArray = [{}];
+        classArray = [];
         firstClassArray = [];
         secondClassArray = [];
         namedIndividualArray = [];
@@ -193,17 +193,17 @@ app.post('/stack', (req,res) => {
             if(value.includes(class_substring)){
                 if(counter_classes === 0) {
                     //stack_classes.push("classes");
-                    var str = "kind: classes";
+                    var str = "classes";
                     stack_classes.push(str);
                     //var obj = JSON.parse(str);
                     counter_classes++;
                 }
             }
 
-            if(!(blank_regex.test(value)) && stack_classes[0]==="kind: classes") {
+            if(!(blank_regex.test(value)) && stack_classes[0]==="classes") {
                 parseClasses(value, stack_classes, counter_classes);
             } else if(stack_classes.length > 0) {
-                classArray.push({stack_classes});
+                classArray.push(stack_classes);
                 stack_classes = [];
                 counter_classes = 0;
             }
@@ -240,23 +240,23 @@ function parseClasses(value, stack_classes, counter_classes){
         if(counter_classes === 1) {
             if(value.includes(class_substring)){
                 //stack_classes.push(["name", value_str]);
-                stack_classes.push("name: " + value_str);
+                stack_classes.push(["name", value_str]);
             }
             if(value.includes(subclass_substring)) {
                 //stack_classes.push(["subclassof", value_str]);
-                stack_classes.push("subclassof: " + value_str);
+                stack_classes.push(["subclassof", value_str]);
             }
             if(value.includes(class_description)) {
                 //stack_classes.push(["description", value_str]);
-                stack_classes.push("description: " + value_str);
+                stack_classes.push(["description", value_str]);
             }
             if(value.includes(class_onproperty)) {
                 //stack_classes.push(["onproperty", value_str]);
-                stack_classes.push("onproperty: " + value_str);
+                stack_classes.push(["onproperty", value_str]);
             }
             if(value.includes(class_hasvalue)) {
                 //stack_classes.push(["hasvalue", value_str]);
-                stack_classes.push("hasvalue: " + value_str);
+                stack_classes.push(["hasvalue", value_str]);
             }
         }
     }
