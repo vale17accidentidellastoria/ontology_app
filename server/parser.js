@@ -90,25 +90,6 @@ app.post('/stack', (req,res) => {
 
         rows.forEach(function(value){
 
-            //Let's parse our object properties
-            //==========================================================================
-            /*
-            if(value.includes(objectProperty_substring)){
-                if(counter_objProperty === 0) {
-                    stack_objProperty.push("objprop");
-                    counter_objProperty++;
-                }
-            }
-
-            if(!(blank_regex.test(value)) && stack_objProperty[0]==="objprop") {
-                parseObjectProperties(value, stack_objProperty, counter_objProperty);
-            } else if(stack_objProperty.length > 0) {
-                objectPropertyArray.push(stack_objProperty);
-                stack_objProperty = [];
-                counter_objProperty = 0;
-            }
-            */
-
             //Let's parse our classes
             //==========================================================================
             
@@ -139,25 +120,9 @@ app.post('/stack', (req,res) => {
 
         //console.log(classArray[2]);
         //console.log(classArray[1].stack_classes[2].name);
-        //console.log(classArray[1].stack_classes[2]);
-
-        console.log("PRIMA");
-        var jsonObj = {
-            members: 
-                   {
-                    host: "hostName"
-                }
-        };
+        //console.log(classArray[1].stack_classes[2]);      
         
-        console.log(jsonObj);
-
-        console.log("DOPO");
-        jsonObj.members["name"] = "vale";
-        jsonObj.members["surname"] = "pig";
-        
-        console.log(jsonObj);       
-        
-
+        /*
         for(var i = 1; i < classArray.length; i++) {
             var count = 0;
             for(var j = 1; j < classArray[i].stack_classes.length; j++){
@@ -171,6 +136,7 @@ app.post('/stack', (req,res) => {
                 //console.log(classArray[i].stack_classes[j]);
             }
         }
+        */
 
     });
 
@@ -212,27 +178,3 @@ function parseClasses(value, stack_classes, counter_classes){
         }
     }
 }
-
-function parseObjectProperties(value, stack_objProperty, counter_objProperty){
-    if(value.includes("#")){
-        var value_str = parseString(value);
-        if(counter_objProperty === 1) {
-            if(value.includes(objectProperty_substring)){
-                stack_objProperty.push(["name", value_str]);
-            }
-            if(value.includes(objectProperty_inverseof)){
-                stack_objProperty.push(["inverseof", value_str]);
-            }
-            if(value.includes(objectProperty_domain)){
-                stack_objProperty.push(["domain", value_str]);
-            }
-            if(value.includes(objectProperty_range)){
-                stack_objProperty.push(["range", value_str]);
-            }
-            if(value.includes(objectProperty_type)){
-                stack_objProperty.push(["name", value_str]);
-            }
-        }
-    }
-}
-
