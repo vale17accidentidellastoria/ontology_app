@@ -6,19 +6,37 @@ const bodyParser = require('body-parser');
 const port = 3030 | process.env.PORT;
 
 const dataTypeProperty_substring = "<owl:DatatypeProperty ";
+const dataTypeProperty_domain = "<rdfs:domain ";
+const dataTypeProperty_range = "<rdfs:range ";
+
 const objectProperty_substring = "<owl:ObjectProperty ";
+const objectProperty_inverseof = "<owl:inverseOf ";
+const objectProperty_domain = "<rdfs:domain ";
+const objectProperty_range = "<rdfs:range ";
+const objectProperty_type = "<rdf:type ";
+
 const class_substring = "<owl:Class ";
 const subclass_substring = "<rdfs:subClassOf ";
-const namedIndividual_substring = "<owl:NamedIndividual ";
+const class_description = "<rdf:Description ";
+const class_onproperty = "<owl:onProperty ";
+const class_hasvalue = "<owl:hasValue ";
 
-var dataTypePropertyArray = [];
-var objectPropertyArray = [];
+const namedIndividual_substring = "<owl:NamedIndividual ";
+const namedIndividual_type = "<rdf:type ";
+const namedIndividual_specializedin = "<isSpecializedIn ";
+
 var classArray = [];
 var firstClassArray = [];
 var secondClassArray = [];
-var namedIndividualArray = [];
 
-var resulting_arrays = [];
+var data_classes = {};
+
+//Classes attributes
+var name_class;
+var subclassof_class;
+var description_class;
+var onproperty_class;
+var hasvalue_class;
 
 Array.prototype.diff = function(a) {
     return this.filter(function(i) {return a.indexOf(i) < 0;});
@@ -44,85 +62,83 @@ app.use(function(req, res, next) {
     .use(bodyParser.json());
 
 app.post('/process', (req,res) => {
-    fs.readFile('../ontology/my-food-ontology-rdfxml.owl', 'utf8', function read(err, data) {
+    
+    fs.readFile('../ontology/prova.owl', 'utf8', function read(err, data) {
         
         if (err) {
             console.log("ERROR");
             throw err;
         }
 
-        objectPropertyArray = [];
-        dataTypePropertyArray = [];
         classArray = [];
-        firstClassArray = [];
-        secondClassArray = [];
-        namedIndividualArray = [];
 
-        var prev = "";
-        var current = "";
         var blank_regex = /^\s*$/;
 
         var rows = data.toString().split('\n');
 
+        var stack_classes = {};
+        var counter_classes = 0;
+        var counter_classes_global = 0;
+
         rows.forEach(function(value){
 
-            prev = current;
-            current = value;
-
-            //Finds all ObjectProperties
-            if(value.includes(objectProperty_substring)) {
-                var result1 = parseString(value);
-                if(!objectPropertyArray.includes(result1)){
-                    objectPropertyArray.push(result1);
-                }
-            }
-
-            //Finds all DataTypeProperties
-            if(value.includes(dataTypeProperty_substring)){
-                var result2 = parseString(value);
-                if(!dataTypePropertyArray.includes(result2)){
-                    dataTypePropertyArray.push(result2);
-                }
-            }
-
-            //Finds all Classes
+            //Let's parse our classes
+            //==========================================================================
+            
             if(value.includes(class_substring)){
-                var result3 = parseString(value);
-                if(!classArray.includes(result3)){
-                    classArray.push(result3);
-                    secondClassArray.push(result3);
+                if(counter_classes_global === 0){
+                    stack_classes["classes"] = [];
+                    counter_classes_global++;
+                }
+                if(counter_classes === 0) {
+                    counter_classes++;
                 }
             }
 
-            //Finds all Named Individuals
-            if(value.includes(namedIndividual_substring)){
-                var result4 = parseString(value);
-                if(!namedIndividualArray.includes(result4)) {
-                    namedIndividualArray.push(result4);
+            if(typeof stack_classes["classes"] !== 'undefined'){
+                if(counter_classes == 1) {
+                    if(!blank_regex.test(value)) {
+                        parseClasses(value);
+                    } else {
+                        data_classes = {
+                            "name": name_class,
+                            "subclassof": subclassof_class,
+                            "description": description_class,
+                            "onproperty": onproperty_class, 
+                            "hasvalue": hasvalue_class
+                        }
+                        stack_classes["classes"].push(data_classes);
+                        
+                        data_classes = {};
+                        counter_classes = 0;
+                        
+                        name_class = "";
+                        subclassof_class = "";
+                        description_class = "";
+                        onproperty_class = "";
+                        hasvalue_class = "";
+                    }
                 }
             }
-
-            //Finds all First-Level Classes
-            if(prev.includes(class_substring) && blank_regex.test(current)) {
-                var result5 = parseString(prev);
-                if(!firstClassArray.includes(result5)) {
-                    firstClassArray.push(result5);
-                }
-            }
+            
+            //==========================================================================
 
         });
 
-        //Finds all Second-Level Classes by making the difference between classes and first-level classes
-        secondClassArray = classArray.diff(firstClassArray);
-        
-        resulting_arrays = [objectPropertyArray, dataTypePropertyArray, classArray, namedIndividualArray, firstClassArray, secondClassArray];
-
-        res.status(200).end();
+        classArray.push(stack_classes);
+    
+        res.send((classArray));
 
     });
+
 });
 
 app.post('/first_level', (req,res) => {
+
+    for (var i = 0; i < classArray[0].classes.length; i++){
+        firstClassArray.push(classArray[0].classes[i].name);
+    }
+    
     var data_result_JSON = [];
 
     Object.keys(firstClassArray).forEach(function(object){
@@ -141,9 +157,12 @@ app.post('/first_level', (req,res) => {
             }
         }]
     });
+    
 })
 
 app.post('/second_level', (req,res) => {
+    res.send((classArray));
+    /*
     var data_result_JSON = [];
     
     Object.keys(secondClassArray).forEach(function(object){
@@ -163,78 +182,8 @@ app.post('/second_level', (req,res) => {
             }
         }]
     });
+    */
 })
-
-
-//Stack which elements are key-value pairs
-//One stack for each class, each stack has a mapping of its elements
-app.post('/stack', (req,res) => {
-
-    var bloh = [["stack"], ["classes"], ["prova1", "prova2", "prova3"] ];
-    console.log(bloh);
-    console.log(bloh[0]);
-    //console.log(bloh[2][0]);
-    //console.log(bloh[2][1]);
-    console.log("Inizio ciclo for");
-    for (var i = 0; i < bloh[2].length; i++) {
-        console.log(bloh[2][i]);
-    }
-    console.log("faaantastico");
-
-    /*
-    fs.readFile('../ontology/prova.owl', 'utf8', function read(err, data) {
-        
-        if (err) {
-            console.log("ERROR");
-            throw err;
-        }
-
-        objectPropertyArray = [];
-        dataTypePropertyArray = [];
-        classArray = [];
-        firstClassArray = [];
-        secondClassArray = [];
-        namedIndividualArray = [];
-
-        var blank_regex = /^\s*$/;
-
-        var rows = data.toString().split('\n');
-
-        var stack_classes = [];
-        var counter_classes = 0;
-
-        rows.forEach(function(value){
-
-            if(value.includes(class_substring)){
-                if(counter_classes === 0) {
-                    stack_classes.push("classes");
-                }
-            }
-
-            if(!(blank_regex.test(value)) && stack_classes[0]==="classes") {
-                if(counter_classes === 1) {
-                    console.log(myparseString(value));
-                    stack_classes.push(myparseString(value));
-                }
-                ++counter_classes;
-                /*
-                if(value.includes(subclass_substring)) {
-                    console.log(stack_classes[1] + " is subclass of " + parseString(value));
-                }
-                *//*
-            } else {
-                console.log(stack_classes);
-                stack_classes = [];
-                counter_classes = 0;
-            }
-
-        });
-        
-
-        res.status(200).end();
-
-    });*/
-});
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
@@ -245,26 +194,25 @@ function parseString(string){
     return result;
 }
 
-function printResults() {
-    console.log("DataTypeProperty: ");
-    dataTypePropertyArray.forEach(function(value) {
-        console.log(value);
-    })
-    console.log("****************");
-    console.log("ObjectProperty: ");
-    objectPropertyArray.forEach(function(value) {
-        console.log(value);
-    })
-    console.log("****************");
-    console.log("Class: ");
-    classArray.forEach(function(value) {
-        console.log(value);
-    })
-    console.log("****************");
-    console.log("NamedIndividual: ");
-    namedIndividualArray.forEach(function(value) {
-        console.log(value);
-    })
-    console.log("****************");
+function parseClasses(value) {
+    if(value.includes("#")){
+        
+        var value_str = parseString(value);
+        
+        if(value.includes(class_substring)){
+            name_class = value_str;
+        }
+        if(value.includes(subclass_substring)) {
+            subclassof_class = value_str;
+        }
+        if(value.includes(class_description)) {
+            description_class = value_str;
+        }
+        if(value.includes(class_onproperty)) {
+            onproperty_class = value_str;
+        }
+        if(value.includes(class_hasvalue)) {
+            hasvalue_class = value_str;
+        }
+    }
 }
-
