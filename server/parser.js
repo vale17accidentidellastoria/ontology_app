@@ -212,6 +212,7 @@ app.post('/stack', (req,res) => {
 
         //console.log(classArray);
 
+        /*
         for(var i = 0; i < classArray.length; i++) { //iterates over all classes
             for(var j = 0; j < classArray[i].length; j++) {
                 if(classArray[i][j]!=="classes"){
@@ -223,12 +224,13 @@ app.post('/stack', (req,res) => {
                             console.log(classArray[i][j][x+1]);
                         }
                     }
-                    */
+                    *//*
                    console.log("i: " + i + " j: " + j + " ----- ");
                    console.log(classArray[i][j]);
                 }
             }
         }
+        */
 
         //console.log(objectPropertyArray);
 
@@ -256,23 +258,23 @@ function parseClasses(value, stack_classes, counter_classes){
         if(counter_classes === 1) {
             if(value.includes(class_substring)){
                 //stack_classes.push(["name", value_str]);
-                stack_classes.push(["name", value_str]);
+                stack_classes.push({"name": value_str});
             }
             if(value.includes(subclass_substring)) {
                 //stack_classes.push(["subclassof", value_str]);
-                stack_classes.push(["subclassof", value_str]);
+                stack_classes.push({"subclassof": value_str});
             }
             if(value.includes(class_description)) {
                 //stack_classes.push(["description", value_str]);
-                stack_classes.push(["description", value_str]);
+                stack_classes.push({"description": value_str});
             }
             if(value.includes(class_onproperty)) {
                 //stack_classes.push(["onproperty", value_str]);
-                stack_classes.push(["onproperty", value_str]);
+                stack_classes.push({"onproperty": value_str});
             }
             if(value.includes(class_hasvalue)) {
                 //stack_classes.push(["hasvalue", value_str]);
-                stack_classes.push(["hasvalue", value_str]);
+                stack_classes.push({"hasvalue": value_str});
             }
         }
     }
