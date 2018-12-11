@@ -158,7 +158,8 @@ app.post('/stack', (req,res) => {
         //res.status(200).end();
         res.send((classArray));
 
-        console.log(classArray[0]);
+        console.log(classArray[2]);
+        console.log(classArray[1].stack_classes[2].name);
 
     });
 
