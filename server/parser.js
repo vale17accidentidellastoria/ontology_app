@@ -214,6 +214,19 @@ app.post('/stack', (req,res) => {
 
         console.log(classArray);
 
+        for(var i = 0; i < classArray.length; i++) {
+            for(var j = 0; j < classArray[i].length; j++) {
+                if(classArray[i][j]!=="classes"){
+                    for(var x = 0; x < classArray[i][j].length; x++){
+                        if(classArray[i][j][x]==="subclassof"){
+                            console.log(classArray[i][j][x+1]);
+                        }
+                        //console.log(classArray[i][j][x]);
+                    }
+                }
+            }
+        }
+
         //console.log(objectPropertyArray);
 
         //console.log(JSON.stringify(classArray));
