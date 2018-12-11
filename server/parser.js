@@ -57,85 +57,6 @@ app.use(function(req, res, next) {
     })
     .use(bodyParser.json());
 
-app.post('/process', (req,res) => {
-    fs.readFile('../ontology/my-food-ontology-rdfxml.owl', 'utf8', function read(err, data) {
-        
-        if (err) {
-            console.log("ERROR");
-            throw err;
-        }
-
-        objectPropertyArray = [];
-        dataTypePropertyArray = [];
-        classArray = [];
-        firstClassArray = [];
-        secondClassArray = [];
-        namedIndividualArray = [];
-
-        var prev = "";
-        var current = "";
-        var blank_regex = /^\s*$/;
-
-        var rows = data.toString().split('\n');
-
-        rows.forEach(function(value){
-
-            prev = current;
-            current = value;
-
-            //Finds all ObjectProperties
-            if(value.includes(objectProperty_substring)) {
-                var result1 = parseString(value);
-                if(!objectPropertyArray.includes(result1)){
-                    objectPropertyArray.push(result1);
-                }
-            }
-
-            //Finds all DataTypeProperties
-            if(value.includes(dataTypeProperty_substring)){
-                var result2 = parseString(value);
-                if(!dataTypePropertyArray.includes(result2)){
-                    dataTypePropertyArray.push(result2);
-                }
-            }
-
-            //Finds all Classes
-            if(value.includes(class_substring)){
-                var result3 = parseString(value);
-                if(!classArray.includes(result3)){
-                    classArray.push(result3);
-                    secondClassArray.push(result3);
-                }
-            }
-
-            //Finds all Named Individuals
-            if(value.includes(namedIndividual_substring)){
-                var result4 = parseString(value);
-                if(!namedIndividualArray.includes(result4)) {
-                    namedIndividualArray.push(result4);
-                }
-            }
-
-            //Finds all First-Level Classes
-            if(prev.includes(class_substring) && blank_regex.test(current)) {
-                var result5 = parseString(prev);
-                if(!firstClassArray.includes(result5)) {
-                    firstClassArray.push(result5);
-                }
-            }
-
-        });
-
-        //Finds all Second-Level Classes by making the difference between classes and first-level classes
-        secondClassArray = classArray.diff(firstClassArray);
-        
-        resulting_arrays = [objectPropertyArray, dataTypePropertyArray, classArray, namedIndividualArray, firstClassArray, secondClassArray];
-
-        res.status(200).end();
-
-    });
-});
-
 //Stack which elements are key-value pairs
 //One stack for each class, each stack has a mapping of its elements
 app.post('/stack', (req,res) => {
@@ -149,7 +70,7 @@ app.post('/stack', (req,res) => {
 
         objectPropertyArray = [];
         dataTypePropertyArray = [];
-        classArray = [];
+        classArray = [{}];
         firstClassArray = [];
         secondClassArray = [];
         namedIndividualArray = [];
@@ -158,7 +79,7 @@ app.post('/stack', (req,res) => {
 
         var rows = data.toString().split('\n');
 
-        var stack_classes = [];
+        var stack_classes = [{}];
         var stack_objProperty = [];
         var stack_dataTypeProperty = [];
         var stack_namedIndividual = [];
@@ -192,44 +113,42 @@ app.post('/stack', (req,res) => {
             
             if(value.includes(class_substring)){
                 if(counter_classes === 0) {
-                    var str = "classes";
-                    stack_classes.push(str);
+                    var kind = "classes";
+                    stack_classes.push({kind});
                     counter_classes++;
                 }
             }
 
-            if(!(blank_regex.test(value)) && stack_classes[0]==="classes") {
-                parseClasses(value, stack_classes, counter_classes);
-            } else if(stack_classes.length > 0) {
-                classArray.push(stack_classes);
-                stack_classes = [];
-                counter_classes = 0;
+            if(typeof stack_classes[1] !== 'undefined'){
+                //console.log("im here");
+                //console.log(typeof stack_classes[1]);
+                //console.log(stack_classes[1]);
+                //console.log(stack_classes[1].kind);
+                if(!(blank_regex.test(value)) && stack_classes[1].kind==="classes") {
+                    parseClasses(value, stack_classes, counter_classes);
+                } else if(stack_classes.length > 0) {
+                    classArray.push({stack_classes});
+                    //console.log(stack_classes);
+                    stack_classes = [{}];
+                    counter_classes = 0;
+                }
             }
+            
+        
 
             //==========================================================================
 
         });
 
         //console.log(classArray);
-
         /*
-        for(var i = 0; i < classArray.length; i++) { //iterates over all classes
-            for(var j = 0; j < classArray[i].length; j++) {
-                if(classArray[i][j]!=="classes"){
-                    //if(classArray[i][j].includes())
-                    /*
-                    for(var x = 0; x < classArray[i][j].length; x++){
-                        if(classArray[i][j][x].includes("name")){
-                            console.log(classArray[i][j][x]);
-                            console.log(classArray[i][j][x+1]);
-                        }
-                    }
-                    *//*
-                   console.log("i: " + i + " j: " + j + " ----- ");
-                   console.log(classArray[i][j]);
-                }
-            }
-        }
+       var result = { items:
+                    [ { name: 'keydose',
+                        keys: 69,
+                        cid: 1890,
+                    } ] 
+                };
+        console.log(result.items[0].cid);
         */
 
         //console.log(objectPropertyArray);
@@ -238,6 +157,8 @@ app.post('/stack', (req,res) => {
     
         //res.status(200).end();
         res.send((classArray));
+
+        console.log(classArray[0]);
 
     });
 
