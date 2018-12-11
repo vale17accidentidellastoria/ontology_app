@@ -192,10 +192,8 @@ app.post('/stack', (req,res) => {
             
             if(value.includes(class_substring)){
                 if(counter_classes === 0) {
-                    //stack_classes.push("classes");
                     var str = "classes";
                     stack_classes.push(str);
-                    //var obj = JSON.parse(str);
                     counter_classes++;
                 }
             }
@@ -212,17 +210,22 @@ app.post('/stack', (req,res) => {
 
         });
 
-        console.log(classArray);
+        //console.log(classArray);
 
-        for(var i = 0; i < classArray.length; i++) {
+        for(var i = 0; i < classArray.length; i++) { //iterates over all classes
             for(var j = 0; j < classArray[i].length; j++) {
                 if(classArray[i][j]!=="classes"){
+                    //if(classArray[i][j].includes())
+                    /*
                     for(var x = 0; x < classArray[i][j].length; x++){
-                        if(classArray[i][j][x]==="subclassof"){
+                        if(classArray[i][j][x].includes("name")){
+                            console.log(classArray[i][j][x]);
                             console.log(classArray[i][j][x+1]);
                         }
-                        //console.log(classArray[i][j][x]);
                     }
+                    */
+                   console.log("i: " + i + " j: " + j + " ----- ");
+                   console.log(classArray[i][j]);
                 }
             }
         }
