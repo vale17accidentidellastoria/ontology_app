@@ -79,7 +79,7 @@ app.post('/stack', (req,res) => {
 
         var rows = data.toString().split('\n');
 
-        var stack_classes = [{}];
+        var stack_classes = [];
         var stack_objProperty = [{}];
         var stack_dataTypeProperty = [{}];
         var stack_namedIndividual = [{}];
@@ -96,7 +96,8 @@ app.post('/stack', (req,res) => {
             if(value.includes(class_substring)){
                 if(counter_classes === 0) {
                     var kind = "classes";
-                    stack_classes.push({kind});
+                    //stack_classes.push({kind});
+                    stack_classes["kind"] = kind;
                     counter_classes++;
                 }
             }
@@ -106,7 +107,7 @@ app.post('/stack', (req,res) => {
                     parseClasses(value, stack_classes, counter_classes);
                 } else if(stack_classes.length > 0) {
                     classArray.push({stack_classes});
-                    stack_classes = [{}];
+                    stack_classes = [];
                     counter_classes = 0;
                 }
             }
