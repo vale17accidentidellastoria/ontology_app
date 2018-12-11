@@ -68,21 +68,21 @@ app.post('/stack', (req,res) => {
             throw err;
         }
 
-        objectPropertyArray = [];
-        dataTypePropertyArray = [];
+        objectPropertyArray = [{}];
+        dataTypePropertyArray = [{}];
         classArray = [{}];
-        firstClassArray = [];
-        secondClassArray = [];
-        namedIndividualArray = [];
+        firstClassArray = [{}];
+        secondClassArray = [{}];
+        namedIndividualArray = [{}];
 
         var blank_regex = /^\s*$/;
 
         var rows = data.toString().split('\n');
 
         var stack_classes = [{}];
-        var stack_objProperty = [];
-        var stack_dataTypeProperty = [];
-        var stack_namedIndividual = [];
+        var stack_objProperty = [{}];
+        var stack_dataTypeProperty = [{}];
+        var stack_namedIndividual = [{}];
         var counter_classes = 0;
         var counter_objProperty = 0;
         var counter_dataTypeProperty = 0;
@@ -108,6 +108,7 @@ app.post('/stack', (req,res) => {
                 counter_objProperty = 0;
             }
             */
+
             //Let's parse our classes
             //==========================================================================
             
@@ -120,46 +121,56 @@ app.post('/stack', (req,res) => {
             }
 
             if(typeof stack_classes[1] !== 'undefined'){
-                //console.log("im here");
-                //console.log(typeof stack_classes[1]);
-                //console.log(stack_classes[1]);
-                //console.log(stack_classes[1].kind);
                 if(!(blank_regex.test(value)) && stack_classes[1].kind==="classes") {
                     parseClasses(value, stack_classes, counter_classes);
                 } else if(stack_classes.length > 0) {
                     classArray.push({stack_classes});
-                    //console.log(stack_classes);
                     stack_classes = [{}];
                     counter_classes = 0;
                 }
             }
             
-        
-
             //==========================================================================
 
         });
-
-        //console.log(classArray);
-        /*
-       var result = { items:
-                    [ { name: 'keydose',
-                        keys: 69,
-                        cid: 1890,
-                    } ] 
-                };
-        console.log(result.items[0].cid);
-        */
-
-        //console.log(objectPropertyArray);
-
-        //console.log(JSON.stringify(classArray));
     
         //res.status(200).end();
         res.send((classArray));
 
-        console.log(classArray[2]);
-        console.log(classArray[1].stack_classes[2].name);
+        //console.log(classArray[2]);
+        //console.log(classArray[1].stack_classes[2].name);
+        //console.log(classArray[1].stack_classes[2]);
+
+        console.log("PRIMA");
+        var jsonObj = {
+            members: 
+                   {
+                    host: "hostName"
+                }
+        };
+        
+        console.log(jsonObj);
+
+        console.log("DOPO");
+        jsonObj.members["name"] = "vale";
+        jsonObj.members["surname"] = "pig";
+        
+        console.log(jsonObj);       
+        
+
+        for(var i = 1; i < classArray.length; i++) {
+            var count = 0;
+            for(var j = 1; j < classArray[i].stack_classes.length; j++){
+                
+                if((typeof classArray[i].stack_classes[j].name !== 'undefined') || (typeof classArray[i].stack_classes[j].subclassof !== 'undefined')) {
+                    //console.log("Class: " + classArray[i].stack_classes[j].name);
+                    //console.log("Subclass of: " + classArray[i].stack_classes[j].subclassof);
+                    //console.log("==========");
+                }
+                
+                //console.log(classArray[i].stack_classes[j]);
+            }
+        }
 
     });
 
