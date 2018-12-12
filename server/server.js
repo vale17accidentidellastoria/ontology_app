@@ -100,23 +100,9 @@ app.post('/process', (req,res) => {
                     if(!blank_regex.test(value)) {
                         parseClasses(value);
                     } else {
-                        data_classes = {
-                            "name": name_class,
-                            "subclassof": subclassof_class,
-                            "description": description_class,
-                            "onproperty": onproperty_class, 
-                            "hasvalue": hasvalue_class
-                        }
-                        stack_classes["classes"].push(data_classes);
-                        
+                        parseClassAttributes(data_classes, stack_classes);
                         data_classes = {};
                         counter_classes = 0;
-                        
-                        name_class = "";
-                        subclassof_class = "";
-                        description_class = "";
-                        onproperty_class = "";
-                        hasvalue_class = "";
                     }
                 }
             }
@@ -136,8 +122,15 @@ app.post('/process', (req,res) => {
 
 app.post('/first_level', (req,res) => {
 
-    for (var i = 0; i < classArray[0].classes.length; i++){
-        firstClassArray.push(classArray[0].classes[i].name);
+    firstClassArray = [];
+
+    for(var i = 0; i < classArray[0].classes.length; i++){
+        var class_name = classArray[0].classes[i].name;
+        var subclass = classArray[0].classes[i].subclassof;
+        if(((subclass === "") || (typeof subclass === 'undefined')) && ((typeof class_name !== 'undefined') && (class_name !== ""))){
+            firstClassArray.push(class_name);
+        }
+
     }
     
     var data_result_JSON = [];
@@ -162,8 +155,24 @@ app.post('/first_level', (req,res) => {
 })
 
 app.post('/second_level', (req,res) => {
-    res.send((classArray));
-    /*
+    //I should put /second_level/:choice
+    secondClassArray = [];
+
+    var choice_param = "Restaurant";
+    //var choice_param = req.params.choice;
+
+    for(var i = 0; i < classArray[0].classes.length; i++){
+        var class_name = classArray[0].classes[i].name;
+        var subclass = classArray[0].classes[i].subclassof;
+        if((typeof subclass !== 'undefined') && (subclass !== "") && (typeof class_name !== 'undefined') && (class_name !== "")){
+            if(choice_param === subclass){
+                secondClassArray.push(class_name);
+                console.log(class_name);
+            }
+        }
+
+    }
+    
     var data_result_JSON = [];
     
     Object.keys(secondClassArray).forEach(function(object){
@@ -183,7 +192,7 @@ app.post('/second_level', (req,res) => {
             }
         }]
     });
-    */
+    
 })
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
@@ -216,4 +225,22 @@ function parseClasses(value) {
             hasvalue_class = value_str;
         }
     }
+}
+
+function parseClassAttributes(data, stack) {
+    data = {
+        "name": name_class,
+        "subclassof": subclassof_class,
+        "description": description_class,
+        "onproperty": onproperty_class, 
+        "hasvalue": hasvalue_class
+    }
+
+    stack["classes"].push(data);
+    
+    name_class = "";
+    subclassof_class = "";
+    description_class = "";
+    onproperty_class = "";
+    hasvalue_class = "";
 }
