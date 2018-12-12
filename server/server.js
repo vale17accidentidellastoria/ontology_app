@@ -2,6 +2,13 @@ const fs = require('fs');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const recastai = require('recastai').default;
+
+const REQUEST_TOKEN = '40399fb5ea31b36c3c99f6ea4f528cc2';
+const DEVELOPER_TOKEN = '64fbecbbb579e6db484aba871a439338';
+const USER_SLUG = 'vale17accidentidellastoria';
+const BOT_SLUG = 'ontology-app-bot';
+const CONVERSATION_ID = 'test-1530310812548';
 
 const port = 3030 | process.env.PORT;
 
