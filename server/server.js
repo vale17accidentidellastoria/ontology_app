@@ -165,7 +165,9 @@ app.post('/second_level', (req,res) => {
     //I should put /second_level/:choice
     secondClassArray = [];
 
-    var choice_param = "Restaurant";
+    //const text_chatbot = req.body.nlp.source;
+    //console.log(text_chatbot);
+
     //var choice_param = req.params.choice;
 
     for(var i = 0; i < classArray[0].classes.length; i++){
