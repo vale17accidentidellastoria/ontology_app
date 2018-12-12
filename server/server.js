@@ -127,7 +127,8 @@ app.post('/process', (req,res) => {
 
         classArray.push(stack_classes);
     
-        res.send((classArray));
+        res.status(200).end();
+        //res.send((classArray));
 
     });
 
