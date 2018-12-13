@@ -37,10 +37,12 @@ var firstClassArray = [];
 var secondClassArray = [];
 var objpropertiesArray = [];
 var datapropArray = [];
+var namedindividualArray = [];
 
 var data_classes = {};
 var data_objprops = {};
 var data_dataprop = {};
+var data_namedindividual = {};
 
 //Classes attributes
 var name_class;
@@ -60,6 +62,11 @@ var type_objprop;
 var name_dataprop;
 var domain_dataprop;
 var range_dataprop;
+
+//Named Individuals attributes
+var name_namedindividual;
+var type_namedindividual;
+var specialization_namedindividual;
 
 Array.prototype.diff = function(a) {
     return this.filter(function(i) {return a.indexOf(i) < 0;});
@@ -96,6 +103,7 @@ app.post('/process', (req,res) => {
         classArray = [];
         objpropertiesArray = [];
         datapropArray = [];
+        namedindividualArray = [];
 
         var blank_regex = /^\s*$/;
 
@@ -112,6 +120,10 @@ app.post('/process', (req,res) => {
         var stack_dataprop = {};
         var counter_dataprop = 0;
         var counter_dataprop_global = 0;
+
+        var stack_namedindividual = {};
+        var counter_namedindividual = 0;
+        var counter_namedindividual_global = 0;
 
         rows.forEach(function(value){
 
@@ -192,8 +204,10 @@ app.post('/process', (req,res) => {
                 }
             }
             
+            //Let's parse our named individuals
+            //==========================================================================   
             
-            //==========================================================================
+            //Write code here!!!
 
         });
 
