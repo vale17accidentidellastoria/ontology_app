@@ -171,16 +171,16 @@ app.post('/process', (req,res) => {
                     if(!blank_regex.test(value)){
                         parseDataProps(value);
                     } else {
-                        parseDataPropAttributes(data_dataprop, stack_dataprop);
+                        parseDataPropsAttributes(data_dataprop, stack_dataprop);
                         data_dataprop = {};
                         counter_dataprop = 0;
                     }
                 }
             }
 
+            
             //Let's parse our classes
             //==========================================================================
-        
             
             if(value.includes(class_substring)){
                 if(counter_classes_global === 0){
@@ -204,10 +204,32 @@ app.post('/process', (req,res) => {
                 }
             }
             
+            
             //Let's parse our named individuals
             //==========================================================================   
             
-            //Write code here!!!
+            if(value.includes(namedIndividual_substring)){
+                if(counter_namedindividual_global === 0){
+                    stack_namedindividual["namedinds"] = [];
+                    counter_namedindividual_global++;
+                }
+                if(counter_namedindividual === 0){
+                    counter_namedindividual++;
+                }
+            }
+
+            if(typeof stack_namedindividual["namedinds"] !== 'undefined'){
+                if(counter_namedindividual == 1){
+                    if(!blank_regex.test(value)){
+                        parseNamedIndividuals(value);
+                    } else {
+                        parseNamedIndividualsAttributes(data_namedindividual, stack_namedindividual);
+                        data_namedindividual = {};
+                        counter_namedindividual = 0;
+                    }
+                }
+            }
+            
 
         });
 
@@ -216,11 +238,14 @@ app.post('/process', (req,res) => {
         objpropertiesArray.push(stack_objprop);
 
         datapropArray.push(stack_dataprop);
+
+        namedindividualArray.push(stack_namedindividual);
     
         //res.status(200).end();
         //res.send((classArray));
         //res.send(objpropertiesArray);
-        res.send(datapropArray);
+        //res.send(datapropArray);
+        res.send(namedindividualArray);
 
     });
 
@@ -384,6 +409,23 @@ function parseClasses(value){
     }
 }
 
+function parseNamedIndividuals(value){
+    if(value.includes("#")){
+        
+        var value_str = parseString(value);
+        
+        if(value.includes(namedIndividual_substring)){
+            name_namedindividual = value_str;
+        }
+        if(value.includes(namedIndividual_type)) {
+            type_namedindividual = value_str;
+        }
+        if(value.includes(namedIndividual_specializedin)) {
+            specialization_namedindividual = value_str;
+        }
+    }
+}
+
 function parseObjPropsAttributes(data, stack){
     data = {
         "name": name_objprop,
@@ -402,7 +444,7 @@ function parseObjPropsAttributes(data, stack){
     type_objprop = "";
 }
 
-function parseDataPropAttributes(data, stack){
+function parseDataPropsAttributes(data, stack){
     data = {
         "name": name_dataprop,
         "domain": domain_dataprop,
@@ -431,4 +473,18 @@ function parseClassAttributes(data, stack) {
     description_class = "";
     onproperty_class = "";
     hasvalue_class = "";
+}
+
+function parseNamedIndividualsAttributes(data, stack){
+    data = {
+        "name": name_namedindividual,
+        "type": type_namedindividual,
+        "isspecialized": specialization_namedindividual
+    }
+
+    stack["namedinds"].push(data);
+
+    name_namedindividual = "";
+    type_namedindividual = "";
+    specialization_namedindividual = "";
 }
