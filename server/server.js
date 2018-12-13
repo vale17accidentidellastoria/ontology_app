@@ -69,6 +69,10 @@ app.use(function(req, res, next) {
     .use(bodyParser.json());
 
 app.post('/process', (req,res) => {
+
+    //console.log("I'm in /process");
+    //console.log(req.body);
+    //console.log("=====");
     
     fs.readFile('../ontology/prova.owl', 'utf8', function read(err, data) {
         
@@ -149,6 +153,7 @@ app.post('/first_level', (req,res) => {
         });
     });
 
+    
     res.json({
         replies: [{
             "type": "quickReplies",
@@ -157,19 +162,16 @@ app.post('/first_level', (req,res) => {
                 "buttons": data_result_JSON
             }
         }]
-    });
+    });    
     
 })
 
 app.post('/second_level', (req,res) => {
-    //I should put /second_level/:choice
+    
     secondClassArray = [];
-
-    //const text_chatbot = req.body.nlp.source;
-    //console.log(text_chatbot);
-
-    //var choice_param = req.params.choice;
-
+    
+    var choice_param = req.body.nlp.source;
+    
     for(var i = 0; i < classArray[0].classes.length; i++){
         var class_name = classArray[0].classes[i].name;
         var subclass = classArray[0].classes[i].subclassof;
@@ -179,28 +181,40 @@ app.post('/second_level', (req,res) => {
                 console.log(class_name);
             }
         }
-
+        
     }
     
     var data_result_JSON = [];
     
-    Object.keys(secondClassArray).forEach(function(object){
-        data_result_JSON.push({
-        "title": secondClassArray[object],
-        "type": "BUTTON_TYPE",
-        "value": secondClassArray[object]
-        });
-    });
+    if(secondClassArray.length > 0){
 
-    res.json({
-        replies: [{
-            "type": "buttons",
-            "content": {
-                "title": "Second-Level Classes",
-                "buttons": data_result_JSON
-            }
-        }]
-    });
+        Object.keys(secondClassArray).forEach(function(object){
+            data_result_JSON.push({
+            "title": secondClassArray[object],
+            "type": "BUTTON_TYPE",
+            "value": secondClassArray[object]
+            });
+        });
+
+        res.json({
+            replies: [{
+                "type": "buttons",
+                "content": {
+                    "title": "Second-Level Classes",
+                    "buttons": data_result_JSON
+                }
+            }]
+        });
+
+    } else {
+        res.json({
+            replies: [{
+                "type": "text",
+                "content": `No subclasses found for ${choice_param}`,
+              }]
+        });
+    }
+    
     
 })
 
