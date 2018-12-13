@@ -35,8 +35,10 @@ const namedIndividual_specializedin = "<isSpecializedIn ";
 var classArray = [];
 var firstClassArray = [];
 var secondClassArray = [];
+var objpropertiesArray = [];
 
 var data_classes = {};
+var data_objprops = {};
 
 //Classes attributes
 var name_class;
@@ -44,6 +46,13 @@ var subclassof_class;
 var description_class;
 var onproperty_class;
 var hasvalue_class;
+
+//Object Properties attributes
+var name_objprop;
+var inverseof_objprop;
+var domain_objprop;
+var range_objprop;
+var type_objprop;
 
 Array.prototype.diff = function(a) {
     return this.filter(function(i) {return a.indexOf(i) < 0;});
@@ -69,10 +78,6 @@ app.use(function(req, res, next) {
     .use(bodyParser.json());
 
 app.post('/process', (req,res) => {
-
-    //console.log("I'm in /process");
-    //console.log(req.body);
-    //console.log("=====");
     
     fs.readFile('../ontology/prova.owl', 'utf8', function read(err, data) {
         
@@ -91,7 +96,36 @@ app.post('/process', (req,res) => {
         var counter_classes = 0;
         var counter_classes_global = 0;
 
+        var stack_objprop = {};
+        var counter_objprop = 0;
+        var counter_objprop_global = 0;
+
         rows.forEach(function(value){
+
+            //Let's parse our object properties
+            //==========================================================================
+
+            if(value.includes(objectProperty_substring)) {
+                if(counter_objprop_global === 0) {
+                    stack_objprop["objprops"] = [];
+                    counter_objprop_global++;
+                }
+                if(counter_objprop === 0){
+                    counter_objprop++;
+                }
+            }
+
+            if(typeof stack_objprop["objprops"] !== 'undefined'){
+                if(counter_objprop == 1) {
+                    if(!blank_regex.test(value)){
+                        parseObjProps(value);
+                    } else {
+                        parseObjPropsAttributes(data_objprops, stack_objprop);
+                        data_objprops = {};
+                        counter_objprop = 0;
+                    }
+                }
+            }
 
             //Let's parse our classes
             //==========================================================================
@@ -123,13 +157,22 @@ app.post('/process', (req,res) => {
         });
 
         classArray.push(stack_classes);
+
+        objpropertiesArray.push(stack_objprop);
     
-        res.status(200).end();
+        //res.status(200).end();
         //res.send((classArray));
+        res.send(objpropertiesArray);
 
     });
 
 });
+
+app.post('/objprops', (req,res) => {
+
+    objpropertiesArray = [];
+
+})
 
 app.post('/first_level', (req,res) => {
 
@@ -181,7 +224,7 @@ app.post('/second_level', (req,res) => {
                 console.log(class_name);
             }
         }
-        
+
     }
     
     var data_result_JSON = [];
@@ -227,7 +270,30 @@ function parseString(string){
     return result;
 }
 
-function parseClasses(value) {
+function parseObjProps(value) {
+    if(value.includes("#")){
+        
+        var value_str = parseString(value);
+        
+        if(value.includes(objectProperty_substring)){
+            name_objprop = value_str;
+        }
+        if(value.includes(objectProperty_inverseof)) {
+            inverseof_objprop = value_str;
+        }
+        if(value.includes(objectProperty_domain)) {
+            domain_objprop = value_str;
+        }
+        if(value.includes(objectProperty_range)) {
+            range_objprop = value_str;
+        }
+        if(value.includes(objectProperty_type)) {
+            type_objprop = value_str;
+        }
+    }
+}
+
+function parseClasses(value){
     if(value.includes("#")){
         
         var value_str = parseString(value);
@@ -248,6 +314,24 @@ function parseClasses(value) {
             hasvalue_class = value_str;
         }
     }
+}
+
+function parseObjPropsAttributes(data, stack){
+    data = {
+        "name": name_objprop,
+        "inverseof": inverseof_objprop,
+        "domain": domain_objprop,
+        "range": range_objprop,
+        "type": type_objprop
+    }
+
+    stack["objprops"].push(data);
+
+    name_objprop = "";
+    inverseof_objprop = "";
+    domain_objprop = "";
+    range_objprop = "";
+    type_objprop = "";
 }
 
 function parseClassAttributes(data, stack) {
