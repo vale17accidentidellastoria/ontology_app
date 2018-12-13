@@ -93,7 +93,7 @@ app.use(function(req, res, next) {
 
 app.post('/process', (req,res) => {
     
-    fs.readFile('../ontology/my-food-ontology-rdfxml.owl', 'utf8', function read(err, data) {
+    fs.readFile('./ontology/my-food-ontology-rdfxml.owl', 'utf8', function read(err, data) {
         
         if (err) {
             console.log("ERROR");
