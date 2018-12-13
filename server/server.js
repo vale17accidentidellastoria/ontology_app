@@ -36,9 +36,11 @@ var classArray = [];
 var firstClassArray = [];
 var secondClassArray = [];
 var objpropertiesArray = [];
+var datapropArray = [];
 
 var data_classes = {};
 var data_objprops = {};
+var data_dataprop = {};
 
 //Classes attributes
 var name_class;
@@ -53,6 +55,11 @@ var inverseof_objprop;
 var domain_objprop;
 var range_objprop;
 var type_objprop;
+
+//Data Properties attributes
+var name_dataprop;
+var domain_dataprop;
+var range_dataprop;
 
 Array.prototype.diff = function(a) {
     return this.filter(function(i) {return a.indexOf(i) < 0;});
@@ -79,7 +86,7 @@ app.use(function(req, res, next) {
 
 app.post('/process', (req,res) => {
     
-    fs.readFile('../ontology/prova.owl', 'utf8', function read(err, data) {
+    fs.readFile('../ontology/my-food-ontology-rdfxml.owl', 'utf8', function read(err, data) {
         
         if (err) {
             console.log("ERROR");
@@ -87,6 +94,8 @@ app.post('/process', (req,res) => {
         }
 
         classArray = [];
+        objpropertiesArray = [];
+        datapropArray = [];
 
         var blank_regex = /^\s*$/;
 
@@ -100,11 +109,15 @@ app.post('/process', (req,res) => {
         var counter_objprop = 0;
         var counter_objprop_global = 0;
 
+        var stack_dataprop = {};
+        var counter_dataprop = 0;
+        var counter_dataprop_global = 0;
+
         rows.forEach(function(value){
 
             //Let's parse our object properties
             //==========================================================================
-
+            
             if(value.includes(objectProperty_substring)) {
                 if(counter_objprop_global === 0) {
                     stack_objprop["objprops"] = [];
@@ -126,9 +139,36 @@ app.post('/process', (req,res) => {
                     }
                 }
             }
+            
+
+            //Let's parse our data type properties
+            //==========================================================================
+
+            if(value.includes(dataTypeProperty_substring)){
+                if(counter_dataprop_global === 0){
+                    stack_dataprop["dataprops"] = [];
+                    counter_dataprop_global++;
+                }
+                if(counter_dataprop === 0){
+                    counter_dataprop++;
+                }
+            }
+
+            if(typeof stack_dataprop["dataprops"] !== 'undefined'){
+                if(counter_dataprop == 1){
+                    if(!blank_regex.test(value)){
+                        parseDataProps(value);
+                    } else {
+                        parseDataPropAttributes(data_dataprop, stack_dataprop);
+                        data_dataprop = {};
+                        counter_dataprop = 0;
+                    }
+                }
+            }
 
             //Let's parse our classes
             //==========================================================================
+        
             
             if(value.includes(class_substring)){
                 if(counter_classes_global === 0){
@@ -152,6 +192,7 @@ app.post('/process', (req,res) => {
                 }
             }
             
+            
             //==========================================================================
 
         });
@@ -159,20 +200,17 @@ app.post('/process', (req,res) => {
         classArray.push(stack_classes);
 
         objpropertiesArray.push(stack_objprop);
+
+        datapropArray.push(stack_dataprop);
     
         //res.status(200).end();
         //res.send((classArray));
-        res.send(objpropertiesArray);
+        //res.send(objpropertiesArray);
+        res.send(datapropArray);
 
     });
 
 });
-
-app.post('/objprops', (req,res) => {
-
-    objpropertiesArray = [];
-
-})
 
 app.post('/first_level', (req,res) => {
 
@@ -293,6 +331,22 @@ function parseObjProps(value) {
     }
 }
 
+function parseDataProps(value) {
+    if(value.includes("#")){
+        var value_str = parseString(value);
+        
+        if(value.includes(dataTypeProperty_substring)){
+            name_dataprop = value_str;
+        }
+        if(value.includes(dataTypeProperty_domain)) {
+            domain_dataprop = value_str;
+        }
+        if(value.includes(dataTypeProperty_range)) {
+            range_dataprop = value_str;
+        }
+    }
+}
+
 function parseClasses(value){
     if(value.includes("#")){
         
@@ -332,6 +386,19 @@ function parseObjPropsAttributes(data, stack){
     domain_objprop = "";
     range_objprop = "";
     type_objprop = "";
+}
+
+function parseDataPropAttributes(data, stack){
+    data = {
+        "name": name_dataprop,
+        "domain": domain_dataprop,
+        "range": range_dataprop
+    }
+
+    stack["dataprops"].push(data);
+    name_dataprop = "";
+    domain_dataprop = "";
+    range_dataprop = "";
 }
 
 function parseClassAttributes(data, stack) {
