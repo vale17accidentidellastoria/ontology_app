@@ -43,7 +43,7 @@ const str_classes = {class_substring, subclass_substring, class_description, cla
 
 const namedIndividual_substring = "<owl:NamedIndividual ";
 const namedIndividual_type = "<rdf:type ";
-const namedIndividual_specializedin = "<isSpecializedIn ";
+const namedIndividual_specializedin = "<isSpecializedIn "; //it's an object property
 const str_named = {namedIndividual_substring, namedIndividual_type, namedIndividual_specializedin};
 
 var classArray = [];
@@ -264,7 +264,7 @@ app.post('/process', (req,res) => {
         //res.send(objpropertiesArray);
         //res.send(datapropArray);
         //res.send(namedindividualArray);
-
+        //res.send([objpropertiesArray, datapropArray, classArray, namedindividualArray]);
     });
 
 });
@@ -308,7 +308,8 @@ app.post('/second_level', (req,res) => {
     
     secondClassArray = [];
     
-    var choice_param = req.body.nlp.source;
+    //var choice_param = req.body.nlp.source;
+    var choice_param = "Restaurant";
     
     for(var i = 0; i < classArray[0].classes.length; i++){
         var class_name = classArray[0].classes[i].name;
@@ -316,7 +317,6 @@ app.post('/second_level', (req,res) => {
         if((typeof subclass !== 'undefined') && (subclass !== "") && (typeof class_name !== 'undefined') && (class_name !== "")){
             if(choice_param === subclass){
                 secondClassArray.push(class_name);
-                console.log(class_name);
             }
         }
 
@@ -354,6 +354,67 @@ app.post('/second_level', (req,res) => {
     }
     
     
-})
+});
+
+app.post('/third_level', (req,res) => {
+    const italianrest = "BrazilianRestaurant";
+
+    var names = [];
+
+    for(var i = 0; i < classArray[0].classes.length; i++){
+        var elem = classArray[0].classes[i];
+        if(elem.name === italianrest){
+            var e_subclass = elem.subclassof;
+            //Then we should find also the value of the property, for example isSpecializedIn
+            var e_hasvalue = elem.hasvalue;
+            
+            for (j = 0; j < namedindividualArray[0].namedinds.length; j++){
+                var value = namedindividualArray[0].namedinds[j];
+                if(e_subclass === value.type && e_hasvalue === value.isspecialized){
+                    names.push(value.name);
+                }
+            }   
+                    
+        }
+    }  
+
+    var data_result_JSON = [];
+
+    if(names.length > 0){
+
+        Object.keys(names).forEach(function(object){
+            data_result_JSON.push({
+                "title": names[object],
+                "subtitle": "CARD_1_SUBTITLE",
+                "imageUrl": "https://media-cdn.tripadvisor.com/media/photo-s/0e/cc/0a/dc/restaurant-chocolat.jpg",
+                "buttons": [
+                  {
+                    "title": "BUTTON_1_TITLE",
+                    "type": "BUTTON_1_TYPE",
+                    "value": "BUTTON_1_VALUE"
+                  }
+                ]
+            });
+        });
+
+        res.json({
+            replies: [{
+                "type": "carousel",
+                "content": data_result_JSON
+              }]
+        });
+
+    } else {
+        res.json({
+            replies: [{
+                "type": "text",
+                "content": `No results`,
+              }]
+        });
+    }
+    
+    res.status(200).end();
+
+});
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
