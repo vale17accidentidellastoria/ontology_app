@@ -4,6 +4,8 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const recastai = require('recastai').default;
 
+const port = 3030 | process.env.PORT;
+
 //Calling the external functions which help in setting attributes for all ontology properties
 const parserObjPropsAttr = require('./controllers/parser_attributes/parserObjPropsAttr');
 const parserClassesAttr = require('./controllers/parser_attributes/parserClassesAttr');
@@ -15,14 +17,6 @@ const parserObj = require('./controllers/parser_functions/parserObj');
 const parserNamedInds = require('./controllers/parser_functions/parserNamedInds');
 const parserDataProps = require('./controllers/parser_functions/parserDataProps');
 const parserClasses = require('./controllers/parser_functions/parserClasses');
-
-const REQUEST_TOKEN = '40399fb5ea31b36c3c99f6ea4f528cc2';
-const DEVELOPER_TOKEN = '64fbecbbb579e6db484aba871a439338';
-const USER_SLUG = 'vale17accidentidellastoria';
-const BOT_SLUG = 'ontology-app-bot';
-const CONVERSATION_ID = 'test-1530310812548';
-
-const port = 3030 | process.env.PORT;
 
 const dataTypeProperty_substring = "<owl:DatatypeProperty ";
 const dataTypeProperty_domain = "<rdfs:domain ";
@@ -50,11 +44,23 @@ const namedIndividual_specializedin = "<isSpecializedIn "; //it's an object prop
 const str_named = {namedIndividual_substring, namedIndividual_type, namedIndividual_specializedin};
 
 //These are all variables which are helpful for the parsing
+
+//This array will contain all the classes in the ontology
 var classArray = [];
+
+//In this array will be saved all the first classes in the ontology
 var firstClassArray = [];
+
+//In this array will be saved all the second level classes for a chosen first class in the ontology
 var secondClassArray = [];
+
+//This array will contain all the object properties in the ontology
 var objpropertiesArray = [];
+
+//This array will contain all the data properties in the ontology
 var datapropArray = [];
+
+//This array will contain all the named individuals in the ontology
 var namedindividualArray = [];
 
 var data_classes = {};
