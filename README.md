@@ -8,7 +8,7 @@ Make sure you have [Node.js](http://nodejs.org/) installed.
 $ git clone https://github.com/vale17accidentidellastoria/ontology_app.git
 $ cd ontology_app
 $ npm install
-$ npm start
+$ node server.js
 ```
 
 Your app should now be running on [localhost:3030](http://localhost:3030/).
