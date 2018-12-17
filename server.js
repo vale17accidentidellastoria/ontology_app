@@ -18,11 +18,14 @@ const parserNamedInds = require('./controllers/parser_functions/parserNamedInds'
 const parserDataProps = require('./controllers/parser_functions/parserDataProps');
 const parserClasses = require('./controllers/parser_functions/parserClasses');
 
+//These are all the strings which represents specific tags in the RDF ontology
+//Strings for dataTypeProperty RDF tag
 const dataTypeProperty_substring = "<owl:DatatypeProperty ";
 const dataTypeProperty_domain = "<rdfs:domain ";
 const dataTypeProperty_range = "<rdfs:range ";
 const str_dataprops = {dataTypeProperty_substring, dataTypeProperty_domain, dataTypeProperty_range};
 
+//Strings for objectProperty RDF tag
 const objectProperty_substring = "<owl:ObjectProperty ";
 const objectProperty_inverseof = "<owl:inverseOf ";
 const objectProperty_domain = "<rdfs:domain ";
@@ -30,6 +33,7 @@ const objectProperty_range = "<rdfs:range ";
 const objectProperty_type = "<rdf:type ";
 const str_objprops = {objectProperty_substring, objectProperty_inverseof, objectProperty_domain, objectProperty_range, objectProperty_type};
 
+//Strings for class RDF tag
 const class_substring = "<owl:Class ";
 const subclass_substring = "<rdfs:subClassOf ";
 const class_description = "<rdf:Description ";
@@ -37,14 +41,13 @@ const class_onproperty = "<owl:onProperty ";
 const class_hasvalue = "<owl:hasValue ";
 const str_classes = {class_substring, subclass_substring, class_description, class_onproperty, class_hasvalue};
 
+//Strings for namedIndividuals RDF tag
 const namedIndividual_substring = "<owl:NamedIndividual ";
 const namedIndividual_type = "<rdf:type ";
-//specializedIn is specific to food ontology
-const namedIndividual_specializedin = "<isSpecializedIn "; //it's an object property
+const namedIndividual_specializedin = "<isSpecializedIn "; //specializedIn is specific to food ontology
 const str_named = {namedIndividual_substring, namedIndividual_type, namedIndividual_specializedin};
 
 //These are all variables which are helpful for the parsing
-
 //This array will contain all the classes in the ontology
 var classArray = [];
 
@@ -63,6 +66,7 @@ var datapropArray = [];
 //This array will contain all the named individuals in the ontology
 var namedindividualArray = [];
 
+//Objects where will be saved all the attributes according to classes, object properties, data properties, named individuals
 var data_classes = {};
 var data_objprops = {};
 var data_dataprop = {};
