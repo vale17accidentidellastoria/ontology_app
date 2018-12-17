@@ -4,6 +4,16 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const recastai = require('recastai').default;
 
+const parserObjPropsAttr = require('./controllers/parser_attributes/parserObjPropsAttr');
+const parserClassesAttr = require('./controllers/parser_attributes/parserClassesAttr');
+const parserDataPropsAttr = require('./controllers/parser_attributes/parserDataPropsAttr');
+const parserNamedIndsAttr = require('./controllers/parser_attributes/parserNamedIndsAttr');
+
+const parserObj = require('./controllers/parser_functions/parserObj');
+const parserNamedInds = require('./controllers/parser_functions/parserNamedInds');
+const parserDataProps = require('./controllers/parser_functions/parserDataProps');
+const parserClasses = require('./controllers/parser_functions/parserClasses');
+
 const REQUEST_TOKEN = '40399fb5ea31b36c3c99f6ea4f528cc2';
 const DEVELOPER_TOKEN = '64fbecbbb579e6db484aba871a439338';
 const USER_SLUG = 'vale17accidentidellastoria';
@@ -15,22 +25,26 @@ const port = 3030 | process.env.PORT;
 const dataTypeProperty_substring = "<owl:DatatypeProperty ";
 const dataTypeProperty_domain = "<rdfs:domain ";
 const dataTypeProperty_range = "<rdfs:range ";
+const str_dataprops = {dataTypeProperty_substring, dataTypeProperty_domain, dataTypeProperty_range};
 
 const objectProperty_substring = "<owl:ObjectProperty ";
 const objectProperty_inverseof = "<owl:inverseOf ";
 const objectProperty_domain = "<rdfs:domain ";
 const objectProperty_range = "<rdfs:range ";
 const objectProperty_type = "<rdf:type ";
+const str_objprops = {objectProperty_substring, objectProperty_inverseof, objectProperty_domain, objectProperty_range, objectProperty_type};
 
 const class_substring = "<owl:Class ";
 const subclass_substring = "<rdfs:subClassOf ";
 const class_description = "<rdf:Description ";
 const class_onproperty = "<owl:onProperty ";
 const class_hasvalue = "<owl:hasValue ";
+const str_classes = {class_substring, subclass_substring, class_description, class_onproperty, class_hasvalue};
 
 const namedIndividual_substring = "<owl:NamedIndividual ";
 const namedIndividual_type = "<rdf:type ";
 const namedIndividual_specializedin = "<isSpecializedIn ";
+const str_named = {namedIndividual_substring, namedIndividual_type, namedIndividual_specializedin};
 
 var classArray = [];
 var firstClassArray = [];
@@ -45,28 +59,32 @@ var data_dataprop = {};
 var data_namedindividual = {};
 
 //Classes attributes
-var name_class;
-var subclassof_class;
-var description_class;
-var onproperty_class;
-var hasvalue_class;
+var name_class = "";
+var subclassof_class = "";
+var description_class = "";
+var onproperty_class = "";
+var hasvalue_class = "";
+var data_class_values = {name_class, subclassof_class, description_class, onproperty_class, hasvalue_class};
 
 //Object Properties attributes
-var name_objprop;
-var inverseof_objprop;
-var domain_objprop;
-var range_objprop;
-var type_objprop;
+var name_objprop = "";
+var inverseof_objprop = "";
+var domain_objprop = "";
+var range_objprop = "";
+var type_objprop = "";
+var data_obj_values = {name_objprop, inverseof_objprop, domain_objprop, range_objprop, type_objprop};
 
 //Data Properties attributes
-var name_dataprop;
-var domain_dataprop;
-var range_dataprop;
+var name_dataprop = "";
+var domain_dataprop = "";
+var range_dataprop = "";
+var data_prop_values = {name_dataprop, domain_dataprop, range_dataprop};
 
 //Named Individuals attributes
-var name_namedindividual;
-var type_namedindividual;
-var specialization_namedindividual;
+var name_namedindividual = "";
+var type_namedindividual = "";
+var specialization_namedindividual = "";
+var data_named_values = {name_namedindividual, type_namedindividual, specialization_namedindividual};
 
 Array.prototype.diff = function(a) {
     return this.filter(function(i) {return a.indexOf(i) < 0;});
@@ -143,9 +161,9 @@ app.post('/process', (req,res) => {
             if(typeof stack_objprop["objprops"] !== 'undefined'){
                 if(counter_objprop == 1) {
                     if(!blank_regex.test(value)){
-                        parseObjProps(value);
+                        parserObj(value, data_obj_values, str_objprops);
                     } else {
-                        parseObjPropsAttributes(data_objprops, stack_objprop);
+                        parserObjPropsAttr(data_obj_values, data_objprops, stack_objprop);
                         data_objprops = {};
                         counter_objprop = 0;
                     }
@@ -169,9 +187,9 @@ app.post('/process', (req,res) => {
             if(typeof stack_dataprop["dataprops"] !== 'undefined'){
                 if(counter_dataprop == 1){
                     if(!blank_regex.test(value)){
-                        parseDataProps(value);
+                        parserDataProps(value, data_prop_values, str_dataprops);
                     } else {
-                        parseDataPropsAttributes(data_dataprop, stack_dataprop);
+                        parserDataPropsAttr(data_prop_values, data_dataprop, stack_dataprop);
                         data_dataprop = {};
                         counter_dataprop = 0;
                     }
@@ -195,9 +213,9 @@ app.post('/process', (req,res) => {
             if(typeof stack_classes["classes"] !== 'undefined'){
                 if(counter_classes == 1) {
                     if(!blank_regex.test(value)) {
-                        parseClasses(value);
+                        parserClasses(value, data_class_values, str_classes);
                     } else {
-                        parseClassAttributes(data_classes, stack_classes);
+                        parserClassesAttr(data_class_values, data_classes, stack_classes);
                         data_classes = {};
                         counter_classes = 0;
                     }
@@ -221,9 +239,9 @@ app.post('/process', (req,res) => {
             if(typeof stack_namedindividual["namedinds"] !== 'undefined'){
                 if(counter_namedindividual == 1){
                     if(!blank_regex.test(value)){
-                        parseNamedIndividuals(value);
+                        parserNamedInds(value, data_named_values, str_named);
                     } else {
-                        parseNamedIndividualsAttributes(data_namedindividual, stack_namedindividual);
+                        parserNamedIndsAttr(data_named_values, data_namedindividual, stack_namedindividual);
                         data_namedindividual = {};
                         counter_namedindividual = 0;
                     }
@@ -241,11 +259,11 @@ app.post('/process', (req,res) => {
 
         namedindividualArray.push(stack_namedindividual);
     
-        //res.status(200).end();
-        //res.send((classArray));
+        res.status(200).end();
+        //res.send(classArray);
         //res.send(objpropertiesArray);
         //res.send(datapropArray);
-        res.send(namedindividualArray);
+        //res.send(namedindividualArray);
 
     });
 
@@ -339,152 +357,3 @@ app.post('/second_level', (req,res) => {
 })
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
-
-function parseString(string){
-    var first_split = string.split("#");
-    var second_split = first_split[1].split(`"`);
-    var result = second_split[0];
-    return result;
-}
-
-function parseObjProps(value) {
-    if(value.includes("#")){
-        
-        var value_str = parseString(value);
-        
-        if(value.includes(objectProperty_substring)){
-            name_objprop = value_str;
-        }
-        if(value.includes(objectProperty_inverseof)) {
-            inverseof_objprop = value_str;
-        }
-        if(value.includes(objectProperty_domain)) {
-            domain_objprop = value_str;
-        }
-        if(value.includes(objectProperty_range)) {
-            range_objprop = value_str;
-        }
-        if(value.includes(objectProperty_type)) {
-            type_objprop = value_str;
-        }
-    }
-}
-
-function parseDataProps(value) {
-    if(value.includes("#")){
-        var value_str = parseString(value);
-        
-        if(value.includes(dataTypeProperty_substring)){
-            name_dataprop = value_str;
-        }
-        if(value.includes(dataTypeProperty_domain)) {
-            domain_dataprop = value_str;
-        }
-        if(value.includes(dataTypeProperty_range)) {
-            range_dataprop = value_str;
-        }
-    }
-}
-
-function parseClasses(value){
-    if(value.includes("#")){
-        
-        var value_str = parseString(value);
-        
-        if(value.includes(class_substring)){
-            name_class = value_str;
-        }
-        if(value.includes(subclass_substring)) {
-            subclassof_class = value_str;
-        }
-        if(value.includes(class_description)) {
-            description_class = value_str;
-        }
-        if(value.includes(class_onproperty)) {
-            onproperty_class = value_str;
-        }
-        if(value.includes(class_hasvalue)) {
-            hasvalue_class = value_str;
-        }
-    }
-}
-
-function parseNamedIndividuals(value){
-    if(value.includes("#")){
-        
-        var value_str = parseString(value);
-        
-        if(value.includes(namedIndividual_substring)){
-            name_namedindividual = value_str;
-        }
-        if(value.includes(namedIndividual_type)) {
-            type_namedindividual = value_str;
-        }
-        if(value.includes(namedIndividual_specializedin)) {
-            specialization_namedindividual = value_str;
-        }
-    }
-}
-
-function parseObjPropsAttributes(data, stack){
-    data = {
-        "name": name_objprop,
-        "inverseof": inverseof_objprop,
-        "domain": domain_objprop,
-        "range": range_objprop,
-        "type": type_objprop
-    }
-
-    stack["objprops"].push(data);
-
-    name_objprop = "";
-    inverseof_objprop = "";
-    domain_objprop = "";
-    range_objprop = "";
-    type_objprop = "";
-}
-
-function parseDataPropsAttributes(data, stack){
-    data = {
-        "name": name_dataprop,
-        "domain": domain_dataprop,
-        "range": range_dataprop
-    }
-
-    stack["dataprops"].push(data);
-    name_dataprop = "";
-    domain_dataprop = "";
-    range_dataprop = "";
-}
-
-function parseClassAttributes(data, stack) {
-    data = {
-        "name": name_class,
-        "subclassof": subclassof_class,
-        "description": description_class,
-        "onproperty": onproperty_class, 
-        "hasvalue": hasvalue_class
-    }
-
-    stack["classes"].push(data);
-    
-    name_class = "";
-    subclassof_class = "";
-    description_class = "";
-    onproperty_class = "";
-    hasvalue_class = "";
-}
-
-function parseNamedIndividualsAttributes(data, stack){
-    data = {
-        "name": name_namedindividual,
-        "type": type_namedindividual,
-        "isspecialized": specialization_namedindividual
-    }
-
-    stack["namedinds"].push(data);
-
-    name_namedindividual = "";
-    type_namedindividual = "";
-    specialization_namedindividual = "";
-}
