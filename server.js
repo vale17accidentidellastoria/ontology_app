@@ -4,11 +4,13 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const recastai = require('recastai').default;
 
+//Calling the external functions which help in setting attributes for all ontology properties
 const parserObjPropsAttr = require('./controllers/parser_attributes/parserObjPropsAttr');
 const parserClassesAttr = require('./controllers/parser_attributes/parserClassesAttr');
 const parserDataPropsAttr = require('./controllers/parser_attributes/parserDataPropsAttr');
 const parserNamedIndsAttr = require('./controllers/parser_attributes/parserNamedIndsAttr');
 
+//Functions which help to parse all the properties in the ontology and their different kinds
 const parserObj = require('./controllers/parser_functions/parserObj');
 const parserNamedInds = require('./controllers/parser_functions/parserNamedInds');
 const parserDataProps = require('./controllers/parser_functions/parserDataProps');
@@ -43,9 +45,11 @@ const str_classes = {class_substring, subclass_substring, class_description, cla
 
 const namedIndividual_substring = "<owl:NamedIndividual ";
 const namedIndividual_type = "<rdf:type ";
+//specializedIn is specific to food ontology
 const namedIndividual_specializedin = "<isSpecializedIn "; //it's an object property
 const str_named = {namedIndividual_substring, namedIndividual_type, namedIndividual_specializedin};
 
+//These are all variables which are helpful for the parsing
 var classArray = [];
 var firstClassArray = [];
 var secondClassArray = [];
@@ -86,21 +90,6 @@ var type_namedindividual = "";
 var specialization_namedindividual = "";
 var data_named_values = {name_namedindividual, type_namedindividual, specialization_namedindividual};
 
-Array.prototype.diff = function(a) {
-    return this.filter(function(i) {return a.indexOf(i) < 0;});
-};
-
-Array.prototype.remove = function() {
-    var what, a = arguments, L = a.length, ax;
-    while (L && this.length) {
-        what = a[--L];
-        while ((ax = this.indexOf(what)) !== -1) {
-            this.splice(ax, 1);
-        }
-    }
-    return this;
-};
-
 var app = express();
 app.use(function(req, res, next) {
         res.header("Access-Control-Allow-Origin", "*");
@@ -109,6 +98,7 @@ app.use(function(req, res, next) {
     })
     .use(bodyParser.json());
 
+//Process does the parsing of the ontology files
 app.post('/process', (req,res) => {
     
     fs.readFile('./ontology/my-food-ontology-rdfxml.owl', 'utf8', function read(err, data) {
@@ -251,24 +241,29 @@ app.post('/process', (req,res) => {
 
         });
 
+        //In this array there are all the classes object
         classArray.push(stack_classes);
 
+        //In this array there are all the object properties objects
         objpropertiesArray.push(stack_objprop);
 
+        //In this array there are all the data properties objects
         datapropArray.push(stack_dataprop);
 
+        //In this array there are all the named individuals properties
         namedindividualArray.push(stack_namedindividual);
     
         res.status(200).end();
+        //Just to test
         //res.send(classArray);
         //res.send(objpropertiesArray);
         //res.send(datapropArray);
         //res.send(namedindividualArray);
-        //res.send([objpropertiesArray, datapropArray, classArray, namedindividualArray]);
     });
 
 });
 
+// /first_level shows all the first level classes
 app.post('/first_level', (req,res) => {
 
     firstClassArray = [];
@@ -304,12 +299,12 @@ app.post('/first_level', (req,res) => {
     
 })
 
+//If a class has subclasses, it shows all the subclasses of that class
 app.post('/second_level', (req,res) => {
     
     secondClassArray = [];
     
-    //var choice_param = req.body.nlp.source;
-    var choice_param = "Restaurant";
+    var choice_param = req.body.nlp.source;
     
     for(var i = 0; i < classArray[0].classes.length; i++){
         var class_name = classArray[0].classes[i].name;
@@ -356,8 +351,9 @@ app.post('/second_level', (req,res) => {
     
 });
 
+//For classes like restaurants which have subclasses, /third_level should print the namedindividuals to one of these chosen classes
 app.post('/third_level', (req,res) => {
-    const italianrest = "BrazilianRestaurant";
+    const italianrest = "ItalianRestaurant";
 
     var names = [];
 
