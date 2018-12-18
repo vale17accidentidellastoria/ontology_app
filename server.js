@@ -296,23 +296,27 @@ app.post('/process', (req,res) => {
 // /first_level shows all the first level classes
 app.post('/first_level', (req,res) => {
 
+    //Array in which first level classes will be put
     firstClassArray = [];
+    //Array in which names of first level classes will be put to be shown in the JSON
+    firstClassArrayNames = [];
 
     for(var i = 0; i < classArray[0].classes.length; i++){
         var class_name = classArray[0].classes[i].name;
         var subclass = classArray[0].classes[i].subclassof;
         if(((subclass === "") || (typeof subclass === 'undefined')) && ((typeof class_name !== 'undefined') && (class_name !== ""))){
-            firstClassArray.push(class_name);
+            firstClassArray.push(classArray[0].classes[i]);
+            firstClassArrayNames.push(class_name);
         }
 
     }
     
     var data_result_JSON = [];
 
-    Object.keys(firstClassArray).forEach(function(object){
+    Object.keys(firstClassArrayNames).forEach(function(object){
         data_result_JSON.push({
-        "title": firstClassArray[object],
-        "value": firstClassArray[object]
+        "title": firstClassArrayNames[object],
+        "value": firstClassArrayNames[object]
         });
     });
 
@@ -332,7 +336,10 @@ app.post('/first_level', (req,res) => {
 //If a class has subclasses, it shows all the subclasses of that class
 app.post('/second_level', (req,res) => {
     
+    //Array in which second level classes for a specific class will be put
     secondClassArray = [];
+    //Array in which names of second level classes for a specific class will be put to be shown in the JSON
+    secondClassArrayNames = [];
     
     var choice_param = req.body.nlp.source;
     console.log(choice_param);
@@ -342,7 +349,8 @@ app.post('/second_level', (req,res) => {
         var subclass = classArray[0].classes[i].subclassof;
         if((typeof subclass !== 'undefined') && (subclass !== "") && (typeof class_name !== 'undefined') && (class_name !== "")){
             if(choice_param === subclass){
-                secondClassArray.push(class_name);
+                secondClassArray.push(classArray[0].classes[i]);
+                secondClassArrayNames.push(class_name);
             }
         }
 
@@ -350,13 +358,13 @@ app.post('/second_level', (req,res) => {
     
     var data_result_JSON = [];
     
-    if(secondClassArray.length > 0){
+    if(secondClassArrayNames.length > 0){
 
-        Object.keys(secondClassArray).forEach(function(object){
+        Object.keys(secondClassArrayNames).forEach(function(object){
             data_result_JSON.push({
-            "title": secondClassArray[object],
+            "title": secondClassArrayNames[object],
             "type": "BUTTON_TYPE",
-            "value": secondClassArray[object]
+            "value": secondClassArrayNames[object]
             });
         });
 
@@ -374,7 +382,7 @@ app.post('/second_level', (req,res) => {
         res.json({
             replies: [{
                 "type": "text",
-                "content": `No subclasses found for ${choice_param}`,
+                "content": `No results found for ${choice_param}`,
               }]
         });
     }
@@ -387,13 +395,13 @@ app.post('/second_level', (req,res) => {
 app.post('/third_level', (req,res) => {
 
     //Fixed variable just to test...
-    const italianrest = "ItalianRestaurant";
+    const choice_param = "ItalianRestaurant";
 
     var names = [];
 
     for(var i = 0; i < classArray[0].classes.length; i++){
         var elem = classArray[0].classes[i];
-        if(elem.name === italianrest){
+        if(elem.name === choice_param){
             var e_subclass = elem.subclassof;
             //Then we should find also the value of the property, for example isSpecializedIn
             var e_hasvalue = elem.hasvalue;
