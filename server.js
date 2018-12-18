@@ -62,6 +62,9 @@ var firstClassArray = [];
 //In this array will be saved all the second level classes for a chosen first class in the ontology
 var secondClassArray = [];
 
+//Array in which there are all the first level classes which are no subclassed
+var noSubclassedClassesArray = [];
+
 //This array will contain all the object properties in the ontology
 var objpropertiesArray = [];
 
@@ -108,6 +111,17 @@ var type_namedindividual = "";
 var specialization_namedindividual = "";
 //Object created to keep all the attribute values for named individuals
 var data_named_values = {name_namedindividual, type_namedindividual, specialization_namedindividual};
+
+Array.prototype.remove = function() {
+    var what, a = arguments, L = a.length, ax;
+    while (L && this.length) {
+        what = a[--L];
+        while ((ax = this.indexOf(what)) !== -1) {
+            this.splice(ax, 1);
+        }
+    }
+    return this;
+};
 
 var app = express();
 app.use(function(req, res, next) {
@@ -278,17 +292,17 @@ app.post('/process', (req,res) => {
         namedindividualArray.push(stack_namedindividual);
     
         //res.status() to work with Recast.ai
-        res.status(200).end();
+        //res.status(200).end();
         //Just to test
         //res.send(classArray);
         //res.send(objpropertiesArray);
         //res.send(datapropArray);
         //res.send(namedindividualArray);
-        /*
+        
         //Shows all the properties found by the parser divided by object props, data props, classes and named individuals
         var all_properties = [objpropertiesArray, datapropArray, classArray, namedindividualArray];
         res.send(all_properties);
-        */
+        
     });
 
 });
@@ -300,15 +314,18 @@ app.post('/first_level', (req,res) => {
     firstClassArray = [];
     //Array in which names of first level classes will be put to be shown in the JSON
     firstClassArrayNames = [];
+    //Array in which there are all the first level classes which are no subclassed
+    noSubclassedClassesArray = [];
 
     for(var i = 0; i < classArray[0].classes.length; i++){
         var class_name = classArray[0].classes[i].name;
         var subclass = classArray[0].classes[i].subclassof;
         if(((subclass === "") || (typeof subclass === 'undefined')) && ((typeof class_name !== 'undefined') && (class_name !== ""))){
             firstClassArray.push(classArray[0].classes[i]);
+            //add all the same element in firstClassArray to noSubclassedClassesArray
+            noSubclassedClassesArray.push(classArray[0].classes[i]);
             firstClassArrayNames.push(class_name);
         }
-
     }
     
     var data_result_JSON = [];
@@ -341,7 +358,8 @@ app.post('/second_level', (req,res) => {
     //Array in which names of second level classes for a specific class will be put to be shown in the JSON
     secondClassArrayNames = [];
     
-    var choice_param = req.body.nlp.source;
+    //var choice_param = req.body.nlp.source;
+    var choice_param = "Restaurant";
     console.log(choice_param);
 
     for(var i = 0; i < classArray[0].classes.length; i++){
@@ -355,6 +373,20 @@ app.post('/second_level', (req,res) => {
         }
 
     }
+
+    //In this iteration we can get all the classes which have no subclasses 
+    for(var i = 0; i < classArray[0].classes.length; i++){
+        var subclass = classArray[0].classes[i].subclassof;
+        if(subclass !== "" && typeof subclass !== 'undefined'){
+            for (var j = 0; j < firstClassArray.length; j++){
+                if(subclass === firstClassArray[j].name){
+                    noSubclassedClassesArray.remove(firstClassArray[j]);
+                }
+            }
+        }
+    }
+
+    console.log(noSubclassedClassesArray);
     
     var data_result_JSON = [];
     
