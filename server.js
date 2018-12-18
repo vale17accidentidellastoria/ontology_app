@@ -23,6 +23,7 @@ const parserClasses = require('./controllers/parser_functions/parserClasses');
 const dataTypeProperty_substring = "<owl:DatatypeProperty ";
 const dataTypeProperty_domain = "<rdfs:domain ";
 const dataTypeProperty_range = "<rdfs:range ";
+//Object which contains all the strings representing dataTypeProperty tags to be easier to manage
 const str_dataprops = {dataTypeProperty_substring, dataTypeProperty_domain, dataTypeProperty_range};
 
 //Strings for objectProperty RDF tag
@@ -31,6 +32,7 @@ const objectProperty_inverseof = "<owl:inverseOf ";
 const objectProperty_domain = "<rdfs:domain ";
 const objectProperty_range = "<rdfs:range ";
 const objectProperty_type = "<rdf:type ";
+//Object which contains all the strings representing objectProperty tags to be easier to manage
 const str_objprops = {objectProperty_substring, objectProperty_inverseof, objectProperty_domain, objectProperty_range, objectProperty_type};
 
 //Strings for class RDF tag
@@ -39,12 +41,15 @@ const subclass_substring = "<rdfs:subClassOf ";
 const class_description = "<rdf:Description ";
 const class_onproperty = "<owl:onProperty ";
 const class_hasvalue = "<owl:hasValue ";
+//Object which contains all the strings representing class tags to be easier to manage
 const str_classes = {class_substring, subclass_substring, class_description, class_onproperty, class_hasvalue};
 
 //Strings for namedIndividuals RDF tag
 const namedIndividual_substring = "<owl:NamedIndividual ";
 const namedIndividual_type = "<rdf:type ";
+//TODO: find a way to make "isSpecializedIn" independent from the ontology
 const namedIndividual_specializedin = "<isSpecializedIn "; //specializedIn is specific to food ontology
+//Object which contains all the strings representing namedIndividual tags to be easier to manage
 const str_named = {namedIndividual_substring, namedIndividual_type, namedIndividual_specializedin};
 
 //These are all variables which are helpful for the parsing
@@ -78,6 +83,7 @@ var subclassof_class = "";
 var description_class = "";
 var onproperty_class = "";
 var hasvalue_class = "";
+//Object created to keep all the attribute values for classes
 var data_class_values = {name_class, subclassof_class, description_class, onproperty_class, hasvalue_class};
 
 //Object Properties attributes
@@ -86,18 +92,21 @@ var inverseof_objprop = "";
 var domain_objprop = "";
 var range_objprop = "";
 var type_objprop = "";
+//Object created to keep all the attribute values for object properties
 var data_obj_values = {name_objprop, inverseof_objprop, domain_objprop, range_objprop, type_objprop};
 
 //Data Properties attributes
 var name_dataprop = "";
 var domain_dataprop = "";
 var range_dataprop = "";
+//Object created to keep all the attribute values for data properties
 var data_prop_values = {name_dataprop, domain_dataprop, range_dataprop};
 
 //Named Individuals attributes
 var name_namedindividual = "";
 var type_namedindividual = "";
 var specialization_namedindividual = "";
+//Object created to keep all the attribute values for named individuals
 var data_named_values = {name_namedindividual, type_namedindividual, specialization_namedindividual};
 
 var app = express();
@@ -111,6 +120,7 @@ app.use(function(req, res, next) {
 //Process does the parsing of the ontology files
 app.post('/process', (req,res) => {
     
+    //Reads the Restauration Ontology Owl file
     fs.readFile('./ontology/my-food-ontology-rdfxml.owl', 'utf8', function read(err, data) {
         
         if (err) {
@@ -118,6 +128,7 @@ app.post('/process', (req,res) => {
             throw err;
         }
 
+        //All the arrays representing classes, object props, data props and named individuals are initilized when the reading of a file begins
         classArray = [];
         objpropertiesArray = [];
         datapropArray = [];
@@ -125,7 +136,10 @@ app.post('/process', (req,res) => {
 
         var blank_regex = /^\s*$/;
 
+        //The parser reads each single row of the input file
         var rows = data.toString().split('\n');
+
+        //The following are all variables which supports the parsing and make it easier
 
         var stack_classes = {};
         var counter_classes = 0;
@@ -263,12 +277,18 @@ app.post('/process', (req,res) => {
         //In this array there are all the named individuals properties
         namedindividualArray.push(stack_namedindividual);
     
+        //res.status() to work with Recast.ai
         res.status(200).end();
         //Just to test
         //res.send(classArray);
         //res.send(objpropertiesArray);
         //res.send(datapropArray);
         //res.send(namedindividualArray);
+        /*
+        //Shows all the properties found by the parser divided by object props, data props, classes and named individuals
+        var all_properties = [objpropertiesArray, datapropArray, classArray, namedindividualArray];
+        res.send(all_properties);
+        */
     });
 
 });
@@ -361,8 +381,11 @@ app.post('/second_level', (req,res) => {
     
 });
 
+//TODO: implement the third level for the classes that have a deeper hierarchy
 //For classes like restaurants which have subclasses, /third_level should print the namedindividuals to one of these chosen classes
 app.post('/third_level', (req,res) => {
+
+    //Fixed variable just to test...
     const italianrest = "ItalianRestaurant";
 
     var names = [];
