@@ -460,8 +460,11 @@ app.post('/second_level', (req,res) => {
 //For classes like restaurants which have subclasses, /third_level should print the namedindividuals to one of these chosen classes
 app.post('/third_level', (req,res) => {
 
+    //TODO: Dish not working, see why
+
+
     //Fixed variable just to test...
-    const choice_param = "ItalianRestaurant";
+    const choice_param = req.body.nlp.source;
 
     var names_chosen_param = [];
 
