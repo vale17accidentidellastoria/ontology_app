@@ -351,14 +351,16 @@ app.post('/first_level', (req,res) => {
 })
 
 //If a class has subclasses, it shows all the subclasses of that class
-app.post('/second_level', (req,res) => {
+app.post('/second_level/:value', (req,res) => {
     
     //Array in which second level classes for a specific class will be put
     secondClassArray = [];
     //Array in which names of second level classes for a specific class will be put to be shown in the JSON
     secondClassArrayNames = [];
     
-    var choice_param = req.body.nlp.source;
+    //var choice_param = req.body.nlp.source;
+    //var choice_param = "Restaurant";
+    var choice_param = req.params.value;
     console.log(choice_param);
 
     for(var i = 0; i < classArray[0].classes.length; i++){
@@ -385,11 +387,22 @@ app.post('/second_level', (req,res) => {
         }
     }
 
-    console.log(noSubclassedClassesArray);
+    //If choice param belongs to nosubclassedclassesarray.name then send a kind of answer, else send another kind of answer
+
+    //console.log(noSubclassedClassesArray);
+
+    var subclassed_class = true;
+
+    for (var i = 0; i < noSubclassedClassesArray.length; i++){
+        if(noSubclassedClassesArray[i].name === choice_param){
+            console.log("No subclasses");
+            subclassed_class = false;
+        }
+    }
     
     var data_result_JSON = [];
     
-    if(secondClassArrayNames.length > 0){
+    if(subclassed_class){
 
         Object.keys(secondClassArrayNames).forEach(function(object){
             data_result_JSON.push({
@@ -409,6 +422,8 @@ app.post('/second_level', (req,res) => {
             }]
         });
 
+    } else if(!subclassed_class){
+        console.log("Niente");
     } else {
         res.json({
             replies: [{
