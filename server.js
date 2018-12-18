@@ -335,7 +335,8 @@ app.post('/second_level', (req,res) => {
     secondClassArray = [];
     
     var choice_param = req.body.nlp.source;
-    
+    console.log(choice_param);
+
     for(var i = 0; i < classArray[0].classes.length; i++){
         var class_name = classArray[0].classes[i].name;
         var subclass = classArray[0].classes[i].subclassof;
@@ -363,7 +364,7 @@ app.post('/second_level', (req,res) => {
             replies: [{
                 "type": "buttons",
                 "content": {
-                    "title": "Second-Level Classes",
+                    "title": choice_param,
                     "buttons": data_result_JSON
                 }
             }]
