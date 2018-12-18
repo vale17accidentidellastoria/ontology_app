@@ -312,7 +312,7 @@ app.post('/first_level', (req,res) => {
 
     //Array in which first level classes will be put
     firstClassArray = [];
-    //Array in which names of first level classes will be put to be shown in the JSON
+    //Array in which names_chosen_param of first level classes will be put to be shown in the JSON
     firstClassArrayNames = [];
     //Array in which there are all the first level classes which are no subclassed
     noSubclassedClassesArray = [];
@@ -351,17 +351,16 @@ app.post('/first_level', (req,res) => {
 })
 
 //If a class has subclasses, it shows all the subclasses of that class
-app.post('/second_level/:value', (req,res) => {
+app.post('/second_level', (req,res) => {
     
     //Array in which second level classes for a specific class will be put
     secondClassArray = [];
-    //Array in which names of second level classes for a specific class will be put to be shown in the JSON
+    //Array in which names_chosen_param of second level classes for a specific class will be put to be shown in the JSON
     secondClassArrayNames = [];
     
-    //var choice_param = req.body.nlp.source;
-    //var choice_param = "Restaurant";
-    var choice_param = req.params.value;
-    console.log(choice_param);
+    var choice_param = req.body.nlp.source;
+    //var choice_param = req.params.value;
+    //console.log(choice_param);
 
     for(var i = 0; i < classArray[0].classes.length; i++){
         var class_name = classArray[0].classes[i].name;
@@ -387,22 +386,26 @@ app.post('/second_level/:value', (req,res) => {
         }
     }
 
-    //If choice param belongs to nosubclassedclassesarray.name then send a kind of answer, else send another kind of answer
-
-    //console.log(noSubclassedClassesArray);
-
     var subclassed_class = true;
 
-    for (var i = 0; i < noSubclassedClassesArray.length; i++){
-        if(noSubclassedClassesArray[i].name === choice_param){
-            console.log("No subclasses");
-            subclassed_class = false;
+    var names_chosen_param = [];
+
+    if(noSubclassedClassesArray.length > 0){
+        for (var i = 0; i < noSubclassedClassesArray.length; i++){
+            if(noSubclassedClassesArray[i].name === choice_param){
+                subclassed_class = false;
+                for(var j = 0; j < namedindividualArray[0].namedinds.length; j++){
+                    if(choice_param === namedindividualArray[0].namedinds[j].type){
+                        names_chosen_param.push(namedindividualArray[0].namedinds[j].name);
+                    }
+                }
+            }
         }
     }
     
     var data_result_JSON = [];
     
-    if(subclassed_class){
+    if(subclassed_class && names_chosen_param.length === 0){
 
         Object.keys(secondClassArrayNames).forEach(function(object){
             data_result_JSON.push({
@@ -422,8 +425,25 @@ app.post('/second_level/:value', (req,res) => {
             }]
         });
 
-    } else if(!subclassed_class){
-        console.log("Niente");
+    } else if((!subclassed_class) &&(names_chosen_param.length > 0)){
+
+        Object.keys(names_chosen_param).forEach(function(object){
+            data_result_JSON.push({
+            "title": names_chosen_param[object],
+            "value": names_chosen_param[object]
+            });
+        });
+
+        res.json({
+            replies: [{
+                "type": "quickReplies",
+                "content": {
+                    "title": choice_param,
+                    "buttons": data_result_JSON
+                }
+            }]
+        });
+
     } else {
         res.json({
             replies: [{
@@ -443,7 +463,7 @@ app.post('/third_level', (req,res) => {
     //Fixed variable just to test...
     const choice_param = "ItalianRestaurant";
 
-    var names = [];
+    var names_chosen_param = [];
 
     for(var i = 0; i < classArray[0].classes.length; i++){
         var elem = classArray[0].classes[i];
@@ -455,7 +475,7 @@ app.post('/third_level', (req,res) => {
             for (j = 0; j < namedindividualArray[0].namedinds.length; j++){
                 var value = namedindividualArray[0].namedinds[j];
                 if(e_subclass === value.type && e_hasvalue === value.isspecialized){
-                    names.push(value.name);
+                    names_chosen_param.push(value.name);
                 }
             }   
                     
@@ -464,11 +484,11 @@ app.post('/third_level', (req,res) => {
 
     var data_result_JSON = [];
 
-    if(names.length > 0){
+    if(names_chosen_param.length > 0){
 
-        Object.keys(names).forEach(function(object){
+        Object.keys(names_chosen_param).forEach(function(object){
             data_result_JSON.push({
-                "title": names[object],
+                "title": names_chosen_param[object],
                 "subtitle": "CARD_1_SUBTITLE",
                 "imageUrl": "https://media-cdn.tripadvisor.com/media/photo-s/0e/cc/0a/dc/restaurant-chocolat.jpg",
                 "buttons": [
