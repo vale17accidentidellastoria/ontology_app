@@ -482,8 +482,10 @@ app.post('/third_level', (req,res) => {
     //console.log(choice_param);
     var names_chosen_param = [];
 
+    //TODO: improve and manage all the attributes
     for(var i = 0; i < classArray[0].classes.length; i++){
         var elem = classArray[0].classes[i];
+
         if(elem.name === choice_param){
             var e_subclass = elem.subclassof;
             //Then we should find also the value of the property, for example isSpecializedIn
@@ -496,9 +498,8 @@ app.post('/third_level', (req,res) => {
                 }
             }            
         }
-        console.log(elem.hasvalue);
+
         if(elem.hasvalue === choice_param){
-            console.log("Ok, i found it!");
             var e_hasvalue = elem.hasvalue;
             
             for (j = 0; j < namedindividualArray[0].namedinds.length; j++){
@@ -508,7 +509,6 @@ app.post('/third_level', (req,res) => {
                 }
             } 
         }
-        //TODO: another condition to manage elem.name !== choice param
     }  
 
     var data_result_JSON = [];
