@@ -496,6 +496,18 @@ app.post('/third_level', (req,res) => {
                 }
             }            
         }
+        console.log(elem.hasvalue);
+        if(elem.hasvalue === choice_param){
+            console.log("Ok, i found it!");
+            var e_hasvalue = elem.hasvalue;
+            
+            for (j = 0; j < namedindividualArray[0].namedinds.length; j++){
+                var value = namedindividualArray[0].namedinds[j];
+                if(e_hasvalue === value.isspecialized){
+                    names_chosen_param.push(value.name);
+                }
+            } 
+        }
         //TODO: another condition to manage elem.name !== choice param
     }  
 
@@ -518,8 +530,6 @@ app.post('/third_level', (req,res) => {
             });
         });
 
-
-
         res.json({
             replies: [{
                 "type": "carousel",
@@ -531,7 +541,7 @@ app.post('/third_level', (req,res) => {
         res.json({
             replies: [{
                 "type": "text",
-                "content": `No results`,
+                "content": `No results found for ${choice_param}`,
               }]
         });
     }
