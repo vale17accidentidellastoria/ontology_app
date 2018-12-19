@@ -342,7 +342,7 @@ app.post('/first_level', (req,res) => {
         replies: [{
             "type": "quickReplies",
             "content": {
-                "title": "First-Level Classes",
+                "title": "Restauration Topics",
                 "buttons": data_result_JSON
             }
         }]
@@ -412,22 +412,27 @@ app.post('/second_level', (req,res) => {
     if(names_chosen_param.length === 0 && secondClassArray.length > 0){
 
         Object.keys(secondClassArrayNames).forEach(function(object){
-        data_result_JSON.push({
-        "title": secondClassArrayNames[object],
-        "value": secondClassArrayNames[object]
+            data_result_JSON.push({
+            "title": secondClassArrayNames[object],
+            "value": secondClassArrayNames[object]
+            });
         });
-    });
 
+        //Now push Go Back Button!
+        data_result_JSON.push({
+            "title": "Go Back",
+            "value": "Go Back"
+        });
     
-    res.json({
-        replies: [{
-            "type": "quickReplies",
-            "content": {
-                "title": "First-Level Classes",
-                "buttons": data_result_JSON
-            }
-        }]
-    });
+        res.json({
+            replies: [{
+                "type": "quickReplies",
+                "content": {
+                    "title": choice_param,
+                    "buttons": data_result_JSON
+                }
+            }]
+        });
 
     } else if((!subclassed_class) &&(names_chosen_param.length > 0)){
 
@@ -436,6 +441,12 @@ app.post('/second_level', (req,res) => {
             "title": names_chosen_param[object],
             "value": names_chosen_param[object]
             });
+        });
+
+        //Now push Go Back Button!
+        data_result_JSON.push({
+            "title": "Go Back",
+            "value": "Go Back"
         });
 
         res.json({
@@ -466,12 +477,9 @@ app.post('/second_level', (req,res) => {
 //For classes like restaurants which have subclasses, /third_level should print the namedindividuals to one of these chosen classes
 app.post('/third_level', (req,res) => {
 
-    //TODO: Dish not working, see why
-
-
     //Fixed variable just to test...
     const choice_param = req.body.nlp.source;
-
+    //console.log(choice_param);
     var names_chosen_param = [];
 
     for(var i = 0; i < classArray[0].classes.length; i++){
@@ -486,9 +494,9 @@ app.post('/third_level', (req,res) => {
                 if(e_subclass === value.type && e_hasvalue === value.isspecialized){
                     names_chosen_param.push(value.name);
                 }
-            }   
-                    
+            }            
         }
+        //TODO: another condition to manage elem.name !== choice param
     }  
 
     var data_result_JSON = [];
@@ -510,11 +518,13 @@ app.post('/third_level', (req,res) => {
             });
         });
 
+
+
         res.json({
             replies: [{
                 "type": "carousel",
                 "content": data_result_JSON
-              }]
+            }]
         });
 
     } else {
