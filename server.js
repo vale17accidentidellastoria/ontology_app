@@ -62,7 +62,7 @@ var firstClassArray = [];
 //In this array will be saved all the second level classes for a chosen first class in the ontology
 var secondClassArray = [];
 
-//Array in which there are all the first level classes which are no subclassed
+//Array in which there are all the first level classes which aren't subclassed
 var noSubclassedClassesArray = [];
 
 //This array will contain all the object properties in the ontology
@@ -314,7 +314,7 @@ app.post('/first_level', (req,res) => {
     firstClassArray = [];
     //Array in which names_chosen_param of first level classes will be put to be shown in the JSON
     firstClassArrayNames = [];
-    //Array in which there are all the first level classes which are no subclassed
+    //Array in which there are all the first level classes which aren't subclassed
     noSubclassedClassesArray = [];
 
     for(var i = 0; i < classArray[0].classes.length; i++){
@@ -322,7 +322,7 @@ app.post('/first_level', (req,res) => {
         var subclass = classArray[0].classes[i].subclassof;
         if(((subclass === "") || (typeof subclass === 'undefined')) && ((typeof class_name !== 'undefined') && (class_name !== ""))){
             firstClassArray.push(classArray[0].classes[i]);
-            //add all the same element in firstClassArray to noSubclassedClassesArray
+            //add all the same element in firstClassArray to noSubclassedClassesArray in order then to be able to 
             noSubclassedClassesArray.push(classArray[0].classes[i]);
             firstClassArrayNames.push(class_name);
         }
@@ -362,6 +362,7 @@ app.post('/second_level', (req,res) => {
     //var choice_param = req.params.value;
     //console.log(choice_param);
 
+    //In this iteration we push all the second level classes in an array, according to the first level classes choosen by the user
     for(var i = 0; i < classArray[0].classes.length; i++){
         var class_name = classArray[0].classes[i].name;
         var subclass = classArray[0].classes[i].subclassof;
@@ -374,7 +375,7 @@ app.post('/second_level', (req,res) => {
 
     }
 
-    //In this iteration we can get all the classes which have no subclasses 
+    //In this iteration we can get all the classes which have no subclasses to print a different chatbot answer
     for(var i = 0; i < classArray[0].classes.length; i++){
         var subclass = classArray[0].classes[i].subclassof;
         if(subclass !== "" && typeof subclass !== 'undefined'){
@@ -393,10 +394,13 @@ app.post('/second_level', (req,res) => {
     if(noSubclassedClassesArray.length > 0){
         for (var i = 0; i < noSubclassedClassesArray.length; i++){
             if(noSubclassedClassesArray[i].name === choice_param){
+                //Set this variable to false because it means that the input parameters is a class which ha no subclasses
                 subclassed_class = false;
                 for(var j = 0; j < namedindividualArray[0].namedinds.length; j++){
-                    if(choice_param === namedindividualArray[0].namedinds[j].type){
-                        names_chosen_param.push(namedindividualArray[0].namedinds[j].name);
+                    var name_choice = namedindividualArray[0].namedinds[j];
+                    //Finds the named individuals whose type corresponds to the class chosen and push the result in an array
+                    if(choice_param === name_choice.type){
+                        names_chosen_param.push(name_choice.name);
                     }
                 }
             }
@@ -405,25 +409,25 @@ app.post('/second_level', (req,res) => {
     
     var data_result_JSON = [];
     
-    if(subclassed_class && names_chosen_param.length === 0){
+    if(names_chosen_param.length === 0 && secondClassArray.length > 0){
 
         Object.keys(secondClassArrayNames).forEach(function(object){
-            data_result_JSON.push({
-            "title": secondClassArrayNames[object],
-            "type": "BUTTON_TYPE",
-            "value": secondClassArrayNames[object]
-            });
+        data_result_JSON.push({
+        "title": secondClassArrayNames[object],
+        "value": secondClassArrayNames[object]
         });
+    });
 
-        res.json({
-            replies: [{
-                "type": "buttons",
-                "content": {
-                    "title": choice_param,
-                    "buttons": data_result_JSON
-                }
-            }]
-        });
+    
+    res.json({
+        replies: [{
+            "type": "quickReplies",
+            "content": {
+                "title": "First-Level Classes",
+                "buttons": data_result_JSON
+            }
+        }]
+    });
 
     } else if((!subclassed_class) &&(names_chosen_param.length > 0)){
 
@@ -445,12 +449,14 @@ app.post('/second_level', (req,res) => {
         });
 
     } else {
+
         res.json({
             replies: [{
                 "type": "text",
                 "content": `No results found for ${choice_param}`,
               }]
         });
+
     }
     
     
