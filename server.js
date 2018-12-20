@@ -336,25 +336,13 @@ app.post('/first_level', (req,res) => {
     
     var data_result_JSON = [];
 
-    /*
     Object.keys(firstClassArrayNames).forEach(function(object){
         data_result_JSON.push({
         "title": firstClassArrayNames[object],
         "value": firstClassArrayNames[object]
         });
     });
-    */
-
-    for(var i = 0; i < firstClassArrayNames.length; i++){
-        data_result_JSON.push({
-            "title": firstClassArrayNames[i],
-            "value": firstClassArrayNames[i]
-        });
-    }
     
-    res.send(data_result_JSON);
-
-    /*
     res.json({
         replies: [{
             "type": "quickReplies",
@@ -364,7 +352,7 @@ app.post('/first_level', (req,res) => {
             }
         }]
     }); 
-    */   
+     
     
 })
 
@@ -376,7 +364,8 @@ app.post('/second_level', (req,res) => {
     //Array in which names_chosen_param of second level classes for a specific class will be put to be shown in the JSON
     secondClassArrayNames = [];
     
-    var choice_param = req.body.nlp.source;
+    //var choice_param = req.body.nlp.source;
+    var choice_param = "Restaurant";
     //var choice_param = req.params.value;
     //console.log(choice_param);
 
