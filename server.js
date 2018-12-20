@@ -298,17 +298,17 @@ app.post('/process', (req,res) => {
         namedindividualArray.push(stack_namedindividual);
     
         //res.status() to work with Recast.ai
-        //res.status(200).end();
+        res.status(200).end();
         //Just to test
         //res.send(classArray);
         //res.send(objpropertiesArray);
         //res.send(datapropArray);
         //res.send(namedindividualArray);
-        
+        /*
         //Shows all the properties found by the parser divided by object props, data props, classes and named individuals
         var all_properties = [objpropertiesArray, datapropArray, classArray, namedindividualArray];
         res.send(all_properties);
-        
+        */
     });
 
 });
@@ -364,8 +364,8 @@ app.post('/second_level', (req,res) => {
     //Array in which names_chosen_param of second level classes for a specific class will be put to be shown in the JSON
     secondClassArrayNames = [];
     
-    //var choice_param = req.body.nlp.source;
-    var choice_param = "Restaurant";
+    var choice_param = req.body.nlp.source;
+    //var choice_param = "Restaurant";
     //var choice_param = req.params.value;
     //console.log(choice_param);
 
