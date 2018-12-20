@@ -365,7 +365,6 @@ app.post('/second_level', (req,res) => {
     secondClassArrayNames = [];
     
     var choice_param = req.body.nlp.source;
-    //var choice_param = "Restaurant";
     //var choice_param = req.params.value;
     //console.log(choice_param);
 
