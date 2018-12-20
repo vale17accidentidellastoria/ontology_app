@@ -332,11 +332,8 @@ app.post('/first_level', (req,res) => {
             noSubclassedClassesArray.push(classArray[0].classes[i]);
             firstClassArrayNames.push(class_name);
         }
-    }
-
-    res.send(firstClassArrayNames);
+    }    
     
-    /*
     var data_result_JSON = [];
 
     Object.keys(firstClassArrayNames).forEach(function(object){
@@ -345,7 +342,8 @@ app.post('/first_level', (req,res) => {
         "value": firstClassArrayNames[object]
         });
     });
-    */
+    
+    res.send(firstClassArrayNames);
 
     /*
     res.json({
