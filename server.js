@@ -322,8 +322,7 @@ app.post('/first_level', (req,res) => {
     firstClassArrayNames = [];
     //Array in which there are all the first level classes which aren't subclassed
     noSubclassedClassesArray = [];
-    res.send(classArray);
-    /*
+    
     for(var i = 0; i < classArray[0].classes.length; i++){
         var class_name = classArray[0].classes[i].name;
         var subclass = classArray[0].classes[i].subclassof;
@@ -344,7 +343,8 @@ app.post('/first_level', (req,res) => {
         });
     });
 
-    
+    res.send(data_result_JSON);
+    /*
     res.json({
         replies: [{
             "type": "quickReplies",
