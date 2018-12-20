@@ -131,6 +131,8 @@ app.use(function(req, res, next) {
     })
     .use(bodyParser.json());
 
+app.listen(port, () => console.log(`Listening on port ${port}`));
+
 app.get('/', (req,res) => {
     res.send("OK");
 })
@@ -553,5 +555,3 @@ app.post('/third_level', (req,res) => {
     res.status(200).end();
 
 });
-
-app.listen(port, () => console.log(`Listening on port ${port}`));
