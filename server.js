@@ -333,7 +333,10 @@ app.post('/first_level', (req,res) => {
             firstClassArrayNames.push(class_name);
         }
     }
+
+    res.send(firstClassArrayNames);
     
+    /*
     var data_result_JSON = [];
 
     Object.keys(firstClassArrayNames).forEach(function(object){
@@ -342,8 +345,8 @@ app.post('/first_level', (req,res) => {
         "value": firstClassArrayNames[object]
         });
     });
+    */
 
-    res.send(data_result_JSON);
     /*
     res.json({
         replies: [{
