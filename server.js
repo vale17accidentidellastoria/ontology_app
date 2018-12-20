@@ -298,17 +298,17 @@ app.post('/process', (req,res) => {
         namedindividualArray.push(stack_namedindividual);
     
         //res.status() to work with Recast.ai
-        res.status(200).end();
+        //res.status(200).end();
         //Just to test
         //res.send(classArray);
         //res.send(objpropertiesArray);
         //res.send(datapropArray);
         //res.send(namedindividualArray);
-        /*
+        
         //Shows all the properties found by the parser divided by object props, data props, classes and named individuals
         var all_properties = [objpropertiesArray, datapropArray, classArray, namedindividualArray];
         res.send(all_properties);
-        */
+        
     });
 
 });
