@@ -131,6 +131,10 @@ app.use(function(req, res, next) {
     })
     .use(bodyParser.json());
 
+app.get('/', (req,res) => {
+    res.send("OK");
+})
+
 //Process does the parsing of the ontology files
 app.post('/process', (req,res) => {
     
