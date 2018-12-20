@@ -4,7 +4,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const recastai = require('recastai').default;
 
-const port = 3030 | process.env.PORT;
+const PORT = process.env.PORT || 3030;
 
 //Calling the external functions which help in setting attributes for all ontology properties
 const parserObjPropsAttr = require('./controllers/parser_attributes/parserObjPropsAttr');
@@ -131,7 +131,7 @@ app.use(function(req, res, next) {
     })
     .use(bodyParser.json());
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 
 app.get('/', (req,res) => {
     res.send("OK");
