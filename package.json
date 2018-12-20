@@ -2,9 +2,9 @@
   "name": "ont_parser",
   "version": "0.0.1",
   "description": "",
-  "main": "server.js",
+  "main": "serverprova.js",
   "scripts": {
-  	"start": "node server.js",
+  	"start": "node serverprova.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
