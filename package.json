@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-  	"start": "node server.js",
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -14,6 +14,7 @@
     "express": "^4.16.4",
     "fs": "0.0.1-security",
     "path": "^0.12.7",
-    "recastai": "^4.0.0"
+    "recastai": "^4.0.0",
+    "superagent": "^4.0.0"
   }
 }

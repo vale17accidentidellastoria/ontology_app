@@ -2,9 +2,11 @@ const fs = require('fs');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const recastai = require('recastai').default;
 
 const PORT = process.env.PORT || 3030;
+
+const deleteFirstClassIntents = require('./controllers/create_intents/deleteFirstClassIntents');
+const deleteSecondClassIntents = require('./controllers/create_intents/deleteSecondClassIntents');
 
 //Calling the external functions which help in setting attributes for all ontology properties
 const parserObjPropsAttr = require('./controllers/parser_attributes/parserObjPropsAttr');
@@ -335,13 +337,18 @@ app.post('/first_level', (req,res) => {
     }    
     
     var data_result_JSON = [];
+    var intent_values = [];
 
     Object.keys(firstClassArrayNames).forEach(function(object){
         data_result_JSON.push({
         "title": firstClassArrayNames[object],
         "value": firstClassArrayNames[object]
         });
+        intent_values.push({ source: firstClassArrayNames[object], language: { isocode: "en" } })
     });
+
+    //Here we delete the First Class Intents if they exists
+    deleteFirstClassIntents(intent_values);
     
     res.json({
         replies: [{
@@ -351,8 +358,7 @@ app.post('/first_level', (req,res) => {
                 "buttons": data_result_JSON
             }
         }]
-    }); 
-     
+    });     
     
 })
 
@@ -414,6 +420,7 @@ app.post('/second_level', (req,res) => {
     }
     
     var data_result_JSON = [];
+    var intent_values = [];
     
     if(names_chosen_param.length === 0 && secondClassArray.length > 0){
 
@@ -422,6 +429,7 @@ app.post('/second_level', (req,res) => {
             "title": secondClassArrayNames[object],
             "value": secondClassArrayNames[object]
             });
+            intent_values.push({ source: secondClassArrayNames[object], language: { isocode: "en" } });
         });
 
         //Now push Go Back Button!
@@ -429,6 +437,8 @@ app.post('/second_level', (req,res) => {
             "title": "Go Back",
             "value": "Go Back"
         });
+
+        deleteSecondClassIntents(intent_values);
     
         res.json({
             replies: [{
@@ -447,6 +457,7 @@ app.post('/second_level', (req,res) => {
             "title": names_chosen_param[object],
             "value": names_chosen_param[object]
             });
+            intent_values.push({ source: names_chosen_param[object], language: { isocode: "en" } })
         });
 
         //Now push Go Back Button!
@@ -454,6 +465,8 @@ app.post('/second_level', (req,res) => {
             "title": "Go Back",
             "value": "Go Back"
         });
+
+        deleteSecondClassIntents(intent_values);
 
         res.json({
             replies: [{
