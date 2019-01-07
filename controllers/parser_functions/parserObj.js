@@ -1,10 +1,12 @@
-function parseObjProps(value, data_obj, str) {
+function parseObjProps(value, data_obj, str, objprop_tag) {
     if(value.includes("#")){
         
         var value_str = parseString(value);
         
         if(value.includes(str.objectProperty_substring)){
             data_obj.name_objprop = value_str;
+            //To distinguish and parse object properties tag
+            objprop_tag.tag = value_str;
         }
         if(value.includes(str.objectProperty_inverseof)) {
             data_obj.inverseof_objprop = value_str;

@@ -99,6 +99,8 @@ var range_objprop = "";
 var type_objprop = "";
 //Object created to keep all the attribute values for object properties
 var data_obj_values = {name_objprop, inverseof_objprop, domain_objprop, range_objprop, type_objprop};
+//Object created to keep all the tag names for Object Properties parsed
+var objprops_tags = [];
 
 //Data Properties attributes
 var name_dataprop = "";
@@ -196,8 +198,12 @@ app.post('/process', (req,res) => {
 
             if(typeof stack_objprop["objprops"] !== 'undefined'){
                 if(counter_objprop == 1) {
-                    if(!blank_regex.test(value)){
-                        parserObj(value, data_obj_values, str_objprops);
+                    if(!blank_regex.test(value)){ //Intervenire qui
+                        var objprop_tag = {"tag" : ""};
+                        parserObj(value, data_obj_values, str_objprops, objprop_tag);
+                        if ((objprop_tag.tag !== "") && (typeof objprop_tag.tag !== 'undefined')){
+                            objprops_tags.push("<" + objprop_tag.tag + " ");
+                        }
                     } else {
                         parserObjPropsAttr(data_obj_values, data_objprops, stack_objprop);
                         data_objprops = {};
@@ -298,6 +304,8 @@ app.post('/process', (req,res) => {
 
         //In this array there are all the named individuals properties
         namedindividualArray.push(stack_namedindividual);
+
+        console.log(objprops_tags);
     
         //res.status() to work with Recast.ai
         res.status(200).end();
