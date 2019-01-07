@@ -1,4 +1,4 @@
-function parseNamedIndividuals(value, data_obj, str, objprops_tags){
+function parseNamedIndividuals(value, data_obj, str, objprops_tags, data_objprops_tags){
     if(value.includes("#")){
         
         var value_str = parseString(value);
@@ -18,10 +18,11 @@ function parseNamedIndividuals(value, data_obj, str, objprops_tags){
                 //es. isspecializedin
                 var objpropname_tag_result = second_split[0];
 
-                data_obj[objpropname_tag_result] = value_str;
-                console.log("value_str: "+ value_str);
+                if(data_objprops_tags.indexOf(objpropname_tag_result) === -1){
+                    data_objprops_tags.push(objpropname_tag_result);
+                }
 
-                console.log(data_obj);
+                data_obj[objpropname_tag_result] = value_str;
             }
         }
     }
