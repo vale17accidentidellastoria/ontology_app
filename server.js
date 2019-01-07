@@ -50,9 +50,10 @@ const str_classes = {class_substring, subclass_substring, class_description, cla
 const namedIndividual_substring = "<owl:NamedIndividual ";
 const namedIndividual_type = "<rdf:type ";
 //TODO: find a way to make "isSpecializedIn" independent from the ontology
-const namedIndividual_specializedin = "<isSpecializedIn "; //specializedIn is specific to food ontology
+//const namedIndividual_specializedin = "<isSpecializedIn "; //specializedIn is specific to food ontology
 //Object which contains all the strings representing namedIndividual tags to be easier to manage
-const str_named = {namedIndividual_substring, namedIndividual_type, namedIndividual_specializedin};
+//const str_named = {namedIndividual_substring, namedIndividual_type, namedIndividual_specializedin};
+const str_named = {namedIndividual_substring, namedIndividual_type};
 
 //These are all variables which are helpful for the parsing
 //This array will contain all the classes in the ontology
@@ -112,9 +113,10 @@ var data_prop_values = {name_dataprop, domain_dataprop, range_dataprop};
 //Named Individuals attributes
 var name_namedindividual = "";
 var type_namedindividual = "";
-var specialization_namedindividual = "";
+//var specialization_namedindividual = "";
 //Object created to keep all the attribute values for named individuals
-var data_named_values = {name_namedindividual, type_namedindividual, specialization_namedindividual};
+//var data_named_values = {name_namedindividual, type_namedindividual, specialization_namedindividual};
+var data_named_values = {name_namedindividual, type_namedindividual};
 
 Array.prototype.remove = function() {
     var what, a = arguments, L = a.length, ax;
@@ -281,7 +283,7 @@ app.post('/process', (req,res) => {
             if(typeof stack_namedindividual["namedinds"] !== 'undefined'){
                 if(counter_namedindividual == 1){
                     if(!blank_regex.test(value)){
-                        parserNamedInds(value, data_named_values, str_named);
+                        parserNamedInds(value, data_named_values, str_named, objprops_tags);
                     } else {
                         parserNamedIndsAttr(data_named_values, data_namedindividual, stack_namedindividual);
                         data_namedindividual = {};
@@ -305,20 +307,20 @@ app.post('/process', (req,res) => {
         //In this array there are all the named individuals properties
         namedindividualArray.push(stack_namedindividual);
 
-        console.log(objprops_tags);
+        //console.log(objprops_tags);
     
         //res.status() to work with Recast.ai
-        res.status(200).end();
+        //res.status(200).end();
         //Just to test
         //res.send(classArray);
         //res.send(objpropertiesArray);
         //res.send(datapropArray);
         //res.send(namedindividualArray);
-        /*
+        
         //Shows all the properties found by the parser divided by object props, data props, classes and named individuals
         var all_properties = [objpropertiesArray, datapropArray, classArray, namedindividualArray];
         res.send(all_properties);
-        */
+        
     });
 
 });

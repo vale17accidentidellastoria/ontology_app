@@ -1,4 +1,4 @@
-function parseNamedIndividuals(value, data_obj, str){
+function parseNamedIndividuals(value, data_obj, str, objprops_tags){
     if(value.includes("#")){
         
         var value_str = parseString(value);
@@ -9,8 +9,20 @@ function parseNamedIndividuals(value, data_obj, str){
         if(value.includes(str.namedIndividual_type)) {
             data_obj.type_namedindividual = value_str;
         }
-        if(value.includes(str.namedIndividual_specializedin)) {
-            data_obj.specialization_namedindividual = value_str;
+        //console.log(objprops_tags);
+        for(var i = 0; i < objprops_tags.length; i++){
+            if(value.includes(objprops_tags[i])){
+                var objprop_namedindividual_tag = objprops_tags[i].toLowerCase();
+                var first_split = objprop_namedindividual_tag.split("<");
+                var second_split = first_split[1].split(` `);
+                //es. isspecializedin
+                var objpropname_tag_result = second_split[0];
+
+                data_obj[objpropname_tag_result] = value_str;
+                console.log("value_str: "+ value_str);
+
+                console.log(data_obj);
+            }
         }
     }
 }
