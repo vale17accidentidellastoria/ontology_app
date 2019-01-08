@@ -503,7 +503,7 @@ app.post('/second_level', (req,res) => {
 app.post('/third_level', (req,res) => {
 
     const choice_param = req.body.nlp.source;
-    console.log(choice_param);
+    //console.log(choice_param);
     var names_chosen_param = [];
 
     //TODO: improve and manage all the attributes
@@ -548,13 +548,13 @@ app.post('/third_level', (req,res) => {
         Object.keys(names_chosen_param).forEach(function(object){
             data_result_JSON.push({
                 "title": names_chosen_param[object],
-                "subtitle": "CARD_1_SUBTITLE",
+                "subtitle": "",
                 "imageUrl": "https://media-cdn.tripadvisor.com/media/photo-s/0e/cc/0a/dc/restaurant-chocolat.jpg",
                 "buttons": [
                   {
-                    "title": "BUTTON_1_TITLE",
-                    "type": "BUTTON_1_TYPE",
-                    "value": "BUTTON_1_VALUE"
+                    "title": names_chosen_param[object],
+                    "type": "postback",
+                    "value": names_chosen_param[object]
                   }
                 ]
             });
