@@ -545,18 +545,23 @@ app.post('/third_level', (req,res) => {
 
     if(names_chosen_param.length > 0){
 
+        //TODO: solve bug which shows one more named individual result in Telegram; see recast.ai rich messages
+        var buttons = [];
+        Object.keys(names_chosen_param).forEach(function(object){
+            buttons.push({
+                "title": names_chosen_param[object],
+                "type": "postback",
+                "value": names_chosen_param[object]
+            });
+        });
+
+        
         Object.keys(names_chosen_param).forEach(function(object){
             data_result_JSON.push({
                 "title": names_chosen_param[object],
                 "subtitle": "",
                 "imageUrl": "https://media-cdn.tripadvisor.com/media/photo-s/0e/cc/0a/dc/restaurant-chocolat.jpg",
-                "buttons": [
-                  {
-                    "title": names_chosen_param[object],
-                    "type": "postback",
-                    "value": names_chosen_param[object]
-                  }
-                ]
+                "buttons": [buttons[object]]
             });
         });
 
@@ -566,6 +571,54 @@ app.post('/third_level', (req,res) => {
                 "content": data_result_JSON
             }]
         });
+        
+        /*
+        Object.keys(names_chosen_param).forEach(function(object){
+            data_result_JSON.push({
+                "type": "card",
+                "content": {
+                    "title": names_chosen_param[object],
+                    "subtitle": "",
+                    "imageUrl": "https://media-cdn.tripadvisor.com/media/photo-s/0e/cc/0a/dc/restaurant-chocolat.jpg",
+                    "buttons": [
+                    {
+                        "title": names_chosen_param[object],
+                        "type": "postback",
+                        "value": names_chosen_param[object]
+                    }]
+                }
+            });
+        });
+
+        res.json({
+            replies: data_result_JSON
+        });
+        */        
+        /*
+        var buttons = [];
+        Object.keys(names_chosen_param).forEach(function(object){
+            buttons.push({
+                "title": names_chosen_param[object],
+                "type": "postback",
+                "value": names_chosen_param[object]
+            });
+        });
+        console.log(buttons);
+
+        Object.keys(names_chosen_param).forEach(function(object){
+            data_result_JSON.push({
+                "type": "buttons",
+                "content": {
+                    "title": names_chosen_param[object],
+                    "buttons": [buttons[object]]
+                }
+            });
+        });
+
+        res.json({
+            replies: data_result_JSON
+        });
+        */
 
     } else {
         res.json({
