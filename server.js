@@ -502,23 +502,28 @@ app.post('/second_level', (req,res) => {
 //For classes like restaurants which have subclasses, /third_level should print the namedindividuals to one of these chosen classes
 app.post('/third_level', (req,res) => {
 
-    //Fixed variable just to test...
     const choice_param = req.body.nlp.source;
-    //console.log(choice_param);
+    console.log(choice_param);
     var names_chosen_param = [];
 
     //TODO: improve and manage all the attributes
     for(var i = 0; i < classArray[0].classes.length; i++){
         var elem = classArray[0].classes[i];
 
-        if(elem.name === choice_param){
-            var e_subclass = elem.subclassof;
+        if(elem.name === choice_param){ //es. BrazilianRestaurant
+            var e_subclass = elem.subclassof; //es.Restaurant
             //Then we should find also the value of the property, for example isSpecializedIn
-            var e_hasvalue = elem.hasvalue;
+            var e_hasvalue = elem.hasvalue; //Brazilian
             
             for (j = 0; j < namedindividualArray[0].namedinds.length; j++){
                 var value = namedindividualArray[0].namedinds[j];
                 if(e_subclass === value.type && e_hasvalue === value.isspecializedin){ //TODO: remove value isspecializedin
+                    names_chosen_param.push(value.name);
+                } else if(e_subclass === value.type && e_hasvalue === ""){
+                    names_chosen_param.push(value.name);
+                } else if(elem.name === value.type && e_hasvalue === ""){
+                    names_chosen_param.push(value.name);
+                } else if(elem.name === value.type && e_hasvalue === value.isspecializedin){
                     names_chosen_param.push(value.name);
                 }
             }            
@@ -526,7 +531,6 @@ app.post('/third_level', (req,res) => {
 
         if(elem.hasvalue === choice_param){
             var e_hasvalue = elem.hasvalue;
-            
             for (j = 0; j < namedindividualArray[0].namedinds.length; j++){
                 var value = namedindividualArray[0].namedinds[j];
                 if(e_hasvalue === value.isspecializedin){
@@ -534,6 +538,7 @@ app.post('/third_level', (req,res) => {
                 }
             } 
         }
+
     }  
 
     var data_result_JSON = [];
