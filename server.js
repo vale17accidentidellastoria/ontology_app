@@ -550,75 +550,31 @@ app.post('/third_level', (req,res) => {
         Object.keys(names_chosen_param).forEach(function(object){
             buttons.push({
                 "title": names_chosen_param[object],
-                "type": "postback",
                 "value": names_chosen_param[object]
             });
         });
 
-        
         Object.keys(names_chosen_param).forEach(function(object){
             data_result_JSON.push({
-                "title": names_chosen_param[object],
-                "subtitle": "",
-                "imageUrl": "https://media-cdn.tripadvisor.com/media/photo-s/0e/cc/0a/dc/restaurant-chocolat.jpg",
-                "buttons": [buttons[object]]
-            });
+                    "type": 'text',
+                    "content": names_chosen_param[object],
+                }, {
+                    "type": 'picture',
+                    "content": "https://media-cdn.tripadvisor.com/media/photo-s/0e/cc/0a/dc/restaurant-chocolat.jpg",
+                });
         });
 
-        res.json({
-            replies: [{
-                "type": "carousel",
-                "content": data_result_JSON
-            }]
+        data_result_JSON.push({
+            "type": 'quickReplies',
+            "content": {
+                "title": 'Results:',
+                "buttons": buttons
+            }
         });
         
-        /*
-        Object.keys(names_chosen_param).forEach(function(object){
-            data_result_JSON.push({
-                "type": "card",
-                "content": {
-                    "title": names_chosen_param[object],
-                    "subtitle": "",
-                    "imageUrl": "https://media-cdn.tripadvisor.com/media/photo-s/0e/cc/0a/dc/restaurant-chocolat.jpg",
-                    "buttons": [
-                    {
-                        "title": names_chosen_param[object],
-                        "type": "postback",
-                        "value": names_chosen_param[object]
-                    }]
-                }
-            });
-        });
-
         res.json({
             replies: data_result_JSON
         });
-        */        
-        /*
-        var buttons = [];
-        Object.keys(names_chosen_param).forEach(function(object){
-            buttons.push({
-                "title": names_chosen_param[object],
-                "type": "postback",
-                "value": names_chosen_param[object]
-            });
-        });
-        console.log(buttons);
-
-        Object.keys(names_chosen_param).forEach(function(object){
-            data_result_JSON.push({
-                "type": "buttons",
-                "content": {
-                    "title": names_chosen_param[object],
-                    "buttons": [buttons[object]]
-                }
-            });
-        });
-
-        res.json({
-            replies: data_result_JSON
-        });
-        */
 
     } else {
         res.json({
