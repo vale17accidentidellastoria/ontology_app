@@ -145,7 +145,7 @@ app.get('/', (req,res) => {
 app.post('/process', (req,res) => {
     
     //Reads the Restauration Ontology Owl file
-    fs.readFile('./ontology/my-food-ontology-rdfxml.owl', 'utf8', function read(err, data) {
+    fs.readFile('./ontology/my-food-ontology-rdfxml_new.owl', 'utf8', function read(err, data) {
         
         if (err) {
             console.log("ERROR");
@@ -306,17 +306,17 @@ app.post('/process', (req,res) => {
         namedindividualArray.push(stack_namedindividual);
     
         //show 200 status code to work with Recast.ai
-        res.status(200).end();
+        //res.status(200).end();
         //Just to test
         //res.send(classArray);
         //res.send(objpropertiesArray);
         //res.send(datapropArray);
         //res.send(namedindividualArray);
-        /*
+        
         //Shows all the properties found by the parser divided by object props, data props, classes and named individuals
         var all_properties = [objpropertiesArray, datapropArray, classArray, namedindividualArray];
         res.send(all_properties);
-        */
+        
     });
 
 });
