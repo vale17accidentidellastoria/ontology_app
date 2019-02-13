@@ -205,7 +205,6 @@
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#phone">
         <rdfs:domain rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Restaurant"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>
     
 
@@ -405,7 +404,7 @@
         <image>https://img2.10bestmedia.com/Images/Photos/355445/mia-s_55_660x440.jpg</image>
         <municipality>Rome</municipality>
         <name>Barbaras</name>
-        <phone rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">342784410</phone>
+        <phone>342784410</phone>
     </owl:NamedIndividual>
     
 
@@ -508,6 +507,7 @@
         <allergen>Gluten</allergen>
         <image>https://www.italiaatavola.net/images/contenutiarticoli/La-pizza-Margherita.jpg</image>
         <name>Margherita_Pizza</name>
+        <price>5</price>
     </owl:NamedIndividual>
     
 
@@ -521,7 +521,7 @@
         <image>http://www.pinchofdesign.com/system/pinch/news_images/images/000/000/026/original/BB01.jpg?1508491515</image>
         <municipality>Milan</municipality>
         <name>Matteos</name>
-        <phone rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">452991032</phone>
+        <phone>452991032</phone>
     </owl:NamedIndividual>
     
 
@@ -551,6 +551,7 @@
         <allergen>Soybeans</allergen>
         <image>https://www.thespruceeats.com/thmb/gnPC74NYLvdsSDbRGwwbRWoAV28=/4494x3000/filters:no_upscale():max_bytes(150000):strip_icc()/basic-miso-soup-3377886_09-5b3f7fb6c9e77c00378bf68f.jpg</image>
         <name>Miso_Soup</name>
+        <price>15</price>
     </owl:NamedIndividual>
     
 
@@ -564,7 +565,7 @@
         <image>https://cdn-image.foodandwine.com/sites/default/files/1519659911/barbuzzo-best-italian-restaurants-philly-FT-BLOG0218.jpg</image>
         <municipality>Trento</municipality>
         <name>Paolos</name>
-        <phone rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">293174722</phone>
+        <phone>293174722</phone>
     </owl:NamedIndividual>
     
 
@@ -577,6 +578,7 @@
         <allergen>Gluten</allergen>
         <image>https://www.donnamoderna.com/wp-content/uploads/2003/06/Spaghetti-alla-carbonara-725x545.jpg</image>
         <name>Pasta_alla_Carbonara</name>
+        <price>7</price>
     </owl:NamedIndividual>
     
 
@@ -589,7 +591,7 @@
         <image>https://www.coloradoavidgolfer.com/wp-content/uploads/2016/09/Cafe-Brazil_Denver_Colorado.jpg</image>
         <municipality>Trento</municipality>
         <name>Pedros</name>
-        <phone rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3756184033</phone>
+        <phone>3756184033</phone>
     </owl:NamedIndividual>
     
 
@@ -619,6 +621,7 @@
         <allergen>Gluten</allergen>
         <image>https://www.soniaperonaci.it/wp-content/uploads/2016/04/spatzle-agli-spinaci-8.jpg</image>
         <name>Spatzle</name>
+        <price>10</price>
     </owl:NamedIndividual>
     
 
@@ -631,6 +634,7 @@
         <allergen>Fish</allergen>
         <image>https://static.groupalia.it/DealImage/Local/Sushi-All-You-Can-Eat-in-Repubblica/All-you-can-sushi-in-Repubblica/c924ff67-79c1-458f-bfb0-cf4bb41eafe3.JPG</image>
         <name>Sushi</name>
+        <price>20</price>
     </owl:NamedIndividual>
     
 
@@ -653,7 +657,7 @@
         <image>https://im1.dineout.co.in/images/uploads/restaurant/sharpen/1/a/e/p18024-15448768165c14f3107f680.jpg?w=1200</image>
         <municipality>Trento</municipality>
         <name>Valentinas</name>
-        <phone rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">472904721</phone>
+        <phone>472904721</phone>
     </owl:NamedIndividual>
     
 

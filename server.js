@@ -385,8 +385,9 @@ app.post('/second_level', (req,res) => {
     secondClassArrayNames = [];
     
     var choice_param = req.body.nlp.source;
+    //var choice_param = "Restaurant";
     //var choice_param = req.params.value;
-    //console.log(choice_param);
+    console.log(choice_param);
 
     //In this iteration we push all the second level classes in an array, according to the first level classes choosen by the user
     for(var i = 0; i < classArray[0].classes.length; i++){
@@ -511,6 +512,7 @@ app.post('/second_level', (req,res) => {
 app.post('/third_level', (req,res) => {
 
     const choice_param = req.body.nlp.source;
+    //const choice_param = "ItalianRestaurant";
     //console.log(choice_param);
     var names_chosen_param = [];
 
@@ -600,6 +602,55 @@ app.post('/third_level', (req,res) => {
 
 });
 
-app.post('/third_level', (req,res) => {
-    res.status(200).end();
+app.post('/fourth_level', (req,res) => {
+    const choice_param = req.body.nlp.source;
+    //const choice_param = "Barbaras";
+    //console.log(choice_param);
+
+    var data_result_JSON = [];
+
+    for (j = 0; j < namedindividualArray[0].namedinds.length; j++){
+        var value = namedindividualArray[0].namedinds[j];
+        if(value.name === choice_param){
+            if(value.type === "Restaurant"){
+                data_result_JSON.push({
+                    "type": 'text',
+                    "content": value.name,
+                }, {
+                    "type": 'picture',
+                    "content": value.image,
+                }, {
+                    "type": 'text',
+                    "content": `Phone number: ${value.phone}`,
+                }, {
+                    "type": 'text',
+                    "content": `City: ${value.municipality}`,
+                });
+            } else if(value.type === "Dish"){
+                data_result_JSON.push({
+                    "type": 'text',
+                    "content": value.name,
+                }, {
+                    "type": 'picture',
+                    "content": value.image,
+                }, {
+                    "type": 'text',
+                    "content": `Allergens: ${value.allergen}`,
+                }, {
+                    "type": 'text',
+                    "content": `Price: ${value.price} euros`,
+                }, {
+                    "type": 'text',
+                    "content": `Is Served In: ${value.isservedin} Restaurant`,
+                });
+            }
+        }
+    }    
+
+    console.log(data_result_JSON);
+    
+    res.json({
+        replies: data_result_JSON
+    });
+
 });
