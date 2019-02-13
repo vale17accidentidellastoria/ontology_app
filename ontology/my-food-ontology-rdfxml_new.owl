@@ -601,7 +601,7 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dish"/>
         <isServedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Matteos"/>
         <allergen>Gluten</allergen>
-        <image>http://www.sarahaasrdn.com/wp-content/uploads/2018/01/Spatzle-e1516328408281.jpg</image>
+        <image>https://www.soniaperonaci.it/wp-content/uploads/2016/04/spatzle-agli-spinaci-8.jpg</image>
         <name>Spatzle</name>
     </owl:NamedIndividual>
     

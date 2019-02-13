@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 3030;
 
 const deleteFirstClassIntents = require('./controllers/create_intents/deleteFirstClassIntents');
 const deleteSecondClassIntents = require('./controllers/create_intents/deleteSecondClassIntents');
+const deleteThirdLevelIntents = require('./controllers/create_intents/deleteThirdLevelIntents');
 
 //Calling the external functions which help in setting attributes for all ontology properties
 const parserObjPropsAttr = require('./controllers/parser_attributes/parserObjPropsAttr');
@@ -525,13 +526,13 @@ app.post('/third_level', (req,res) => {
             for (j = 0; j < namedindividualArray[0].namedinds.length; j++){
                 var value = namedindividualArray[0].namedinds[j];
                 if(e_subclass === value.type && e_hasvalue === value.isspecializedin){ //TODO: remove value isspecializedin
-                    names_chosen_param.push(value.name);
+                    names_chosen_param.push(value);
                 } else if(e_subclass === value.type && e_hasvalue === ""){
-                    names_chosen_param.push(value.name);
+                    names_chosen_param.push(value);
                 } else if(elem.name === value.type && e_hasvalue === ""){
-                    names_chosen_param.push(value.name);
+                    names_chosen_param.push(value);
                 } else if(elem.name === value.type && e_hasvalue === value.isspecializedin){
-                    names_chosen_param.push(value.name);
+                    names_chosen_param.push(value);
                 }
             }            
         }
@@ -541,34 +542,35 @@ app.post('/third_level', (req,res) => {
             for (j = 0; j < namedindividualArray[0].namedinds.length; j++){
                 var value = namedindividualArray[0].namedinds[j];
                 if(e_hasvalue === value.isspecializedin){
-                    names_chosen_param.push(value.name);
+                    names_chosen_param.push(value);
                 }
             } 
         }
 
     }  
 
+    var intent_values = [];
     var data_result_JSON = [];
 
     if(names_chosen_param.length > 0){
 
-        //TODO: solve bug which shows one more named individual result in Telegram; see recast.ai rich messages
         var buttons = [];
         Object.keys(names_chosen_param).forEach(function(object){
             buttons.push({
-                "title": names_chosen_param[object],
-                "value": names_chosen_param[object]
+                "title": names_chosen_param[object].name,
+                "value": names_chosen_param[object].name
             });
         });
 
         Object.keys(names_chosen_param).forEach(function(object){
             data_result_JSON.push({
                     "type": 'text',
-                    "content": names_chosen_param[object],
+                    "content": names_chosen_param[object].name,
                 }, {
                     "type": 'picture',
-                    "content": "https://media-cdn.tripadvisor.com/media/photo-s/0e/cc/0a/dc/restaurant-chocolat.jpg",
+                    "content": names_chosen_param[object].image,
                 });
+            intent_values.push({ source: names_chosen_param[object].name, language: { isocode: "en" } });
         });
 
         data_result_JSON.push({
@@ -578,6 +580,8 @@ app.post('/third_level', (req,res) => {
                 "buttons": buttons
             }
         });
+
+        deleteThirdLevelIntents(intent_values);
         
         res.json({
             replies: data_result_JSON
@@ -594,4 +598,8 @@ app.post('/third_level', (req,res) => {
     
     res.status(200).end();
 
+});
+
+app.post('/third_level', (req,res) => {
+    res.status(200).end();
 });
