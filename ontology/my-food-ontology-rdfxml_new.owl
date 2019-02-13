@@ -391,6 +391,10 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Barbaras">
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Restaurant"/>
         <isSpecializedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Italian"/>
+        <serves rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Margherita_Pizza"/>
+        <municipality>Rome</municipality>
+        <name>Barbaras</name>
+        <phone rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">342784410</phone>
     </owl:NamedIndividual>
     
 
@@ -399,6 +403,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Brazilian">
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Cuisine"/>
+        <name>Brazilian</name>
     </owl:NamedIndividual>
     
 
@@ -407,6 +412,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Chinese">
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Cuisine"/>
+        <name>Chinese</name>
     </owl:NamedIndividual>
     
 
@@ -414,7 +420,8 @@
     <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Crustaceans -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Crustaceans">
-        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Ingredient"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Allergens"/>
+        <name>Crustaceans</name>
     </owl:NamedIndividual>
     
 
@@ -422,7 +429,8 @@
     <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Eggs -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Eggs">
-        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Ingredient"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Allergens"/>
+        <name>Eggs</name>
     </owl:NamedIndividual>
     
 
@@ -430,7 +438,8 @@
     <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Fish -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Fish">
-        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Ingredient"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Allergens"/>
+        <name>Fish</name>
     </owl:NamedIndividual>
     
 
@@ -439,6 +448,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#German">
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Cuisine"/>
+        <name>German</name>
     </owl:NamedIndividual>
     
 
@@ -446,7 +456,8 @@
     <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Gluten -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Gluten">
-        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Ingredient"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Allergens"/>
+        <name>Gluten</name>
     </owl:NamedIndividual>
     
 
@@ -455,6 +466,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Indian">
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Cuisine"/>
+        <name>Indian</name>
     </owl:NamedIndividual>
     
 
@@ -463,6 +475,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Italian">
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Cuisine"/>
+        <name>Italian</name>
     </owl:NamedIndividual>
     
 
@@ -471,6 +484,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Japanese">
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Cuisine"/>
+        <name>Japanese</name>
     </owl:NamedIndividual>
     
 
@@ -479,7 +493,9 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Margherita_Pizza">
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dish"/>
+        <isServedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Barbaras"/>
         <allergen>Gluten</allergen>
+        <name>Margherita_Pizza</name>
     </owl:NamedIndividual>
     
 
@@ -489,6 +505,10 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Matteos">
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Restaurant"/>
         <isSpecializedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#German"/>
+        <serves rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Spatzle"/>
+        <municipality>Milan</municipality>
+        <name>Matteos</name>
+        <phone rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">452991032</phone>
     </owl:NamedIndividual>
     
 
@@ -496,7 +516,8 @@
     <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Milk -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Milk">
-        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Ingredient"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Allergens"/>
+        <name>Milk</name>
     </owl:NamedIndividual>
     
 
@@ -505,7 +526,9 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Miso_Soup">
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dish"/>
+        <isServedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Valentinas"/>
         <allergen>Soybeans</allergen>
+        <name>Miso_Soup</name>
     </owl:NamedIndividual>
     
 
@@ -515,6 +538,10 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Paolos">
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Restaurant"/>
         <isSpecializedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Italian"/>
+        <serves rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Pasta_alla_Carbonara"/>
+        <municipality>Trento</municipality>
+        <name>Paolos</name>
+        <phone rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">293174722</phone>
     </owl:NamedIndividual>
     
 
@@ -523,7 +550,9 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Pasta_alla_Carbonara">
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dish"/>
+        <isServedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Paolos"/>
         <allergen>Gluten</allergen>
+        <name>Pasta_alla_Carbonara</name>
     </owl:NamedIndividual>
     
 
@@ -533,6 +562,9 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Pedros">
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Restaurant"/>
         <isSpecializedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Brazilian"/>
+        <municipality>Trento</municipality>
+        <name>Pedros</name>
+        <phone rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3756184033</phone>
     </owl:NamedIndividual>
     
 
@@ -540,7 +572,8 @@
     <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Soybeans -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Soybeans">
-        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Ingredient"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Allergens"/>
+        <name>Soybeans</name>
     </owl:NamedIndividual>
     
 
@@ -549,7 +582,9 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Spatzle">
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dish"/>
+        <isServedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Matteos"/>
         <allergen>Gluten</allergen>
+        <name>Spatzle</name>
     </owl:NamedIndividual>
     
 
@@ -558,7 +593,9 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Sushi">
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dish"/>
+        <isServedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Valentinas"/>
         <allergen>Fish</allergen>
+        <name>Sushi</name>
     </owl:NamedIndividual>
     
 
@@ -568,6 +605,11 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Valentinas">
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Restaurant"/>
         <isSpecializedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Japanese"/>
+        <serves rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Miso_Soup"/>
+        <serves rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Sushi"/>
+        <municipality>Trento</municipality>
+        <name>Valentinas</name>
+        <phone rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">472904721</phone>
     </owl:NamedIndividual>
 </rdf:RDF>
 

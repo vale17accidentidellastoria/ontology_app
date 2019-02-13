@@ -106,6 +106,8 @@ var domain_dataprop = "";
 var range_dataprop = "";
 //Object created to keep all the attribute values for data properties
 var data_prop_values = {name_dataprop, domain_dataprop, range_dataprop};
+//Object created to keep all the tag names for Data Properties parsed
+var dataprops_tags = [];
 
 //Named Individuals attributes
 var name_namedindividual = "";
@@ -115,6 +117,7 @@ var type_namedindividual = "";
 //var data_named_values = {name_namedindividual, type_namedindividual, specialization_namedindividual};
 var data_named_values = {name_namedindividual, type_namedindividual};
 var data_named_objprops_tags = [];
+var data_named_dataprops_tags = [];
 
 Array.prototype.remove = function() {
     var what, a = arguments, L = a.length, ax;
@@ -229,7 +232,11 @@ app.post('/process', (req,res) => {
             if(typeof stack_dataprop["dataprops"] !== 'undefined'){
                 if(counter_dataprop == 1){
                     if(!blank_regex.test(value)){
-                        parserDataProps(value, data_prop_values, str_dataprops);
+                        var dataprop_tag = {"tag" : ""};
+                        parserDataProps(value, data_prop_values, str_dataprops, dataprop_tag);
+                        if ((dataprop_tag.tag !== "") && (typeof dataprop_tag.tag !== 'undefined')){
+                            dataprops_tags.push("<" + dataprop_tag.tag);
+                        }
                     } else {
                         parserDataPropsAttr(data_prop_values, data_dataprop, stack_dataprop);
                         data_dataprop = {};
@@ -281,9 +288,9 @@ app.post('/process', (req,res) => {
             if(typeof stack_namedindividual["namedinds"] !== 'undefined'){
                 if(counter_namedindividual == 1){
                     if(!blank_regex.test(value)){
-                        parserNamedInds(value, data_named_values, str_named, objprops_tags, data_named_objprops_tags);
+                        parserNamedInds(value, data_named_values, str_named, objprops_tags, data_named_objprops_tags, dataprops_tags, data_named_dataprops_tags);
                     } else {
-                        parserNamedIndsAttr(data_named_values, data_namedindividual, stack_namedindividual, data_named_objprops_tags);
+                        parserNamedIndsAttr(data_named_values, data_namedindividual, stack_namedindividual, data_named_objprops_tags, data_named_dataprops_tags);
                         data_namedindividual = {};
                         counter_namedindividual = 0;
                     }
@@ -306,17 +313,17 @@ app.post('/process', (req,res) => {
         namedindividualArray.push(stack_namedindividual);
     
         //show 200 status code to work with Recast.ai
-        //res.status(200).end();
+        res.status(200).end();
         //Just to test
         //res.send(classArray);
         //res.send(objpropertiesArray);
         //res.send(datapropArray);
         //res.send(namedindividualArray);
-        
+        /*
         //Shows all the properties found by the parser divided by object props, data props, classes and named individuals
         var all_properties = [objpropertiesArray, datapropArray, classArray, namedindividualArray];
         res.send(all_properties);
-        
+        */
     });
 
 });
