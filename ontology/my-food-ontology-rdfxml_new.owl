@@ -283,6 +283,14 @@
     
 
 
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Cities -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Cities">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Location"/>
+    </owl:Class>
+    
+
+
     <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Cuisine -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Cuisine"/>
@@ -529,7 +537,7 @@
     <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Milan -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Milan">
-        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Location"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Cities"/>
     </owl:NamedIndividual>
     
 
@@ -599,7 +607,7 @@
     <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Rome -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Rome">
-        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Location"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Cities"/>
     </owl:NamedIndividual>
     
 
@@ -642,7 +650,7 @@
     <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Trento -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Trento">
-        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Location"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Cities"/>
     </owl:NamedIndividual>
     
 
@@ -665,7 +673,7 @@
     <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Venice -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Venice">
-        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Location"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Cities"/>
     </owl:NamedIndividual>
 </rdf:RDF>
 
