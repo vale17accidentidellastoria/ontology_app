@@ -565,13 +565,15 @@ app.post('/third_level', (req,res) => {
         });
 
         Object.keys(names_chosen_param).forEach(function(object){
-            data_result_JSON.push({
-                    "type": 'text',
-                    "content": names_chosen_param[object].name,
-                }, {
-                    "type": 'picture',
-                    "content": names_chosen_param[object].image,
+            if((names_chosen_param[object].image !== "") && (typeof names_chosen_param[object].image !== 'undefined')){
+                data_result_JSON.push({
+                        "type": 'text',
+                        "content": names_chosen_param[object].name,
+                    }, {
+                        "type": 'picture',
+                        "content": names_chosen_param[object].image,
                 });
+            }
             intent_values.push({ source: names_chosen_param[object].name, language: { isocode: "en" } });
         });
 
@@ -594,7 +596,7 @@ app.post('/third_level', (req,res) => {
             replies: [{
                 "type": "text",
                 "content": `No results found for ${choice_param}`,
-              }]
+            }]
         });
     }
     
@@ -608,6 +610,7 @@ app.post('/fourth_level', (req,res) => {
     //console.log(choice_param);
 
     var data_result_JSON = [];
+    var resulting_array = [];
 
     for (j = 0; j < namedindividualArray[0].namedinds.length; j++){
         var value = namedindividualArray[0].namedinds[j];
@@ -643,11 +646,41 @@ app.post('/fourth_level', (req,res) => {
                     "type": 'text',
                     "content": `Is Served In: ${value.isservedin} Restaurant`,
                 });
+            } else if(value.type === "Allergens"){
+                for (i = 0; i < namedindividualArray[0].namedinds.length; i++){
+                    var v = namedindividualArray[0].namedinds[i];
+                    if(value.name !== v.allergen && (typeof v.allergen !== 'undefined') && (v.allergen !== "")){
+                        resulting_array.push(v);
+                    }
+                }
+                if(resulting_array.length > 0){
+                    Object.keys(resulting_array).forEach(function(object){
+                        data_result_JSON.push({
+                            "type": 'text',
+                            "content": resulting_array[object].name,
+                        }, {
+                            "type": 'picture',
+                            "content": resulting_array[object].image,
+                        }, {
+                            "type": 'text',
+                            "content": `Allergens: ${resulting_array[object].allergen}`,
+                        }, {
+                            "type": 'text',
+                            "content": `Price: ${resulting_array[object].price} euros`,
+                        }, {
+                            "type": 'text',
+                            "content": `Is Served In: ${resulting_array[object].isservedin} Restaurant`,
+                        });
+                    });
+                } else {
+                    data_result_JSON.push({
+                        "type": 'text',
+                        "content": "No results found"
+                    });
+                }
             }
         }
     }    
-
-    console.log(data_result_JSON);
     
     res.json({
         replies: data_result_JSON

@@ -518,7 +518,7 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Restaurant"/>
         <isSpecializedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#German"/>
         <serves rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Spatzle"/>
-        <image>http://www.pinchofdesign.com/system/pinch/news_images/images/000/000/026/original/BB01.jpg?1508491515</image>
+        <image>https://media-cdn.tripadvisor.com/media/photo-s/0c/b8/ad/29/fun-german-restaurant.jpg</image>
         <municipality>Milan</municipality>
         <name>Matteos</name>
         <phone>452991032</phone>
