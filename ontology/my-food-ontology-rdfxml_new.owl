@@ -538,6 +538,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Milan">
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Cities"/>
+        <name>Milan</name>
     </owl:NamedIndividual>
     
 
@@ -608,6 +609,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Rome">
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Cities"/>
+        <name>Rome</name>
     </owl:NamedIndividual>
     
 
@@ -651,6 +653,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Trento">
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Cities"/>
+        <name>Trento</name>
     </owl:NamedIndividual>
     
 
@@ -674,6 +677,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Venice">
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Cities"/>
+        <name>Venice</name>
     </owl:NamedIndividual>
 </rdf:RDF>
 

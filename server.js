@@ -385,7 +385,7 @@ app.post('/second_level', (req,res) => {
     secondClassArrayNames = [];
     
     var choice_param = req.body.nlp.source;
-    //var choice_param = "Restaurant";
+    //var choice_param = "Location";
     //var choice_param = req.params.value;
     console.log(choice_param);
 
@@ -512,19 +512,20 @@ app.post('/second_level', (req,res) => {
 app.post('/third_level', (req,res) => {
 
     const choice_param = req.body.nlp.source;
-    //const choice_param = "ItalianRestaurant";
+    //const choice_param = "Cities";
     //console.log(choice_param);
     var names_chosen_param = [];
+
+    var boolean_var = true;
 
     //TODO: improve and manage all the attributes
     for(var i = 0; i < classArray[0].classes.length; i++){
         var elem = classArray[0].classes[i];
-
-        if(elem.name === choice_param){ //es. BrazilianRestaurant
+        
+        if(elem.name === choice_param && elem.name !== "Cities"){ //es. BrazilianRestaurant
             var e_subclass = elem.subclassof; //es.Restaurant
             //Then we should find also the value of the property, for example isSpecializedIn
             var e_hasvalue = elem.hasvalue; //Brazilian
-            
             for (j = 0; j < namedindividualArray[0].namedinds.length; j++){
                 var value = namedindividualArray[0].namedinds[j];
                 if(e_subclass === value.type && e_hasvalue === value.isspecializedin){ //TODO: remove value isspecializedin
@@ -536,7 +537,8 @@ app.post('/third_level', (req,res) => {
                 } else if(elem.name === value.type && e_hasvalue === value.isspecializedin){
                     names_chosen_param.push(value);
                 }
-            }            
+            }  
+            boolean_var = false;        
         }
 
         if(elem.hasvalue === choice_param){
@@ -546,10 +548,19 @@ app.post('/third_level', (req,res) => {
                 if(e_hasvalue === value.isspecializedin){
                     names_chosen_param.push(value);
                 }
-            } 
+            }
+            boolean_var = false;  
         }
-
     }  
+
+    //For example, to see the names of the Cities class
+    for (j = 0; j < namedindividualArray[0].namedinds.length; j++){
+        var value = namedindividualArray[0].namedinds[j];
+        if((value.type === choice_param) && (boolean_var)){
+            console.log("I'm in");
+            names_chosen_param.push(value);
+        }
+    }
 
     var intent_values = [];
     var data_result_JSON = [];
@@ -600,14 +611,14 @@ app.post('/third_level', (req,res) => {
         });
     }
     
-    res.status(200).end();
+    //res.status(200).end();
 
 });
 
 app.post('/fourth_level', (req,res) => {
     const choice_param = req.body.nlp.source;
-    //const choice_param = "Barbaras";
-    //console.log(choice_param);
+    //const choice_param = "Venice";
+    console.log(choice_param);
 
     var data_result_JSON = [];
     var resulting_array = [];
@@ -670,6 +681,35 @@ app.post('/fourth_level', (req,res) => {
                         }, {
                             "type": 'text',
                             "content": `Is Served In: ${resulting_array[object].isservedin} Restaurant`,
+                        });
+                    });
+                } else {
+                    data_result_JSON.push({
+                        "type": 'text',
+                        "content": "No results found"
+                    });
+                }
+            } else if(value.type === "Cities"){
+                for (i = 0; i < namedindividualArray[0].namedinds.length; i++){
+                    var v = namedindividualArray[0].namedinds[i];
+                    if(value.name == v.municipality){
+                        resulting_array.push(v);
+                    }
+                }
+                if(resulting_array.length > 0){
+                    Object.keys(resulting_array).forEach(function(object){
+                        data_result_JSON.push({
+                            "type": 'text',
+                            "content": resulting_array[object].name,
+                        }, {
+                            "type": 'picture',
+                            "content": resulting_array[object].image,
+                        }, {
+                            "type": 'text',
+                            "content": `Phone number: ${resulting_array[object].phone}`,
+                        }, {
+                            "type": 'text',
+                            "content": `City: ${resulting_array[object].municipality}`,
                         });
                     });
                 } else {
