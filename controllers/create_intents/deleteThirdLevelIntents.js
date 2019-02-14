@@ -12,7 +12,7 @@ const intent_name = "third_level_namedinds"
 function deleteThirdLevelIntent(intent_values) {
     console.log("Delete Third Level Intent");
     request
-    .delete(`https://api.recast.ai/train/v2/users/${USER_SLUG}/bots/${BOT_SLUG}/versions/$VERSION_SLUG/dataset/intents/${intent_name}`)
+    .delete(`https://api.cai.tools.sap/train/v2/users/${USER_SLUG}/bots/${BOT_SLUG}/versions/v1/dataset/intents/${intent_name}`)
     .send()
     .set('Authorization', `Token ${DEVELOPER_TOKEN}`)
     .end((err, res) => {
