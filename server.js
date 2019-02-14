@@ -386,7 +386,7 @@ app.post('/second_level', (req,res) => {
     
     var choice_param = req.body.nlp.source;
     //var choice_param = "Location";
-    //var choice_param = req.params.value;
+    //var choice_param = req.params.id;
     console.log(choice_param);
 
     //In this iteration we push all the second level classes in an array, according to the first level classes choosen by the user
@@ -512,8 +512,9 @@ app.post('/second_level', (req,res) => {
 app.post('/third_level', (req,res) => {
 
     const choice_param = req.body.nlp.source;
+    //const choice_param = req.params.id;
     //const choice_param = "Cities";
-    //console.log(choice_param);
+    console.log(choice_param);
     var names_chosen_param = [];
 
     var boolean_var = true;
@@ -557,7 +558,6 @@ app.post('/third_level', (req,res) => {
     for (j = 0; j < namedindividualArray[0].namedinds.length; j++){
         var value = namedindividualArray[0].namedinds[j];
         if((value.type === choice_param) && (boolean_var)){
-            console.log("I'm in");
             names_chosen_param.push(value);
         }
     }
@@ -616,7 +616,9 @@ app.post('/third_level', (req,res) => {
 });
 
 app.post('/fourth_level', (req,res) => {
+    
     const choice_param = req.body.nlp.source;
+    //const choice_param = req.params.id;
     //const choice_param = "Venice";
     console.log(choice_param);
 
@@ -635,10 +637,7 @@ app.post('/fourth_level', (req,res) => {
                     "content": value.image,
                 }, {
                     "type": 'text',
-                    "content": `Phone number: ${value.phone}`,
-                }, {
-                    "type": 'text',
-                    "content": `City: ${value.municipality}`,
+                    "content": `Phone number: ${value.phone} \nCity: ${value.municipality}`,
                 });
             } else if(value.type === "Dish"){
                 data_result_JSON.push({
@@ -649,13 +648,7 @@ app.post('/fourth_level', (req,res) => {
                     "content": value.image,
                 }, {
                     "type": 'text',
-                    "content": `Allergens: ${value.allergen}`,
-                }, {
-                    "type": 'text',
-                    "content": `Price: ${value.price} euros`,
-                }, {
-                    "type": 'text',
-                    "content": `Is Served In: ${value.isservedin} Restaurant`,
+                    "content": `Allergens: ${value.allergen} \nPrice: ${value.price} euros \nIs Served In: ${value.isservedin} Restaurant `,
                 });
             } else if(value.type === "Allergens"){
                 for (i = 0; i < namedindividualArray[0].namedinds.length; i++){
@@ -674,13 +667,7 @@ app.post('/fourth_level', (req,res) => {
                             "content": resulting_array[object].image,
                         }, {
                             "type": 'text',
-                            "content": `Allergens: ${resulting_array[object].allergen}`,
-                        }, {
-                            "type": 'text',
-                            "content": `Price: ${resulting_array[object].price} euros`,
-                        }, {
-                            "type": 'text',
-                            "content": `Is Served In: ${resulting_array[object].isservedin} Restaurant`,
+                            "content": `Allergens: ${resulting_array[object].allergen} \nPrice: ${resulting_array[object].price} euros \nIs Served In: ${resulting_array[object].isservedin} Restaurant`,
                         });
                     });
                 } else {
@@ -706,10 +693,7 @@ app.post('/fourth_level', (req,res) => {
                             "content": resulting_array[object].image,
                         }, {
                             "type": 'text',
-                            "content": `Phone number: ${resulting_array[object].phone}`,
-                        }, {
-                            "type": 'text',
-                            "content": `City: ${resulting_array[object].municipality}`,
+                            "content": `Phone number: ${resulting_array[object].phone} \nCity: ${resulting_array[object].municipality}`,
                         });
                     });
                 } else {
