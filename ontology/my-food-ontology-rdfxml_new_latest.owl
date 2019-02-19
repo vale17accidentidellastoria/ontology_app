@@ -458,6 +458,57 @@
     
 
 
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Alootikki -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Alootikki">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dish"/>
+        <isPresentIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Annas_Menu"/>
+        <isServedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Annas"/>
+        <allergen>Gluten</allergen>
+        <image>https://cdn.shopify.com/s/files/1/1722/0577/products/aloo_tikki_1024x1024.png?v=1509279774</image>
+        <name>Alootikki</name>
+        <price>7</price>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Annas -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Annas">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Restaurant"/>
+        <hasMenus rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Annas_Menu"/>
+        <isSpecializedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Indian"/>
+        <image>https://static1.squarespace.com/static/5b280045697a98dfbc04cef4/t/5b282a4daa4a99350be2e863/1530823492670/Sugarhouse+Libery+Wells+Indian+Restaurant+Saffron+Bistro</image>
+        <municipality>Naples</municipality>
+        <name>Annas</name>
+        <phone>678462383</phone>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Annas_Menu -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Annas_Menu">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Restaurant_Menus"/>
+        <name>Annas_Menu</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Arancini -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Arancini">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dish"/>
+        <isPresentIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Paolos_Menu"/>
+        <isServedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Paolos"/>
+        <allergen>Gluten</allergen>
+        <image>https://ips.plug.it/cips/buonissimo.org/cms/2012/06/arancini-di-riso.jpg</image>
+        <name>Arancini</name>
+        <price>5</price>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Barbaras -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Barbaras">
@@ -481,11 +532,99 @@
     
 
 
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Bratwurst -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Bratwurst">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dish"/>
+        <isPresentIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Ritas_Menu"/>
+        <isServedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Ritas"/>
+        <allergen>Gluten</allergen>
+        <image>https://www.thespruceeats.com/thmb/hrfmplcyQLJS3SzbYQZZ_06HTi4=/2000x1333/filters:no_upscale():max_bytes(150000):strip_icc()/bratwurst-599db065845b34001001de20.jpg</image>
+        <name>Bratwurst</name>
+        <price>7</price>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Brazilian -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Brazilian">
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Cuisine"/>
         <name>Brazilian</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Butter_Chicken -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Butter_Chicken">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dish"/>
+        <isPresentIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Annas_Menu"/>
+        <isServedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Annas"/>
+        <allergen>Milk</allergen>
+        <image>https://cdn.apartmenttherapy.info/image/fetch/f_auto,q_auto,w_600,h_750,c_fit,fl_strip_profile/https://s3.amazonaws.com/pixtruder/original_images/742cdd4738d4d0771cf05b715f7dbad3630e39e0</image>
+        <name>Butter_Chicken</name>
+        <price>10</price>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Carlos -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Carlos">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Restaurant"/>
+        <hasMenus rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Carlos_Menu"/>
+        <isSpecializedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Italian"/>
+        <image>https://media-cdn.tripadvisor.com/media/photo-s/0a/55/ed/2d/one-of-dubai-s-best-italian.jpg</image>
+        <municipality>Trento</municipality>
+        <name>Carlos</name>
+        <phone>23131331</phone>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Carlos_Menu -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Carlos_Menu">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Restaurant_Menus"/>
+        <name>Carlos_Menu</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Caterinas -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Caterinas">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Restaurant"/>
+        <hasMenus rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Caterinas_Menu"/>
+        <isSpecializedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Chinese"/>
+        <image>https://www.taodumplings.com.au/wp-content/uploads/2018/02/Tao-Dumplings-Chinese-Restaurant-South-Yarra-21.jpeg</image>
+        <municipality>Venice</municipality>
+        <name>Caterinas</name>
+        <phone>0928127744</phone>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Caterinas_Menu -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Caterinas_Menu">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Restaurant_Menus"/>
+        <name>Caterinas_Menu</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Chapati -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Chapati">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dish"/>
+        <isPresentIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Marias_Menu"/>
+        <isServedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Marias"/>
+        <allergen>Gluten</allergen>
+        <image>https://recipes.timesofindia.com/photo/61203720.cms</image>
+        <name>Chapati</name>
+        <price>4</price>
     </owl:NamedIndividual>
     
 
@@ -508,6 +647,57 @@
     
 
 
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Currywurst -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Currywurst">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dish"/>
+        <isPresentIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Matteos_Menu"/>
+        <isServedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Matteos"/>
+        <allergen>Gluten</allergen>
+        <image>https://www.braciamiancora.com/wp-content/uploads/2017/12/currywurst3.jpeg</image>
+        <name>Currywurst</name>
+        <price>8</price>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dumplings -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dumplings">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dish"/>
+        <isPresentIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Lucas_Menu"/>
+        <isServedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Lucas"/>
+        <allergen>Gluten</allergen>
+        <image>https://omnivorescookbook.com/wp-content/uploads/2015/02/1502_How-to-Make-Chinese-Dumplings-From-Scratch_002.jpg</image>
+        <name>Dumplings</name>
+        <price>6</price>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Edviges -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Edviges">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Restaurant"/>
+        <hasMenus rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Edviges"/>
+        <isSpecializedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Chinese"/>
+        <image>https://video-images.vice.com/articles/590647db9ac0f921f03ed8d9/lede/1493583856927-mcf_halloween_017.jpeg?crop=1xw:0.8439609902475619xh;center,center&amp;resize=1200:*</image>
+        <municipality>Venice</municipality>
+        <name>Edviges</name>
+        <phone>321456789</phone>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Edviges_Menu -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Edviges_Menu">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Restaurant_Menus"/>
+        <name>Edviges_Menu</name>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Eggs -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Eggs">
@@ -522,6 +712,20 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Fish">
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Allergens"/>
         <name>Fish</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Gelato -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Gelato">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dish"/>
+        <isPresentIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Barbaras_Menu"/>
+        <isServedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Barbaras"/>
+        <allergen>Milk</allergen>
+        <image>https://gdsit.cdn-immedia.net/2015/01/Gelato-2.jpg</image>
+        <name>Gelato</name>
+        <price>2</price>
     </owl:NamedIndividual>
     
 
@@ -571,6 +775,80 @@
     
 
 
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Lasagne -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Lasagne">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dish"/>
+        <isPresentIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Carlos_Menu"/>
+        <isServedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Carlos"/>
+        <allergen>Gluten</allergen>
+        <image>https://www.bofrost.it/writable/products/images-v2/5245.jpg</image>
+        <name>Lasagne</name>
+        <price>8</price>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Lorenzos -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Lorenzos">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Restaurant"/>
+        <hasMenus rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Lorenzos_Menu"/>
+        <isSpecializedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Indian"/>
+        <image>https://i.pinimg.com/originals/4e/27/66/4e27665c0b73d28782adbddddb30f922.jpg</image>
+        <municipality>Trento</municipality>
+        <name>Lorenzos</name>
+        <phone>029128912</phone>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Lorenzos_Menu -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Lorenzos_Menu">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Restaurant_Menus"/>
+        <name>Lorenzos_Menu</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Lucas -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Lucas">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Restaurant"/>
+        <hasMenus rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Lucas_Menu"/>
+        <isSpecializedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Chinese"/>
+        <image>https://media-cdn.tripadvisor.com/media/photo-s/05/3f/5f/ee/traditional-chinese-restaurant.jpg</image>
+        <municipality>Naples</municipality>
+        <name>Lucas</name>
+        <phone>013627311</phone>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Lucas_Menu -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Lucas_Menu">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Restaurant_Menus"/>
+        <name>Lucas_Menu</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Mapotofu -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Mapotofu">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dish"/>
+        <isPresentIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Caterinas_Menu"/>
+        <isServedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Caterinas"/>
+        <allergen>Soybeans</allergen>
+        <image>https://omnivorescookbook.com/wp-content/uploads/2018/01/Mapo-Tofu-8.jpg</image>
+        <name>Mapotofu</name>
+        <price>11</price>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Margherita_Pizza -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Margherita_Pizza">
@@ -581,6 +859,29 @@
         <image>https://www.italiaatavola.net/images/contenutiarticoli/La-pizza-Margherita.jpg</image>
         <name>Margherita_Pizza</name>
         <price>5</price>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Marias -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Marias">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Restaurant"/>
+        <hasMenus rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Marias_Menu"/>
+        <isSpecializedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Indian"/>
+        <image>https://blogbox.indianeagle.com/wp-content/uploads/2016/05/Indian-restaurant-Junoon-NYC-10-best-Indian-restaurants-in-New-York.jpg</image>
+        <municipality>Milan</municipality>
+        <name>Marias</name>
+        <phone>473289427</phone>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Marias_Menu -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Marias_Menu">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Restaurant_Menus"/>
+        <name>Marias_Menu</name>
     </owl:NamedIndividual>
     
 
@@ -636,6 +937,29 @@
         <image>https://www.thespruceeats.com/thmb/gnPC74NYLvdsSDbRGwwbRWoAV28=/4494x3000/filters:no_upscale():max_bytes(150000):strip_icc()/basic-miso-soup-3377886_09-5b3f7fb6c9e77c00378bf68f.jpg</image>
         <name>Miso_Soup</name>
         <price>15</price>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Naples -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Naples">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Cities"/>
+        <name>Naples</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Noodles -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Noodles">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dish"/>
+        <isPresentIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Lucas_Menu"/>
+        <isServedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Lucas"/>
+        <allergen>Soybeans</allergen>
+        <image>https://www.recipetineats.com/wp-content/uploads/2014/06/Stir-Fried-Noodles-Build-Your-Own-1-500x375.jpg</image>
+        <name>Soybeans</name>
+        <price>12</price>
     </owl:NamedIndividual>
     
 
@@ -700,11 +1024,85 @@
     
 
 
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Pippos -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Pippos">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Restaurant"/>
+        <hasMenus rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Pippos_Menu"/>
+        <isSpecializedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Japanese"/>
+        <image>https://media-cdn.tripadvisor.com/media/photo-s/08/ee/1f/7f/ristorante-giapponese.jpg</image>
+        <municipality>Rome</municipality>
+        <name>Pippos</name>
+        <phone>4238798443</phone>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Pippos_Menu -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Pippos_Menu">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Restaurant_Menus"/>
+        <name>Pippos_Menu</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Ramen -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Ramen">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dish"/>
+        <isPresentIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Pippos_Menu"/>
+        <isServedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Pippos"/>
+        <allergen>Eggs</allergen>
+        <image>https://www.tgtourism.tv/wp-content/uploads/2018/11/ramen.jpg</image>
+        <name>Ramen</name>
+        <price>10</price>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Ritas -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Ritas">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Restaurant"/>
+        <hasMenus rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Ritas_Menu"/>
+        <isSpecializedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#German"/>
+        <image>https://media-cdn.tripadvisor.com/media/photo-s/07/28/62/d8/deocrated-for-christmas.jpg</image>
+        <municipality>Rome</municipality>
+        <name>Ritas</name>
+        <phone>98110042</phone>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Ritas_Menu -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Ritas_Menu">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Restaurant_Menus"/>
+        <name>Ritas_Menu</name>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Rome -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Rome">
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Cities"/>
         <name>Rome</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Samosas -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Samosas">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dish"/>
+        <isPresentIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Lorenzos_Menu"/>
+        <isServedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Lorenzos"/>
+        <allergen>Gluten</allergen>
+        <image>https://www.cilantroandcitronella.com/wp-content/uploads/2016/11/vegan-samosa-recipe-image-6-1360x1744.jpg</image>
+        <name>Samosas</name>
+        <price>6</price>
     </owl:NamedIndividual>
     
 
@@ -732,6 +1130,34 @@
     
 
 
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Spring_Rolls -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Spring_Rolls">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dish"/>
+        <isPresentIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Edviges_Menu"/>
+        <isServedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Edviges"/>
+        <allergen>Gluten</allergen>
+        <image>https://tastesbetterfromscratch.com/wp-content/uploads/2013/03/Fresh-Spring-Rolls-15.jpg</image>
+        <name>Spring_Rolls</name>
+        <price>5</price>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Stollen -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Stollen">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dish"/>
+        <isPresentIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Ritas_Menu"/>
+        <isServedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Ritas"/>
+        <allergen>Gluten</allergen>
+        <image>https://www.daringgourmet.com/wp-content/uploads/2018/11/Stollen-2-square-edited.jpg</image>
+        <name>Stollen</name>
+        <price>5</price>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Sushi -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Sushi">
@@ -742,6 +1168,48 @@
         <image>https://static.groupalia.it/DealImage/Local/Sushi-All-You-Can-Eat-in-Repubblica/All-you-can-sushi-in-Repubblica/c924ff67-79c1-458f-bfb0-cf4bb41eafe3.JPG</image>
         <name>Sushi</name>
         <price>20</price>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Tandoori_Chicken -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Tandoori_Chicken">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dish"/>
+        <isPresentIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Lorenzos_Menu"/>
+        <isServedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Lorenzos"/>
+        <allergen>Soybeans</allergen>
+        <image>https://www.cookingclassy.com/wp-content/uploads/2018/08/tandoori-chicken-12.jpg</image>
+        <name>Tandoori_Chicken</name>
+        <price>16</price>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Tempura -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Tempura">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dish"/>
+        <isPresentIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Pippos_Menu"/>
+        <isServedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Pippos"/>
+        <allergen>Fish</allergen>
+        <image>https://images.lacucinaitaliana.it/wp-content/uploads/2016/01/iStock_000019321695_Medium.jpg</image>
+        <name>Tempura</name>
+        <price>15</price>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Tiramisu -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Tiramisu">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dish"/>
+        <isPresentIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Carlos_Menu"/>
+        <isServedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Carlos"/>
+        <allergen>Milk</allergen>
+        <image>https://bakingamoment.com/wp-content/uploads/2018/04/IMG_7035-classic-tiramisu-recipe-square.jpg</image>
+        <name>Tiramisu</name>
+        <price>4</price>
     </owl:NamedIndividual>
     
 
@@ -762,7 +1230,7 @@
         <hasMenus rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Valentinas_Menu"/>
         <isSpecializedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Japanese"/>
         <image>https://im1.dineout.co.in/images/uploads/restaurant/sharpen/1/a/e/p18024-15448768165c14f3107f680.jpg?w=1200</image>
-        <municipality>Trento</municipality>
+        <municipality>Venice</municipality>
         <name>Valentinas</name>
         <phone>472904721</phone>
     </owl:NamedIndividual>
@@ -783,6 +1251,20 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Venice">
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Cities"/>
         <name>Venice</name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Wontons -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Wontons">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dish"/>
+        <isPresentIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Edviges_Menu"/>
+        <isServedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Edviges"/>
+        <allergen>Gluten</allergen>
+        <image>https://www.thespruceeats.com/thmb/Brs26oXs8QkG_9swiCIji4eMHr4=/1556x1927/filters:no_upscale():max_bytes(150000):strip_icc()/Chicken-Wontons-Getty-James-Baigrie-5817dfb55f9b581c0bc69d07.jpg</image>
+        <name>Wontons</name>
+        <price>4</price>
     </owl:NamedIndividual>
 </rdf:RDF>
 
