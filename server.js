@@ -648,7 +648,7 @@ app.post('/fourth_level', (req,res) => {
                     "content": value.image,
                 }, {
                     "type": 'text',
-                    "content": `Allergens: ${value.allergen} \nPrice: ${value.price} euros \nIs Served In: ${value.isservedin} Restaurant `,
+                    "content": `Allergens: ${value.allergen} \nPrice: ${value.price} euros \nIs Served In: ${value.isservedin} Restaurant \nHas Menu: ${value.hasmenus}`,
                 });
             } else if(value.type === "Allergens"){
                 for (i = 0; i < namedindividualArray[0].namedinds.length; i++){
