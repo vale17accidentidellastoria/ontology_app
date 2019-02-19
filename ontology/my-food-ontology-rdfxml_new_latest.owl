@@ -941,6 +941,20 @@
     
 
 
+    <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Moqueca -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Moqueca">
+        <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dish"/>
+        <isPresentIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Pedros_Menu"/>
+        <isServedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Pedros"/>
+        <allergen>Fish</allergen>
+        <image>https://ips.plug.it/cips/buonissimo.org/cms/2012/03/moqueca.jpg</image>
+        <name>Moqueca</name>
+        <price>15</price>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Naples -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Naples">
