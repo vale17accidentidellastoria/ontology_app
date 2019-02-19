@@ -972,7 +972,7 @@
         <isServedIn rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Lucas"/>
         <allergen>Soybeans</allergen>
         <image>https://www.recipetineats.com/wp-content/uploads/2014/06/Stir-Fried-Noodles-Build-Your-Own-1-500x375.jpg</image>
-        <name>Soybeans</name>
+        <name>Noodles</name>
         <price>12</price>
     </owl:NamedIndividual>
     
