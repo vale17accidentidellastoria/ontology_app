@@ -70,8 +70,8 @@
     <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#isPresentIn -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#isPresentIn">
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Menu"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Restaurant"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Dish"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Menu"/>
     </owl:ObjectProperty>
     
 
