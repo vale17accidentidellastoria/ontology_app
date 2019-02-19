@@ -149,7 +149,7 @@ app.get('/', (req,res) => {
 app.post('/process', (req,res) => {
     
     //Reads the Restauration Ontology Owl file
-    fs.readFile('./ontology/my-food-ontology-rdfxml_new.owl', 'utf8', function read(err, data) {
+    fs.readFile('./ontology/my-food-ontology-rdfxml_new_latest.owl', 'utf8', function read(err, data) {
         
         if (err) {
             console.log("ERROR");
@@ -314,7 +314,7 @@ app.post('/process', (req,res) => {
         namedindividualArray.push(stack_namedindividual);
     
         //show 200 status code to work with Recast.ai
-        res.status(200).end();
+        //res.status(200).end();
         //Just to test
         //res.send(classArray);
         //res.send(objpropertiesArray);
@@ -637,7 +637,7 @@ app.post('/fourth_level', (req,res) => {
                     "content": value.image,
                 }, {
                     "type": 'text',
-                    "content": `Phone number: ${value.phone} \nCity: ${value.municipality}`,
+                    "content": `Phone number: ${value.phone} \nCity: ${value.municipality} \nHas Menu: ${value.hasmenus}`,
                 });
             } else if(value.type === "Dish"){
                 data_result_JSON.push({
@@ -667,7 +667,7 @@ app.post('/fourth_level', (req,res) => {
                             "content": resulting_array[object].image,
                         }, {
                             "type": 'text',
-                            "content": `Allergens: ${resulting_array[object].allergen} \nPrice: ${resulting_array[object].price} euros \nIs Served In: ${resulting_array[object].isservedin} Restaurant`,
+                            "content": `Allergens: ${resulting_array[object].allergen} \nPrice: ${resulting_array[object].price} euros \nIs Served In: ${resulting_array[object].isservedin} Restaurant \nMenu: ${resulting_array[object].ispresentin}`,
                         });
                     });
                 } else {
@@ -693,7 +693,7 @@ app.post('/fourth_level', (req,res) => {
                             "content": resulting_array[object].image,
                         }, {
                             "type": 'text',
-                            "content": `Phone number: ${resulting_array[object].phone} \nCity: ${resulting_array[object].municipality}`,
+                            "content": `Phone number: ${resulting_array[object].phone} \nCity: ${resulting_array[object].municipality} \nHas Menu: ${value.hasmenus}`,
                         });
                     });
                 } else {
@@ -702,6 +702,26 @@ app.post('/fourth_level', (req,res) => {
                         "content": "No results found"
                     });
                 }
+            } else if(value.type === "Restaurant_Menus"){
+                var dish_array = [];
+                for (i = 0; i < namedindividualArray[0].namedinds.length; i++){
+                    var v = namedindividualArray[0].namedinds[i];
+                    if((value.name === v.ispresentin) && (v.ispresentin !== "") && (typeof v.ispresentin !== 'undefined')){
+                        dish_array.push(v);
+                    } 
+                }
+                Object.keys(dish_array).forEach(function(object){
+                    data_result_JSON.push({
+                        "type": 'text',
+                        "content": dish_array[object].name,
+                    }, {
+                        "type": 'picture',
+                        "content": dish_array[object].image,
+                    }, {
+                        "type": 'text',
+                        "content": `Allergens: ${dish_array[object].allergen} \nPrice: ${dish_array[object].price} euros \nIs Served In: ${dish_array[object].isservedin} Restaurant \nMenu: ${dish_array[object].ispresentin}`,
+                    });
+                });
             }
         }
     }    
