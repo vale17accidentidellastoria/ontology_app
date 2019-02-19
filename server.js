@@ -637,7 +637,7 @@ app.post('/fourth_level', (req,res) => {
                     "content": value.image,
                 }, {
                     "type": 'text',
-                    "content": `Phone number: ${value.phone} \nCity: ${value.municipality} \nHas Menu: ${value.hasmenus}`,
+                    "content": `Phone number: ${value.phone} \nCity: ${value.municipality} \nMenu: ${value.hasmenus}`,
                 });
             } else if(value.type === "Dish"){
                 data_result_JSON.push({
@@ -648,7 +648,7 @@ app.post('/fourth_level', (req,res) => {
                     "content": value.image,
                 }, {
                     "type": 'text',
-                    "content": `Allergens: ${value.allergen} \nPrice: ${value.price} euros \nIs Served In: ${value.isservedin} Restaurant \nHas Menu: ${value.hasmenus}`,
+                    "content": `Allergens: ${value.allergen} \nPrice: ${value.price} euros \nIs Served In: ${value.isservedin} Restaurant \nMenu: ${value.ispresentin}`,
                 });
             } else if(value.type === "Allergens"){
                 for (i = 0; i < namedindividualArray[0].namedinds.length; i++){
@@ -693,7 +693,7 @@ app.post('/fourth_level', (req,res) => {
                             "content": resulting_array[object].image,
                         }, {
                             "type": 'text',
-                            "content": `Phone number: ${resulting_array[object].phone} \nCity: ${resulting_array[object].municipality} \nHas Menu: ${value.hasmenus}`,
+                            "content": `Phone number: ${resulting_array[object].phone} \nCity: ${resulting_array[object].municipality} \nMenu: ${resulting_array[object].hasmenus}`,
                         });
                     });
                 } else {
