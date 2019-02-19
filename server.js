@@ -588,6 +588,12 @@ app.post('/third_level', (req,res) => {
             intent_values.push({ source: names_chosen_param[object].name, language: { isocode: "en" } });
         });
 
+        //modificato qui
+        buttons.push({
+            "title": "Go Back",
+            "value": "Go Back"
+        });
+
         data_result_JSON.push({
             "type": 'quickReplies',
             "content": {
@@ -725,6 +731,18 @@ app.post('/fourth_level', (req,res) => {
             }
         }
     }    
+
+    //modificato qui
+    data_result_JSON.push({
+        "type": 'quickReplies',
+        "content": {
+            "title": '',
+            "buttons": [{
+                "title": "Go Back",
+                "value": "Go Back"
+            }]
+        }
+    });
     
     res.json({
         replies: data_result_JSON
