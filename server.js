@@ -314,7 +314,7 @@ app.post('/process', (req,res) => {
         namedindividualArray.push(stack_namedindividual);
     
         //show 200 status code to work with Recast.ai
-        //res.status(200).end();
+        res.status(200).end();
         //Just to test
         //res.send(classArray);
         //res.send(objpropertiesArray);
