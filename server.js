@@ -149,7 +149,7 @@ app.get('/', (req,res) => {
 app.post('/process', (req,res) => {
     
     //Reads the Restauration Ontology Owl file
-    fs.readFile('./ontology/my-food-ontology-rdfxml_new_latest.owl', 'utf8', function read(err, data) {
+    fs.readFile('./ontology/my-food-ontology-rdfxml_extended.owl', 'utf8', function read(err, data) {
         
         if (err) {
             console.log("ERROR");
@@ -728,6 +728,48 @@ app.post('/fourth_level', (req,res) => {
                         "content": `Allergens: ${dish_array[object].allergen} \nPrice: ${dish_array[object].price} euros \nIs Served In: ${dish_array[object].isservedin} Restaurant \nMenu: ${dish_array[object].ispresentin}`,
                     });
                 });
+            } else if(value.type === "Alcoholic"){
+                for (i = 0; i < namedindividualArray[0].namedinds.length; i++){
+                    var v = namedindividualArray[0].namedinds[i];
+                    if(value.name == v.name){
+                        resulting_array.push(v);
+                    }
+                }
+                if(resulting_array.length > 0){
+                    Object.keys(resulting_array).forEach(function(object){
+                        data_result_JSON.push({
+                            "type": 'text',
+                            "content": resulting_array[object].name,
+                        }, {
+                            "type": 'picture',
+                            "content": resulting_array[object].image,
+                        }, {
+                            "type": 'text',
+                            "content": `Price: ${resulting_array[object].price} euros`,
+                        });
+                    });
+                }
+            } else if(value.type === "Non-Alcoholic"){
+                for (i = 0; i < namedindividualArray[0].namedinds.length; i++){
+                    var v = namedindividualArray[0].namedinds[i];
+                    if(value.name == v.name){
+                        resulting_array.push(v);
+                    }
+                }
+                if(resulting_array.length > 0){
+                    Object.keys(resulting_array).forEach(function(object){
+                        data_result_JSON.push({
+                            "type": 'text',
+                            "content": resulting_array[object].name,
+                        }, {
+                            "type": 'picture',
+                            "content": resulting_array[object].image,
+                        }, {
+                            "type": 'text',
+                            "content": `Price: ${resulting_array[object].price} euros`,
+                        });
+                    });
+                }
             }
         }
     }    
