@@ -221,6 +221,7 @@
     <!-- http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#price -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#price">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Drinks"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Food"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
     </owl:DatatypeProperty>
@@ -558,7 +559,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Beer">
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Alcoholic"/>
-        <image>https://images.pexels.com/photos/414720/pexels-photo-414720.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=1&amp;w=500</image>
+        <image>https://www.telegraph.co.uk/content/dam/Food%20and%20drink/2015-09/01sep/beer-craft.jpg?imwidth=450</image>
         <name>Beer</name>
         <price>5</price>
     </owl:NamedIndividual>
@@ -1248,7 +1249,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Tea">
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Non-Alcoholic"/>
-        <image>https://images.pexels.com/photos/414720/pexels-photo-414720.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=1&amp;w=500</image>
+        <image>https://www.archanaskitchen.com/images/archanaskitchen/beverages/Green_tea_recipe.jpg</image>
         <name>Tea</name>
         <price>3</price>
     </owl:NamedIndividual>
@@ -1328,7 +1329,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Wine">
         <rdf:type rdf:resource="http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#Alcoholic"/>
-        <image>https://thumbor.forbes.com/thumbor/1280x868/https%3A%2F%2Fspecials-images.forbesimg.com%2Fdam%2Fimageserve%2F1072007868%2F960x0.jpg%3Ffit%3Dscale</image>
+        <image>https://www.gerbenlaw.com/wp-content/uploads/2014/08/winepouring.jpg</image>
         <name>Wine</name>
         <price>4</price>
     </owl:NamedIndividual>
